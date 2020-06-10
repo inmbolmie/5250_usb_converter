@@ -2249,17 +2249,26 @@ if __name__ == '__main__':
     ignoreNextParam = False
 
     inputArgs = sys.argv
+    numterminals=0
 
     if len(inputArgs)==1:
         #Default action is to look for terminal address = DEFAULT_STATION_ADDRESS
         inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
+    numpars=len(inputArgs)
     #Iterate through terminal specifications from the command line
-    for i in range(1, len(inputArgs)):
+    for i in range(1,  numpars + 1):
 
         if ignoreNextParam:
             ignoreNextParam = False
             continue
+
+        if (i == numpars) and numterminals==0:
+            inputArgs.append(str(DEFAULT_STATION_ADDRESS))
+
+        elif (i == numpars) and numterminals>0:
+            continue
+
 
         if inputArgs[i] == '-h' or inputArgs[i] == '-H' or inputArgs[i] == 'H' or inputArgs[i] == 'h':
             sys.exit("USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] [STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:[EBCDIC_CODEPAGE]] ... ")
@@ -2322,6 +2331,8 @@ if __name__ == '__main__':
         term[termAddress] = VT52_to_5250(termAddress,termDictionary,slowPoll,codepage)
         #Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress])
+
+        numterminals=numterminals+1
 
 
     writeLog = None
