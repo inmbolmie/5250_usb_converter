@@ -7,15 +7,15 @@ Resistor, 1/4W, 10KΩ			3
 Resistor, 1/4W, 820KΩ			2
 Resistor, 1/4W, 4,7KΩ			2
 Electrolytic capacitor, 4,7µF		3
-Ceramic capacitor, 33pF		1
+Ceramic capacitor, 33pF 		1
 Adjustable resistor, 100Ω		2
 
 Components, active			Quantity
 -----------------------------------------------
 Logic gates 74HCT04			1
 Logic gates 74HCT086			1
-Analog comparator LM361		1
-Drivers SN75112			1
+Analog comparator LM361	 	1
+Drivers SN75112	 		1
 Drivers SN75110A			1
 Teensy 4.0				1
 Regulated DC converter +-5V TMR-0521	1
