@@ -595,8 +595,14 @@ def bps_to_termios_sym(bps):
 
 #Routine to initialize USB-serial port
 def openSerial(port, speed):
+    print("Connecting to 5250 converter USB Device at " + port )
+    fd = None
+    try:
+        fd = os.open(port, os.O_RDWR | os.O_NOCTTY | os.O_NDELAY)
+    except FileNotFoundError:
+        print("The 5250 converter USB Device was not found at " + port + ". Run the application with -t DEVICE to use a different one")
+        os._exit(1)
 
-    fd = os.open(port, os.O_RDWR | os.O_NOCTTY | os.O_NDELAY)
     attrs = termios.tcgetattr(fd)
     bps_sym = bps_to_termios_sym(speed)
     # Set I/O speed.
