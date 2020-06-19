@@ -601,7 +601,8 @@ def openSerial(port, speed):
         fd = os.open(port, os.O_RDWR | os.O_NOCTTY | os.O_NDELAY)
     except FileNotFoundError:
         print("The 5250 converter USB Device was not found at " + port + ". Run the application with -t DEVICE to use a different one")
-        os._exit(1)
+        os.kill(os.getpid(), signal.SIGKILL)
+        sys.exit()
 
     attrs = termios.tcgetattr(fd)
     bps_sym = bps_to_termios_sym(speed)
