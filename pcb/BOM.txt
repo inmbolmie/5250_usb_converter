@@ -15,7 +15,7 @@ Components, active			Quantity
 Logic gates 74HCT04			1
 Logic gates 74HCT086			1
 Analog comparator LM361 	 	1
-Drivers SN75112	    		1
+Drivers SN75112 	    		1
 Drivers SN75110A			1
 Teensy 4.0				1
 Regulated DC converter +-5V TMR-0521	1
