@@ -1,10 +1,12 @@
 # 5250_usb_converter
 Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal to a Linux PC via USB emulating a VT52 terminal
 
+![converter PCB](/pcb/PCB.png)
+
 ## Included files
 
 * `5250_terminal.py`--> Python script to run at the host computer
-* `PCB` --> Eagle schematics and files for PCB manufacturing (TBD)
+* `PCB` --> Eagle schematics, PDF for DIY and ZIP file for manufacturing
 * `5250_interface.ino` -> Arduino source to upload to a Teensy 4.0 board
  
 ## Arduino pin assignments
