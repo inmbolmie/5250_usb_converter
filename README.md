@@ -3,13 +3,41 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 
 ![converter PCB](/pcb/PCB.png)
 
+For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net
+
+The converter functionality is divided between two components:
+
+* The hardware adapter, that is based on a Teensy 4 microcontroller installed in a custom PCB that serves as a harware interface to the Twinax bus. The adapter is connected via USB to a Linux host computer.
+* A Python script that runs in the host computer and manages protocol conversion and terminal sessions.
+
+
 ## Included files
 
 * `5250_terminal.py`--> Python script to run at the host computer
 * `PCB` --> Eagle schematics, PDF for DIY and ZIP file for manufacturing
 * `5250_interface.ino` -> Arduino source to upload to a Teensy 4.0 board
- 
-## Arduino pin assignments
+
+
+## Board instructions
+
+### Fabrication
+
+For making your PCB you have several options:
+
+* Just throw the ZIP gerber file to your online PCB fabricator of choice.
+* Print the provided PDF files as a mask, if you prefer the DIY approach.
+* Make your own board from the schematics.
+
+### Programming the Teensy
+
+You only need to upload the .ino file as is to a Teensy 4 using the Arduino IDE with the teensyduino addon. More information [here](https://www.pjrc.com/teensy/first_use.html).
+
+### On-board terminators
+
+The on-board terminators are enabled installing the JP1 jumpers (1&2). You have to disable them removing the jumpers only if you are using autoterminated T adapters, of if your device is not at the end of the twinax cable chain.
+
+
+### Arduino pin assignments
 
 * PIN 4-> TX-ACT
 * PIN 5-> TX-DATA
@@ -17,7 +45,8 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 * PIN 7-> RX-DAT-INV
 
 
-## Pyhton script installation
+
+## Python script installation
 
 No special installation should be required. You need to have the Python3 interpreter, and currently Linux is the only OS supported.
 
