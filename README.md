@@ -34,7 +34,7 @@ You only need to upload the .ino file as is to a Teensy 4 using the Arduino IDE 
 
 ### On-board terminators
 
-The on-board terminators are implemented using a couple on 100Ω variable resistors. You have to adjust the resistance between the two connected terminals (left and top-right terminals as seen from the top) to 54,9Ω. Optionally you can substitute the variable resistor for an equivalent fixed-value resistor.
+The on-board terminators are implemented using a couple of 100Ω variable resistors. You have to adjust the resistance between the two connected terminals (left and top-right terminals as seen from the top) to 54,9Ω. Optionally you can substitute the variable resistor for an equivalent fixed-value resistor.
 
 The on-board terminators are enabled installing the two JP1 jumpers (1 & 2). You have to disable them removing the jumpers only if you are using autoterminated T adapters, of if your device is not at the end of the twinax cable chain. Both ends of the Twinax chain must be properly terminated for the converter to operate correctly.
 
