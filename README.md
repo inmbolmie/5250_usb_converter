@@ -14,7 +14,7 @@ The converter functionality is divided between two components:
 ## Included files
 
 * `5250_terminal.py`--> Python script to run at the host computer
-* `PCB` --> Eagle schematics, PDF for DIY and ZIP file for manufacturing
+* `PCB` --> Eagle schematics, PDF for DIY and ZIP gerber file for manufacturing
 * `5250_interface.ino` -> Arduino source to upload to a Teensy 4.0 board
 
 
@@ -25,7 +25,7 @@ The converter functionality is divided between two components:
 For making your PCB you have several options:
 
 * Just throw the ZIP gerber file to your online PCB fabricator of choice.
-* Print the provided PDF files as a mask, if you prefer the DIY approach.
+* Print the provided PDF files as a mask, if you prefer the DIY approach. Note that the top layer is already mirrored in the provided PDF.
 * Make your own board from the schematics.
 
 ### Programming the Teensy
