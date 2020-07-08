@@ -148,6 +148,9 @@ There is at the beginning of the script a dictionary definition called __`scanco
 
 * __5251_ES__ is a mapping for a Spanish keyboard 5251 terminal
 * __3196_ES__ is a mapping for a 3196 terminal emulated with an ISA card using the IBM “5250lite” program and a spanish 83-key keyboard. No idea if this will work in a “real” 3196 terminal
+* __5251_US__ is an untested mapping for an English-US keyboard 5251 terminal
+* __5251_DE__ is an untested mapping for a German keyboard 5251 terminal
+* __3196_DE__ is an untested mapping for a German keyboard 3196 terminal
 
 To change the default mapping used if no mapping is specified in the command line, you have to edit the value of the variable `DEFAULT_SCANCODE_DICTIONARY`
 
