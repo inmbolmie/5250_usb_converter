@@ -66,6 +66,7 @@ DEFAULT_CODEPAGE='cp037'
 #Position 2: Alt + key
 #Position 3: Ctrl + key
 #Position 4 (optional): Extra char to send when the first char resolves to ESC (0x1B)
+#Position 5 (optional): When the EXTRA scancode is received before the given scancode, send 0x1B plus this char
 
 scancodeDictionaries =  {
 
@@ -78,6 +79,7 @@ scancodeDictionaries =  {
 'SHIFT_PRESS': [0x57,0x56],
 'SHIFT_RELEASE': [0xD7,0xD6],
 'CAPS_LOCK': [0x7E],
+'EXTRA': [],
 0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
 0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
 0x6C: ['', '', '', ''], #F3
@@ -119,7 +121,7 @@ scancodeDictionaries =  {
 0x2C: ['+', '*', ']', chr(0x1D)],
 0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x47: ['7', '7', '', ''],
-0x48: ['8', '8', chr(0x1B), '' ,'A'], #NUMPAD 8 and UP ARROW
+0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
 0x49: ['9', '9', '', ''],
 0x4E: ['', '', '', ''],  #CAMPO-
 #0x54: ['', '', ''], #SHIFT
@@ -135,9 +137,9 @@ scancodeDictionaries =  {
 0x1A: ['ñ', 'Ñ', '', ''],
 0x1B: ['´', '¨', '{', chr(0x1B)],
 0x1C: ['ç', 'Ç', '}', chr(0x1D)],
-0x44: ['4', '4', chr(0x1B), '' ,'D'], #NUMPAD 4 and LEFT ARROW
+0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
 0x45: ['5', '5', '', ''],
-0x46: ['6', '6', chr(0x1B), '' ,'C'], #NUMPAD 6 and RIGHT ARROW
+0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
 0x4D: [chr(0x0D), '', '', ''], #ENTER
 #0x57: ['', '', ''], #CTRL
 0x0E: ['<', '>', '|', ''],
@@ -154,7 +156,7 @@ scancodeDictionaries =  {
 #0x56: ['', '', ''], #ALT
 0x0C: ['', '', '', ''],
 0x41: ['1', '1', '', ''],
-0x42: ['2', '2', chr(0x1B), '' ,'B'], #NUMPAD 2 and DOWN ARROW
+0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
 0x43: ['3', '3', '', ''],
 0x68: ['', '', '', ''],
 0x40: ['0', '0', '', ''],
@@ -182,6 +184,7 @@ scancodeDictionaries =  {
 'SHIFT_PRESS': [0x57,0x56],
 'SHIFT_RELEASE': [0xD7,0xD6],
 'CAPS_LOCK': [0x7E],
+'EXTRA': [],
 0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
 0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
 0x6C: ['', '', '', ''], #F3
@@ -223,7 +226,7 @@ scancodeDictionaries =  {
 0x2C: ['\\', '|', '', chr(0x1D)],
 0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x47: ['7', '7', '', ''],
-0x48: ['8', '8', chr(0x1B), '' ,'A'], #NUMPAD 8 and UP ARROW
+0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
 0x49: ['9', '9', '', ''],
 0x4E: ['', '', '', ''],  #CAMPO-
 #0x54: ['', '', ''], #SHIFT
@@ -239,9 +242,9 @@ scancodeDictionaries =  {
 0x1A: [';', ':', '', ''],
 0x1B: ['\'', '""', '', chr(0x1B)],
 0x1C: ['{', '}', '', chr(0x1D)],
-0x44: ['4', '4', chr(0x1B), '' ,'D'], #NUMPAD 4 and LEFT ARROW
+0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
 0x45: ['5', '5', '', ''],
-0x46: ['6', '6', chr(0x1B), '' ,'C'], #NUMPAD 6 and RIGHT ARROW
+0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
 0x4D: [chr(0x0D), '', '', ''], #ENTER
 #0x57: ['', '', ''], #CTRL
 0x0E: ['<', '>', '|', ''],
@@ -258,7 +261,7 @@ scancodeDictionaries =  {
 #0x56: ['', '', ''], #ALT
 0x0C: ['', '', '', ''],
 0x41: ['1', '1', '', ''],
-0x42: ['2', '2', chr(0x1B), '' ,'B'], #NUMPAD 2 and DOWN ARROW
+0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
 0x43: ['3', '3', '', ''],
 0x68: ['', '', '', ''],
 0x40: ['0', '0', '', ''],
@@ -284,6 +287,7 @@ scancodeDictionaries =  {
 'SHIFT_PRESS': [0x57,0x56],
 'SHIFT_RELEASE': [0xD7,0xD6],
 'CAPS_LOCK': [0x7E],
+'EXTRA': [],
 0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
 0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
 0x6C: ['', '', '', ''], #F3
@@ -325,7 +329,7 @@ scancodeDictionaries =  {
 0x2C: ['+', '*', '~', chr(0x1D)],
 0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x47: ['7', '7', '', ''],
-0x48: ['8', '8', chr(0x1B), '' ,'A'], #NUMPAD 8 and UP ARROW
+0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
 0x49: ['9', '9', '', ''],
 0x4E: ['', '', '', ''],  #CAMPO-
 #0x54: ['', '', ''], #SHIFT
@@ -341,9 +345,9 @@ scancodeDictionaries =  {
 0x1A: ['ö', 'Ö', '˝', ''],
 0x1B: ['ä', 'Ä', '^', chr(0x1B)],
 0x1C: ['#', 'Ä', '’', chr(0x1D)],
-0x44: ['4', '4', chr(0x1B), '' ,'D'], #NUMPAD 4 and LEFT ARROW
+0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
 0x45: ['5', '5', '', ''],
-0x46: ['6', '6', chr(0x1B), '' ,'C'], #NUMPAD 6 and RIGHT ARROW
+0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
 0x4D: [chr(0x0D), '', '', ''], #ENTER
 #0x57: ['', '', ''], #CTRL
 0x0E: ['<', '>', '|', ''],
@@ -360,7 +364,7 @@ scancodeDictionaries =  {
 #0x56: ['', '', ''], #ALT
 0x0C: ['', '', '', ''],
 0x41: ['1', '1', '', ''],
-0x42: ['2', '2', chr(0x1B), '' ,'B'], #NUMPAD 2 and DOWN ARROW
+0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
 0x43: ['3', '3', '', ''],
 0x68: ['', '', '', ''],
 0x40: ['0', '0', '', ''],
@@ -387,6 +391,7 @@ scancodeDictionaries =  {
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
 'CAPS_LOCK': [],
+'EXTRA': [0xE0],
 0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
 0x07: ['', '', '', ''], #F1
 0x0F: ['', '', '', ''], #F2
@@ -428,7 +433,7 @@ scancodeDictionaries =  {
 0x5B: ['+', '*', ']', chr(0x1D)],
 0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x6C: ['7', '7', '', ''],
-0x75: ['8', '8', chr(0x1B), '' ,'A'], #NUMPAD 8
+0x75: ['8', '8', chr(0x1B), '' ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
 0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
 0x7D: ['9', '9', '', ''],
 0x1C: ['a', 'A', '', chr(0x01)],
@@ -443,10 +448,10 @@ scancodeDictionaries =  {
 0x4C: ['ñ', 'Ñ', '', ''],
 0x52: ['´', '¨', '{', chr(0x1B)],
 0x5C: ['ç', 'Ç', '}', chr(0x1D)],
-0x6b: ['4', '4', '', ''], #NUMPAD 4
+0x6b: ['4', '4', '', '','D','D'], #NUMPAD 4   EXTRA LEFT ARROW
 0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
 0x73: ['5', '5', '', ''],
-0x74: ['6', '6', '', ''], #NUMPAD 6
+0x74: ['6', '6', '', '','C','C'], #NUMPAD 6 EXTRA RIGHT ARROW
 0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
 0x58: [chr(0x0D), '', '', ''], #ENTER
 0x4A: ['/', '/', '', ''],
@@ -465,7 +470,7 @@ scancodeDictionaries =  {
 0x49: ['.', ':', '', ''],
 0x4A: ['-', '_', '', chr(0x1F)],
 0x69: ['1', '1', '', ''],
-0x72: ['2', '2', '', ''], #NUMPAD 2
+0x72: ['2', '2', '', '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
 0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
@@ -474,10 +479,7 @@ scancodeDictionaries =  {
 
 #Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
 'CUSTOM_CHARACTER_CONVERSIONS': {
-'[': 0x4A,
-']': 0x5A,
-'^': 0x95,
-'#': 0xBC,
+
 },
 
 },
@@ -493,6 +495,7 @@ scancodeDictionaries =  {
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
 'CAPS_LOCK': [],
+'EXTRA': [0xE0],
 0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
 0x07: ['', '', '', ''], #F1
 0x0F: ['', '', '', ''], #F2
@@ -534,7 +537,7 @@ scancodeDictionaries =  {
 0x5B: ['ü', 'Ü', '~', chr(0x1D)],
 0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x6C: ['7', '7', '', ''],
-0x75: ['8', '8', chr(0x1B), '' ,'A'], #NUMPAD 8
+0x75: ['8', '8', chr(0x1B), '' ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
 0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
 0x7D: ['9', '9', '', ''],
 0x1C: ['a', 'A', 'æ', chr(0x01)],
@@ -549,10 +552,10 @@ scancodeDictionaries =  {
 0x4C: ['ö', 'Ö', '˝', ''],
 0x52: ['ä', 'Ä', '^', chr(0x1B)],
 0x5C: ['#', '\'', '’', chr(0x1D)],
-0x6b: ['4', '4', '', ''], #NUMPAD 4
+0x6b: ['4', '4', '', '','D','D'], #NUMPAD 4   EXTRA LEFT ARROW
 0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
 0x73: ['5', '5', '', ''],
-0x74: ['6', '6', '', ''], #NUMPAD 6
+0x74: ['6', '6', '', '','C','C'], #NUMPAD 6 EXTRA RIGHT ARROW
 0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
 0x58: [chr(0x0D), '', '', ''], #ENTER
 0x4A: ['/', '/', '', ''],
@@ -571,7 +574,7 @@ scancodeDictionaries =  {
 0x49: ['.', ':', '…', ''],
 0x4A: ['-', '_', '–', chr(0x1F)],
 0x69: ['1', '1', '', ''],
-0x72: ['2', '2', '', ''], #NUMPAD 2
+0x72: ['2', '2', '', '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
 0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
@@ -1439,7 +1442,7 @@ class MyPrompt(cmd.Cmd):
 
 
     def do_getcursor(self,inp):
-        print("XPOS: " + str(term.cursorX) + "\nif debugConnection:")
+        print("XPOS: " + str(term.cursorX) + "\n")
         print("YPOS: " + str(term.cursorY) + "\n")
         print("BUFFERPOS: " + str(term.getEncodedCursorPosition()) + "\n")
         return
@@ -1461,6 +1464,10 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].transmitCommand(WRITE_DATA_LOAD_CURSOR,term[cmd.Cmd.activeTerminal].destinationAddr,piece)
         term[cmd.Cmd.activeTerminal].incrementCursor(1)
         term[cmd.Cmd.activeTerminal].EOQ()
+        return
+
+    def do_sendscancode(self,code):
+        term[cmd.Cmd.activeTerminal].processScanCode(int(code,16))
         return
 
     def do_tx(self, inp):
@@ -1513,6 +1520,7 @@ class VT52_to_5250():
         self.isShiftEnabled=0
         self.isControlEnabled=0
         self.isAltEnabled=0
+        self.isExtraEnabled = 0
         self.forceAck=0
         self.pollActive=0;
         self.initialized=0;
@@ -2044,7 +2052,12 @@ class VT52_to_5250():
     def processScanCode(self, scancode):
         global interceptors
         #Look for break keys
-        if   scancode in self.scancodeDictionary['SHIFT_PRESS']:
+        if scancode in self.scancodeDictionary['EXTRA']:
+            #Next char is extra
+            self.isExtraEnabled = 1
+            return
+
+        if scancode in self.scancodeDictionary['SHIFT_PRESS']:
             #press shift
             self.isShiftEnabled = 1
             #debugLog.write("SPECIAL SHIFT ENABLED\n")
@@ -2096,6 +2109,7 @@ class VT52_to_5250():
             if not scancode in self.scancodeDictionary:
                 #error
                 #debugLog.write("UNKNOWN SCANCODE: " + str(scancode) + " FOR TERMINAL: " + str(self.destinationAddr) + "\n")
+                self.isExtraEnabled = 0
                 return
 
 
@@ -2132,6 +2146,12 @@ class VT52_to_5250():
                             self.isAltEnabled = 0
                         interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][2])
 
+                elif self.isExtraEnabled:
+                        self.isExtraEnabled = 0
+                        if len(self.scancodeDictionary[scancode]) > 5:
+                            interceptors[self.destinationAddr].stdin_read(chr(0x1B))
+                            interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][5])
+
                 else:
                     #Standard key
                     if self.scancodeDictionary[scancode][0] == chr(0x1B):
@@ -2141,6 +2161,8 @@ class VT52_to_5250():
                             interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][4])
                     else:
                         interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][0])
+
+        self.isExtraEnabled = 0
         return
 
 
