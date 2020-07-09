@@ -384,10 +384,10 @@ scancodeDictionaries =  {
 
 '3196_ES':
 {
-'CTRL_PRESS': [0x11, 0X58],
+'CTRL_PRESS': [0x11],
 'CTRL_RELEASE': [],
-'ALT_PRESS': [0x19],
-'ALT_RELEASE': [0x99],
+'ALT_PRESS': [0x58],
+'ALT_RELEASE': [],
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
 'CAPS_LOCK': [],
@@ -488,10 +488,10 @@ scancodeDictionaries =  {
 
 '3196_DE':
 {
-'CTRL_PRESS': [0x11, 0X58],
+'CTRL_PRESS': [0x11],
 'CTRL_RELEASE': [],
-'ALT_PRESS': [0x19],
-'ALT_RELEASE': [0x99],
+'ALT_PRESS': [0X58],
+'ALT_RELEASE': [],
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
 'CAPS_LOCK': [],
