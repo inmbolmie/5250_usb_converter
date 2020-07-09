@@ -537,7 +537,7 @@ scancodeDictionaries =  {
 0x5B: ['ü', 'Ü', '~', chr(0x1D)],
 0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x6C: ['7', '7', '', ''],
-0x75: ['8', '8', chr(0x1B), '' ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
+0x75: ['8', chr(0x1B), chr(0x1B), chr(0x1B) ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
 0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
 0x7D: ['9', '9', '', ''],
 0x1C: ['a', 'A', 'æ', chr(0x01)],
@@ -552,7 +552,7 @@ scancodeDictionaries =  {
 0x4C: ['ö', 'Ö', '˝', ''],
 0x52: ['ä', 'Ä', '^', chr(0x1B)],
 0x5C: ['#', '\'', '’', chr(0x1D)],
-0x6b: ['4', '4', '', '','D','D'], #NUMPAD 4   EXTRA LEFT ARROW
+0x6b: ['4', chr(0x1B), chr(0x1B), chr(0x1B),'D','D'], #NUMPAD 4   EXTRA LEFT ARROW
 0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
 0x73: ['5', '5', '', ''],
 0x74: ['6', '6', '', '','C','C'], #NUMPAD 6 EXTRA RIGHT ARROW
@@ -574,7 +574,7 @@ scancodeDictionaries =  {
 0x49: ['.', ':', '…', ''],
 0x4A: ['-', '_', '–', chr(0x1F)],
 0x69: ['1', '1', '', ''],
-0x72: ['2', '2', '', '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
+0x72: ['2', chr(0x1B), chr(0x1B), '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
 0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
@@ -2130,7 +2130,14 @@ class VT52_to_5250():
                     if len(self.scancodeDictionary['CTRL_RELEASE']) == 0:
                         #needed if you use a non-break key for CONTROL
                         self.isControlEnabled = 0
-                    interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][3])
+                    #Check if ESC + key
+                    if self.scancodeDictionary[scancode][3] == chr(0x1B):
+                        #Cursors
+                        interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][3])
+                        if len(self.scancodeDictionary[scancode]) > 4:
+                            interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][4])
+                    else:
+                        interceptors[self.destinationAddr].stdin_read(self.scancodeDictionary[scancode][3])
 
                 elif self.isAltEnabled:
                     #Check if ESC + key
