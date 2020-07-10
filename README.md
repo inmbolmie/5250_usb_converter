@@ -279,7 +279,11 @@ We can also simulate typing a command in the terminal with the `input` command:
 
 This will “type” the command “ls -la” over the shell of the active terminal like if it had been typed in the terminal.
 
-We can also restart the terminal shell with the `restartterminal` command followed by the terminal number:
+We can also generate some simulated keyboard scancodes in hexadecimal notation
+
+`5250>sendscancode 0xE0`
+
+We can restart the terminal shell with the `restartterminal` command followed by the terminal number:
 
 `5250>restartterminal 1`
 
