@@ -1,7 +1,9 @@
 # 5250_usb_converter
 Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal to a Linux PC via USB emulating a VT52 terminal
 
-![converter PCB](/pcb/PCB.png)
+
+![converter PCB](/pcb/term.png)
+
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
@@ -23,6 +25,10 @@ The converter functionality is divided between two components:
 
 
 ## Board instructions
+
+
+![converter PCB](/pcb/pcb2.png)
+
 
 ### Fabrication
 
