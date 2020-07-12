@@ -41,7 +41,7 @@ import getopt
 #Some important default parameters
 
 #Configure the defaulf dictionary to use if nothing is specified in the command line, from those defined in scancodeDictionaries
-DEFAULT_SCANCODE_DICTIONARY='5251_ES'
+DEFAULT_SCANCODE_DICTIONARY='5250_ES'
 
 #Configure the defaulf station address if nothing is specified in the command line
 DEFAULT_STATION_ADDRESS=0
@@ -70,7 +70,7 @@ DEFAULT_CODEPAGE='cp037'
 
 scancodeDictionaries =  {
 
-'5251_ES':
+'5250_ES':
 {
 'CTRL_PRESS': [0x54],
 'CTRL_RELEASE': [0xD4],
@@ -175,7 +175,7 @@ scancodeDictionaries =  {
 
 
 
-'5251_US':
+'5250_US':
 {
 'CTRL_PRESS': [0x54],
 'CTRL_RELEASE': [0xD4],
@@ -278,7 +278,7 @@ scancodeDictionaries =  {
 
 
 
-'5251_DE':
+'5250_DE':
 {
 'CTRL_PRESS': [0x54],
 'CTRL_RELEASE': [0xD4],
@@ -382,16 +382,16 @@ scancodeDictionaries =  {
 
 
 
-'3196_ES':
+'ENHANCED_ES':
 {
-'CTRL_PRESS': [0x11],
-'CTRL_RELEASE': [],
+'CTRL_PRESS': [0x14],
+'CTRL_RELEASE': [0x94],
 'ALT_PRESS': [0x58],
 'ALT_RELEASE': [],
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
-'CAPS_LOCK': [],
-'EXTRA': [0xE0],
+'CAPS_LOCK': [0x11],
+'EXTRA': [],
 0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
 0x07: ['', '', '', ''], #F1
 0x0F: ['', '', '', ''], #F2
@@ -433,7 +433,7 @@ scancodeDictionaries =  {
 0x5B: ['+', '*', ']', chr(0x1D)],
 0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x6C: ['7', '7', '', ''],
-0x75: ['8', '8', chr(0x1B), '' ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
+0x75: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW
 0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
 0x7D: ['9', '9', '', ''],
 0x1C: ['a', 'A', '', chr(0x01)],
@@ -448,10 +448,10 @@ scancodeDictionaries =  {
 0x4C: ['ñ', 'Ñ', '', ''],
 0x52: ['´', '¨', '{', chr(0x1B)],
 0x5C: ['ç', 'Ç', '}', chr(0x1D)],
-0x6b: ['4', '4', '', '','D','D'], #NUMPAD 4   EXTRA LEFT ARROW
+0x6b: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
 0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
 0x73: ['5', '5', '', ''],
-0x74: ['6', '6', '', '','C','C'], #NUMPAD 6 EXTRA RIGHT ARROW
+0x74: ['6', '6', chr(0x1B), chr(0x1B),'C'], #NUMPAD 6 EXTRA RIGHT ARROW
 0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
 0x58: [chr(0x0D), '', '', ''], #ENTER
 0x4A: ['/', '/', '', ''],
@@ -470,12 +470,12 @@ scancodeDictionaries =  {
 0x49: ['.', ':', '', ''],
 0x4A: ['-', '_', '', chr(0x1F)],
 0x69: ['1', '1', '', ''],
-0x72: ['2', '2', '', '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
+0x72: ['2', '2', chr(0x1B), chr(0x1B),'B'], #NUMPAD 2  EXTRA DOWN ARROW
 0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
 0x71: ['.', '', '', ''],
-0x29: [' ', ' ', '', ''], #SPACE BAR
+0x29: [' ', ' ', '', ''], #SP0xE0ACE BAR
 
 #Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
 'CUSTOM_CHARACTER_CONVERSIONS': {
@@ -486,16 +486,16 @@ scancodeDictionaries =  {
 
 
 
-'3196_DE':
+'ENHANCED_DE':
 {
-'CTRL_PRESS': [0x11],
-'CTRL_RELEASE': [],
+'CTRL_PRESS': [0x14],
+'CTRL_RELEASE': [0x94],
 'ALT_PRESS': [0X58],
 'ALT_RELEASE': [],
 'SHIFT_PRESS': [0x12,0x59],
 'SHIFT_RELEASE': [0x92,0xD9],
-'CAPS_LOCK': [],
-'EXTRA': [0xE0],
+'CAPS_LOCK': [0x11],
+'EXTRA': [],
 0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
 0x07: ['', '', '', ''], #F1
 0x0F: ['', '', '', ''], #F2
@@ -537,7 +537,7 @@ scancodeDictionaries =  {
 0x5B: ['ü', 'Ü', '~', chr(0x1D)],
 0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
 0x6C: ['7', '7', '', ''],
-0x75: ['8', chr(0x1B), chr(0x1B), chr(0x1B) ,'A','A'], #NUMPAD 8  EXTRA UP ARROW
+0x75: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW
 0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
 0x7D: ['9', '9', '', ''],
 0x1C: ['a', 'A', 'æ', chr(0x01)],
@@ -552,10 +552,10 @@ scancodeDictionaries =  {
 0x4C: ['ö', 'Ö', '˝', ''],
 0x52: ['ä', 'Ä', '^', chr(0x1B)],
 0x5C: ['#', '\'', '’', chr(0x1D)],
-0x6b: ['4', chr(0x1B), chr(0x1B), chr(0x1B),'D','D'], #NUMPAD 4   EXTRA LEFT ARROW
+0x6b: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
 0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
 0x73: ['5', '5', '', ''],
-0x74: ['6', '6', '', '','C','C'], #NUMPAD 6 EXTRA RIGHT ARROW
+0x74: ['6', '6', chr(0x1B), chr(0x1B),'C'], #NUMPAD 6 EXTRA RIGHT ARROW
 0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
 0x58: [chr(0x0D), '', '', ''], #ENTER
 0x4A: ['/', '/', '', ''],
@@ -574,7 +574,7 @@ scancodeDictionaries =  {
 0x49: ['.', ':', '…', ''],
 0x4A: ['-', '_', '–', chr(0x1F)],
 0x69: ['1', '1', '', ''],
-0x72: ['2', chr(0x1B), chr(0x1B), '','B','B'], #NUMPAD 2  EXTRA DOWN ARROW
+0x72: ['2', '2', chr(0x1B), '','B'], #NUMPAD 2  EXTRA DOWN ARROW
 0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
@@ -589,8 +589,113 @@ scancodeDictionaries =  {
 },
 
 
-##ENTER HERE YOUR ADDITIONAL SCANCODE MAPPINGS
 
+'122KEY_DE':
+{
+'CTRL_PRESS': [0x54],
+'CTRL_RELEASE': [0xD4],
+'ALT_PRESS': [0x68],
+'ALT_RELEASE': [],
+'SHIFT_PRESS': [0x57,0x56],
+'SHIFT_RELEASE': [0xD7,0xD6],
+'CAPS_LOCK': [0x7E],
+'EXTRA': [0x6F],
+0x7C: [chr(0x1B), chr(0x1B), '', ''], #ESC
+#0x31: ['', '', '', ''], #F1
+#0x32: ['', '', '', ''], #F2
+#0x33: ['', '', '', ''], #F3
+#0x34: ['', '', '', ''], #F4
+#0x35: ['', '', '', ''], #F5
+#0x36: ['', '', '', ''], #F6
+#0x37: ['', '', '', ''], #F7
+#0x38: ['', '', '', ''], #F8
+#0x38: ['', '', '', ''], #F9
+#0x3A: ['', '', '', ''], #F10
+#0x3B: ['', '', '', ''], #F11
+#0x3C: ['', '', '', ''], #F12
+0x3E: ['^', '°', '′', ''],
+0x31: ['1', '!', '¹', ''],
+0x32: ['2', '""', '²', ''],
+0x33: ['3', '§', '³', ''],
+0x34: ['4', '$', '¼', ''],
+0x35: ['5', '%', '½', ''],
+0x36: ['6', '&', '¬', ''],
+0x37: ['7', '/', '{', ''],
+0x38: ['8', '(', '[', ''],
+0x39: ['9', ')', ']', ''],
+0x3A: ['0', '=', '}', ''],
+0x3B: ['ß', '?', '\\', chr(0x1C)],
+0x3C: ['´', '`', '¸', ''],
+0x3D: [chr(0x08), chr(0x08), '', ''], #BS
+0x20: [chr(0x09), chr(0x09), '', ''], #TAB
+0x21: ['q', 'Q', '@', chr(0x11)],
+0x22: ['w', 'W', 'ł', chr(0x17)],
+0x23: ['e', 'E', '€', chr(0x05)],
+0x24: ['r', 'R', '¶', chr(0x12)],
+0x25: ['t', 'T', 'ŧ', chr(0x14)],
+0x26: ['z', 'Z', '←', chr(0x19)],
+0x27: ['u', 'U', '↓', chr(0x15)],
+0x28: ['i', 'I', '→', chr(0x09)],
+0x29: ['o', 'O', 'ø', chr(0x0F)],
+0x2A: ['p', 'P', 'þ', chr(0x10)],
+0x2B: ['ü', 'Ü', '~', chr(0x1D)],
+0x2C: ['+', '*', '~', chr(0x1D)],
+0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+0x47: ['7', '7', '', ''],
+0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW
+0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
+0x49: ['9', '9', '', ''],
+0x11: ['a', 'A', 'æ', chr(0x01)],
+0x12: ['s', 'S', 'ſ', chr(0x13)],
+0x13: ['d', 'D', 'ð', chr(0x04)],
+0x14: ['f', 'F', 'đ', chr(0x06)],
+0x15: ['g', 'G', 'ŋ', chr(0x07)],
+0x16: ['h', 'H', 'ħ', chr(0x08)],
+0x17: ['j', 'J', '̣̣̣̣.', chr(0x0A)],
+0x18: ['k', 'K', 'ĸ', chr(0x0B)],
+0x19: ['l', 'L', 'ł', chr(0x0C)],
+0x1A: ['ö', 'Ö', '˝', ''],
+0x1B: ['ä', 'Ä', '^', chr(0x1B)],
+0x1C: ['#', '\'', '’', chr(0x1D)],
+0x44: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
+0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
+0x45: ['5', '5', '', ''],
+0x46: ['6', '6', '', '','C'], #NUMPAD 6 EXTRA RIGHT ARROW
+0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
+0x2D: [chr(0x0D), '', '', ''], #ENTER
+0x4A: ['/', '/', '', ''],
+0x3E: ['*', '*', '', ''],
+0x7F: ['-', '-', '', ''],
+0x7B: ['+', '+', '', ''],
+0x0e: ['<', '>', '|', ''],
+0x01: ['y', 'Y', '»', chr(0x1A)],
+0x02: ['x', 'X', '«', chr(0x18)],
+0x03: ['c', 'C', '¢', chr(0x03)],
+0x04: ['v', 'V', '„', chr(0x16)],
+0x05: ['b', 'B', '“”', chr(0x02)],
+0x06: ['n', 'N', '”', chr(0x0E)],
+0x07: ['m', 'M', 'µ', chr(0x0D)],
+0x08: [',', ';', '·', ''],
+0x09: ['.', ':', '…', ''],
+0x0a: ['-', '_', '–', chr(0x1F)],
+0x41: ['1', '1', '', ''],
+0x42: ['2', chr(0x1B), chr(0x1B), '','B'], #NUMPAD 2  EXTRA DOWN ARROW
+0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
+0x43: ['3', '3', '', ''],
+0x40: ['0', '0', '', ''],
+0x4A: ['.', '', '', ''],
+0x0F: [' ', ' ', '', ''], #SPACE BAR
+
+#Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+'CUSTOM_CHARACTER_CONVERSIONS': {
+
+},
+
+},
+
+
+
+##ENTER HERE YOUR ADDITIONAL SCANCODE MAPPINGS
 
 
 
@@ -938,7 +1043,7 @@ def openSerial(port, speed):
 
 
 
-#Class that controls the serial port (USB) for send and receive
+#Class that controls the seri'4277_DE':al port (USB) for send and receive
 class SerialPortControl :
 
     #Wait for responses from terminals and invoke their processing
