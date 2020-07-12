@@ -94,25 +94,25 @@ You can specify more than one terminal as parameters to the command, up to the 7
 If you want to specify a different __keyboard mapping__ of those available under the 
 `scancodeDictionaries` section (more information about that later) you can specify it next to the terminal name separated by a colon `:`
 
-`$ python3 5250_terminal.py 0 1:5251_ES`
+`$ python3 5250_terminal.py 0 1:5250_ES`
 
-...this will look for terminal 0 using the default keyboard mapping and will look for terminal 1 using the 5251_ES mapping defined in the `scancodeDictionaries` section
+...this will look for terminal 0 using the default keyboard mapping and will look for terminal 1 using the 5250_ES mapping defined in the `scancodeDictionaries` section
 
 Some emulated 5250 terminals are very slow and need a longer poll interval to make them run faster. If you have such a terminal you can specify a “slow poll” mode separating it with another colon:
 
-`$ python3 5250_terminal.py 0:5251_ES:1`
+`$ python3 5250_terminal.py 0:5250_ES:1`
 
-......this will look for terminal 0 using the 5251_ES keyboard mapping and with slow polling active (mode 1)
+......this will look for terminal 0 using the 5250_ES keyboard mapping and with slow polling active (mode 1)
 
 There is also a “very slow poll” mode that is activated specifying “2” as a mode value, this should only be used for debugging purposes as the terminal will be unusable in this mode.
 
-`$ python3 5250_terminal.py 0:5251_ES:2`
+`$ python3 5250_terminal.py 0:5250_ES:2`
 
 Finally you can specify for ASCII to EBCDIC translation a different codepage, `cp037` is used by default but for example:
 
-`$ python3 5250_terminal.py 0:5251_ES:0:cp500`
+`$ python3 5250_terminal.py 0:5250_ES:0:cp500`
 
-...this will look for a terminal at adress 0 using the 5251_ES keyboard mapping, with slow polling disabled and using EBCDIC codepage `cp500` for character translation. You can only specify here codepages supported by the `ebcdic` Python module.
+...this will look for a terminal at adress 0 using the 5250_ES keyboard mapping, with slow polling disabled and using EBCDIC codepage `cp500` for character translation. You can only specify here codepages supported by the `ebcdic` Python module.
 
 
 ## Debugging
@@ -150,17 +150,20 @@ The keyboard of a 5250 terminal doesn’t directly generate characters, instead 
 
 ATM I have no idea how to make a proper autodiscovery and autoconfiguration for every terminal-keyboard-language combination, so the user will need to configure this editing the 5250_terminal.py script. This is also a matter of personal preference because the older terminals have weird key legends and non-standard layouts, and the user will have to decide the key mappings that better suits his preference.
 
-There is at the beginning of the script a dictionary definition called __`scancodeDictionaries`__. That dictionary has one entry for each keyboard mapping available, for the first version there are only 2 mappings configured:
+There is at the beginning of the script a dictionary definition called __`scancodeDictionaries`__. That dictionary has one entry for each keyboard mapping available, you have the following mappings available:
 
-* __5251_ES__ is a mapping for a Spanish keyboard 5251 terminal
-* __3196_ES__ is a mapping for a 3196 terminal emulated with an ISA card using the IBM “5250lite” program and a spanish 83-key keyboard. No idea if this will work in a “real” 3196 terminal
-* __5251_US__ is an untested mapping for an English-US keyboard 5251 terminal
-* __5251_DE__ is an untested mapping for a German keyboard 5251 terminal
-* __3196_DE__ is an untested mapping for a German keyboard 3196 terminal
+* __5250_ES__ is a mapping for a Spanish keyboard 5250 terminal
+* __5250_US__ is a mapping for an English-US keyboard 5250 terminal
+* __5250_DE__ is a mapping for a German keyboard 5250 terminal
+* __ENHANCED_ES__ is a mapping for an enhanced (IBM model M 101-102 key) keyboard terminal
+* __ENHANCED_DE__ is a mapping for an enhanced (IBM model M 101-102 key) keyboard terminal
+* __122KEY_DE__ is a mapping for a German keyboard 122 key terminal
+
+Refer to this [document](ftp://ftp.www.ibm.com/systems/power/docs/systemi/v6r1/en_US/sc415605.pdf) for more information about layouts and the scancodes generated. 
 
 To change the default mapping used if no mapping is specified in the command line, you have to edit the value of the variable `DEFAULT_SCANCODE_DICTIONARY`
 
-`DEFAULT_SCANCODE_DICTIONARY='5251_ES'`
+`DEFAULT_SCANCODE_DICTIONARY='5250_ES'`
 
 __To create a new mapping__, you can copy and modify an existing mapping, adding a new entry to the `scancodeDictionaries` structure and change its name. The entry will look like this:
 
@@ -174,6 +177,7 @@ __To create a new mapping__, you can copy and modify an existing mapping, adding
     'SHIFT_PRESS': [0x54],
     'SHIFT_RELEASE': [0xD4],
     'CAPS_LOCK': [0x7E],
+    'EXTRA': [],
     0x7C: [chr(0x1B), chr(0x1B), '', ''],
     0x23: ['e', 'E', '', chr(0x05)],
     
