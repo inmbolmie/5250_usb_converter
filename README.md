@@ -1,7 +1,9 @@
 # 5250_usb_converter
 Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal to a Linux PC via USB emulating a VT52 terminal
 
-![converter PCB](/pcb/PCB.png)
+
+![converter PCB](/pcb/term.png)
+
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
@@ -23,6 +25,10 @@ The converter functionality is divided between two components:
 
 
 ## Board instructions
+
+
+![converter PCB](/pcb/pcb2.png)
+
 
 ### Fabrication
 
@@ -273,7 +279,11 @@ We can also simulate typing a command in the terminal with the `input` command:
 
 This will “type” the command “ls -la” over the shell of the active terminal like if it had been typed in the terminal.
 
-We can also restart the terminal shell with the `restartterminal` command followed by the terminal number:
+We can also generate some simulated keyboard scancodes in hexadecimal notation
+
+`5250>sendscancode 0xE0`
+
+We can restart the terminal shell with the `restartterminal` command followed by the terminal number:
 
 `5250>restartterminal 1`
 
