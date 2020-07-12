@@ -475,7 +475,7 @@ scancodeDictionaries =  {
 0x7A: ['3', '3', '', ''],
 0x70: ['0', '0', '', ''],
 0x71: ['.', '', '', ''],
-0x29: [' ', ' ', '', ''], #SP0xE0ACE BAR
+0x29: [' ', ' ', '', ''], #SPACE BAR
 
 #Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
 'CUSTOM_CHARACTER_CONVERSIONS': {
@@ -598,7 +598,7 @@ scancodeDictionaries =  {
 'ALT_RELEASE': [],
 'SHIFT_PRESS': [0x57,0x56],
 'SHIFT_RELEASE': [0xD7,0xD6],
-'CAPS_LOCK': [0x7E],
+'CAPS_LOCK': [0x7E],  #Grdst
 'EXTRA': [0x6F],
 0x7C: [chr(0x1B), chr(0x1B), '', ''], #ESC
 #0x31: ['', '', '', ''], #F1
