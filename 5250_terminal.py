@@ -32,10 +32,8 @@ import sys
 import termios
 import tty
 import queue
-import ebcdic
 import string
 import random
-import getopt
 
 
 #Some important default parameters
