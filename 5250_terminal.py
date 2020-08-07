@@ -991,7 +991,7 @@ class Interceptor(object):
         while 1:
             try:
                 rfds, wfds, xfds = select.select(
-                [master_fd, pty.STDIN_FILENO], [], [])
+                    [master_fd, pty.STDIN_FILENO], [], [])
             except select.error as e:
                 if e[0] == 4:   # Interrupted system call.
                     continue
