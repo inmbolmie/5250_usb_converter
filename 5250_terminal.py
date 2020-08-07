@@ -70,7 +70,7 @@ DEFAULT_CODEPAGE = 'cp037'
 scancodeDictionaries = {
 
     '5250_ES': {
-    	
+
         # SPECIAL KEYS MAPPINGS
         'CTRL_PRESS': [0x54],
         'CTRL_RELEASE': [0xD4],
@@ -80,7 +80,7 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
-        	
+
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -98,7 +98,7 @@ scancodeDictionaries = {
         # ROW 5
         0x72: ['', '', '', ''], #F9
         0x73: ['', '', '', ''], #F10
-        	
+
         # MAIN ALPHA AND NUMPAD BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -189,7 +189,7 @@ scancodeDictionaries = {
     },
 
     '5250_US': {
-    	
+
         # SPECIAL KEYS MAPPINGS
         'CTRL_PRESS': [0x54],
         'CTRL_RELEASE': [0xD4],
@@ -199,7 +199,7 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
-        	
+
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -217,7 +217,7 @@ scancodeDictionaries = {
         # ROW 5
         # 0x72: ['', '', '', ''], #F9
         # 0x73: ['', '', '', ''], #F10
-        	
+
         # MAIN ALPHA AND NUMPAD BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -304,7 +304,7 @@ scancodeDictionaries = {
     },
 
     '5250_DE': {
-    	
+
         # SPECIAL KEYS MAPPINGS
         'CTRL_PRESS': [0x54],
         'CTRL_RELEASE': [0xD4],
@@ -314,7 +314,7 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
-        	
+
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -332,7 +332,7 @@ scancodeDictionaries = {
         # ROW 5
         # 0x72: ['', '', '', ''], #F9
         # 0x73: ['', '', '', ''], #F10
-        	
+
         # MAIN ALPHA AND NUMPAD BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -419,7 +419,7 @@ scancodeDictionaries = {
     },
 
     'ENHANCED_ES': {
-    	
+
         # SPECIAL FUNCTION KEYS MAPPINGS
         'CTRL_PRESS': [0x14],
         'CTRL_RELEASE': [0x94],
@@ -429,7 +429,7 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0x92, 0xD9],
         'CAPS_LOCK': [0x11],
         'EXTRA': [],
-        	
+
         # ESC AND FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM LEFT TO RIGHT
         0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
@@ -445,7 +445,7 @@ scancodeDictionaries = {
         # 0x4F: ['', '', '', ''], #F10
         # 0x4F: ['', '', '', ''], #F11
         # 0x5E: ['', '', '', ''], #F12
-        
+
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -504,18 +504,18 @@ scancodeDictionaries = {
         0x4A: ['-', '_', '', chr(0x1F)],
         # ROW 5
         0x29: [' ', ' ', '', ''], #SPACE BAR
-        	 
+
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # TBD
-        
+
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
         0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
         0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
         0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
-        	
+
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -523,12 +523,12 @@ scancodeDictionaries = {
         0x3E: ['*', '*', '', ''],
         0x7F: ['-', '-', '', ''],
         # ROW 2
-				0x6C: ['7', '7', '', ''],
+                                0x6C: ['7', '7', '', ''],
         0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-				0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
         0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         0x58: [chr(0x0D), '', '', ''], #ENTER,
@@ -539,14 +539,14 @@ scancodeDictionaries = {
         # ROW 5
         0x70: ['0', '0', '', ''],
         0x71: ['.', '', '', ''],
-        	
+
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
 
     'ENHANCED_DE': {
-    	
+
         # ESC AND FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM LEFT TO RIGHT
         'CTRL_PRESS': [0x14],
@@ -571,8 +571,8 @@ scancodeDictionaries = {
         # 0x4F: ['', '', '', ''], #F11
         # 0x5E: ['', '', '', ''], #F12
         # TBD UP TO F24
-        
-        
+
+
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -636,14 +636,14 @@ scancodeDictionaries = {
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # TBD
-        
+
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
         0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
         0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
         0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
-        	
+
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -651,12 +651,12 @@ scancodeDictionaries = {
         0x3E: ['*', '*', '', ''],
         0x7F: ['-', '-', '', ''],
         # ROW 2
-			0x6C: ['7', '7', '', ''],
+                        0x6C: ['7', '7', '', ''],
         0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-				0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
         0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         0x58: [chr(0x0D), '', '', ''], #ENTER,
@@ -667,14 +667,14 @@ scancodeDictionaries = {
         # ROW 5
         0x70: ['0', '0', '', ''],
         0x71: ['.', '', '', ''],
-        	
+
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
 
     '122KEY_DE': {
-    	
+
         # SPECIAL FUNCTION KEYS MAPPINGS
         'CTRL_PRESS': [0x54],
         'CTRL_RELEASE': [0xD4],
@@ -684,16 +684,16 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],  #Grdst
         'EXTRA': [0x6F],
-        
+
         # LEFT FUNCTION KEYS MAPPINGS (F1-F10)
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-				# ROW 1
+                                # ROW 1
         0x7C: [chr(0x1B), chr(0x1B), '', ''], #ESC
         # TBD UP TO F10
-        
+
         # TOP FUNCTION KEYS MAPPINGS (F1-F24)
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-				# ROW 1
+                                # ROW 1
         # 0x31: ['', '', '', ''], #F1
         # 0x32: ['', '', '', ''], #F2
         # 0x33: ['', '', '', ''], #F3
@@ -707,7 +707,7 @@ scancodeDictionaries = {
         # 0x3B: ['', '', '', ''], #F11
         # 0x3C: ['', '', '', ''], #F12
         # TBD UP TO F24
-        
+
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
@@ -767,42 +767,42 @@ scancodeDictionaries = {
         0x0a: ['-', '_', '–', chr(0x1F)],
         # ROW 5
         0x0F: [' ', ' ', '', ''], #SPACE BAR
-        	
-        	
+
+
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # TBD
-        
+
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
-				0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
-				# TBD CENTER ARROW
-				0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
-				0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
-        	
+                                0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
+                                # TBD CENTER ARROW
+                                0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
+                                0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
+
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-				0x4A: ['/', '/', '', ''],
+                                0x4A: ['/', '/', '', ''],
         0x3E: ['*', '*', '', ''],
         0x7F: ['-', '-', '', ''],
         # ROW 2
-				0x47: ['7', '7', '', ''],
+                                0x47: ['7', '7', '', ''],
         0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW
         0x49: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
- 				0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x45: ['5', '5', '', ''],
         0x46: ['6', '6', '', '', 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         # ROW 4
-				0x41: ['1', '1', '', ''],
+                                0x41: ['1', '1', '', ''],
         0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'], #NUMPAD 2  EXTRA DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x2D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 5
-				0x40: ['0', '0', '', ''],
+                                0x40: ['0', '0', '', ''],
         0x4A: ['.', '', '', ''],
 
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
@@ -2405,17 +2405,17 @@ class VT52_to_5250():
                             self.scancodeDictionary[scancode][2])
 
                 elif self.isExtraEnabled:
-                        self.isExtraEnabled = 0
-                        if len(self.scancodeDictionary[scancode]) > 5:
-                            interceptors[self.destinationAddr].stdin_read(
-                                chr(0x1B))
-                            interceptors[self.destinationAddr].stdin_read(
-                                self.scancodeDictionary[scancode][5])
+                    self.isExtraEnabled = 0
+                    if len(self.scancodeDictionary[scancode]) > 5:
+                        interceptors[self.destinationAddr].stdin_read(
+                            chr(0x1B))
+                        interceptors[self.destinationAddr].stdin_read(
+                            self.scancodeDictionary[scancode][5])
 
                 else:
                     # Standard key
                     if self.scancodeDictionary[scancode][0] == chr(0x1B):
-                        # Cursors
+                    # Cursors
                         interceptors[self.destinationAddr].stdin_read(
                             self.scancodeDictionary[scancode][0])
                         if len(self.scancodeDictionary[scancode]) > 4:
