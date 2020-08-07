@@ -116,7 +116,7 @@ scancodeDictionaries = {
         0x3B: ['\'', '?', '', chr(0x1C)],
         0x3C: ['¡', '¿', '', ''],
         0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
-        0x4B: ['', '', '', ''], #
+        0x4B: ['', '', '', ''],
         0x4C: ['', '', '', ''],  # DUP
         # ROW 2
         0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
@@ -235,7 +235,7 @@ scancodeDictionaries = {
         0x3B: ['-', '_', '', chr(0x1C)],
         0x3C: ['=', '+', '', ''],
         0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
-        0x4B: ['', '', '', ''], #
+        0x4B: ['', '', '', ''],
         0x4C: ['', '', '', ''],  # DUP
         # ROW 2
         0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
@@ -350,7 +350,7 @@ scancodeDictionaries = {
         0x3B: ['ß', '?', '\\', chr(0x1C)],
         0x3C: ['´', '`', '¸', ''],
         0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
-        0x4B: ['', '', '', ''], #
+        0x4B: ['', '', '', ''],
         0x4C: ['', '', '', ''],  # DUP
         # ROW 2
         0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
@@ -1212,7 +1212,7 @@ class SerialPortControl:
         global debugLog
         global ttyfile
         fd = openSerial(ttyfile, 57600)
-        time.sleep(1) # wait for Arduino
+        time.sleep(1)  # wait for Arduino
         serialPort = os.fdopen(fd, "r")
         serialPortWrite = os.fdopen(fd, "w")
         # Loop to write to serial interface
