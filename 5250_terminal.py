@@ -1385,7 +1385,7 @@ class SerialPortControl:
                         # debugLog.write ("RECEIVED DATA BYTE: " + str(scancode) + "\n")
                         # get keystroke if ack is not pending and is different from 0x00 and 0xFF
                         # debugLog.write ("CANDIDATE SCANCODE: " + hex(scancode) + " RLEVEL: " + str(term.getResponseLevel()) + "\n")
-                        if ( (not term[terminal].getResponseLevel() == status.getResponseLevel()) and (scancode != 0x00) and (scancode != 0xFF)):
+                        if ((not term[terminal].getResponseLevel() == status.getResponseLevel()) and (scancode != 0x00) and (scancode != 0xFF)):
                             term[terminal].setResponseLevel(
                                 status.getResponseLevel())
                             if debugKeystrokes:
