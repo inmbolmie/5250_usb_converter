@@ -1990,7 +1990,7 @@ class VT52_to_5250():
         return
 
     def txString(self, string):
-    # Converts to EBCDIC and transmits an ASCII string
+        # Converts to EBCDIC and transmits an ASCII string
         ebcdicArray = bytearray()
         for char in string:
             try:
@@ -2413,7 +2413,7 @@ class VT52_to_5250():
                 else:
                     # Standard key
                     if self.scancodeDictionary[scancode][0] == chr(0x1B):
-                    # Cursors
+                        # Cursors
                         interceptors[self.destinationAddr].stdin_read(
                             self.scancodeDictionary[scancode][0])
                         if len(self.scancodeDictionary[scancode]) > 4:
@@ -2431,7 +2431,7 @@ class VT52_to_5250():
     # Clear sc
 
     def SET_MODE(self):
-    # Set transmission mode to zero fill
+        # Set transmission mode to zero fill
         self.transmitCommand(SET_MODE, self.destinationAddr, [0])
         self.EOQ()
         return
@@ -2443,23 +2443,23 @@ class VT52_to_5250():
         return
 
     def POLL(self):
-    # Poll station
+        # Poll station
         self.transmitPoll(POLL, self.destinationAddr, [])
         return
 
     def ACK(self):
-    # ACK station response
+        # ACK station response
         self.transmitPoll(ACK, self.destinationAddr, [])
         return
 
     def EOQ(self):
-    # End of command queue
+        # End of command queue
         self.transmitCommand(EOQ, self.destinationAddr, [])
         self.endOfCommandSequence()
         return
 
     def BS(self):
-    # Backspace 	Delete character to left of cursor.
+        # Backspace 	Delete character to left of cursor.
         self.incrementCursor(-1)
         # update cursor position
         self.transmitCommand(
@@ -2473,14 +2473,14 @@ class VT52_to_5250():
         return
 
     def BEL(self):
-    # Bell, audible alert
+        # Bell, audible alert
         self.transmitCommand(WRITE_CONTROL_DATA, self.destinationAddr, [
                              self.statusByte | 0x01])
         self.EOQ()
         return
 
     def ESC_J(self):
-    # Clear to end of screen 	Clear screen from cursor onwards.
+        # Clear to end of screen 	Clear screen from cursor onwards.
         # Move address counter to cursor position
         self.transmitCommand(
             LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
@@ -2493,7 +2493,7 @@ class VT52_to_5250():
         return
 
     def ESC_K(self):
-    # Clear to end of line 	Clear line from cursor onwards.
+        # Clear to end of line 	Clear line from cursor onwards.
         # Move address counter to cursor position
         self.transmitCommand(
             LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
@@ -2506,7 +2506,7 @@ class VT52_to_5250():
         return
 
     def ESC_E(self):
-    # Clear screen 	Clear screen and place cursor at top left corner.
+        # Clear screen 	Clear screen and place cursor at top left corner.
         # Move address counter to upper left corner
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getUpperLeftCornerEncodedPosition())
@@ -2526,7 +2526,7 @@ class VT52_to_5250():
         return
 
     def ESC_l(self):
-    # Clear line 	Clear current line.
+        # Clear line 	Clear current line.
         # Move address counter to beginning of current line
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getBeginningCurrentLineEncodedPosition())
@@ -2542,7 +2542,7 @@ class VT52_to_5250():
         return
 
     def ESC_o(self):
-    # Clear to start of line 	Clear current line up to cursor.
+        # Clear to start of line 	Clear current line up to cursor.
         # Move address counter to beginning of current line
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getBeginningCurrentLineEncodedPosition())
@@ -2555,7 +2555,7 @@ class VT52_to_5250():
         return
 
     def ESC_d(self):
-    # Clear to start of screen 	Clear screen up to cursor.
+        # Clear to start of screen 	Clear screen up to cursor.
         # Move address counter to upper left corner
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getUpperLeftCornerEncodedPosition())
@@ -2568,7 +2568,7 @@ class VT52_to_5250():
         return
 
     def ESC_B(self):
-    # Cursor down 	Move cursor one line downwards.
+        # Cursor down 	Move cursor one line downwards.
         # increment cursor line
         if self.cursorX > 0 and self.cursorInPreviousLine:
             self.cursorY = 79
@@ -2587,7 +2587,7 @@ class VT52_to_5250():
         return
 
     def ESC_H(self):
-    # Cursor home 	Move cursor to the upper left corner.
+        # Cursor home 	Move cursor to the upper left corner.
         # zero cursor position
         self.zeroCursorPosition()
         # update cursor position
@@ -2599,7 +2599,7 @@ class VT52_to_5250():
         return
 
     def ESC_D(self):
-    # Cursor left 	Move cursor one column to the left.
+        # Cursor left 	Move cursor one column to the left.
         if self.cursorX > 0 and self.cursorInPreviousLine:
             if not self.newlinePending:
                 self.cursorX = self.cursorX - 1
@@ -2617,7 +2617,7 @@ class VT52_to_5250():
         return
 
     def ESC_C(self):
-    # Cursor right 	Move cursor one column to the right.
+        # Cursor right 	Move cursor one column to the right.
 
         if self.cursorX > 0 and self.cursorInPreviousLine and not self.newlinePending:
             self.cursorX = self.cursorX - 1
@@ -2636,7 +2636,7 @@ class VT52_to_5250():
         return
 
     def ESC_A(self):
-    # Cursor up 	Move cursor one line upwards.
+        # Cursor up 	Move cursor one line upwards.
         # decrement cursor line
         if self.cursorX > 0:
             if self.cursorInPreviousLine:
@@ -2654,7 +2654,7 @@ class VT52_to_5250():
         return
 
     def ESC_Y(self, x, y):
-    # Set cursor position 	Position cursor.
+        # Set cursor position 	Position cursor.
         self.positionCursor(x, y)
         # update cursor position
         self.transmitCommand(
@@ -2665,11 +2665,11 @@ class VT52_to_5250():
         return
 
     def ESC_b(self):
-    # Foreground color 	Set text colour.
+        # Foreground color 	Set text colour.
         return
 
     def ESC_L(self):
-    # Insert line 	Insert a line and move cursor to beginning
+        # Insert line 	Insert a line and move cursor to beginning
         # Move lines one position to the bottom
         # Hide cursor.
         hidden = False
@@ -2711,7 +2711,7 @@ class VT52_to_5250():
         return
 
     def ESC_M(self):
-    # Delete line 	Remove line position cursor first column.
+        # Delete line 	Remove line position cursor first column.
         # Hide cursor.
         hidden = False
         if not self.statusByte & 0x80:
@@ -2764,7 +2764,7 @@ class VT52_to_5250():
         return
 
     def LF(self):
-    # Line feed 	Line feed.
+        # Line feed 	Line feed.
         if (self.cursorX == 23):
             # Last line
             prevCursorY = self.cursorY
@@ -2791,7 +2791,7 @@ class VT52_to_5250():
         return
 
     def ESC_k(self):
-    # Restore cursor position 	Restore saved cursor.
+        # Restore cursor position 	Restore saved cursor.
         self.restoreCursorPosition()
         # update cursor position
         self.transmitCommand(
@@ -2800,11 +2800,11 @@ class VT52_to_5250():
         return
 
     def ESC_c(self):
-    # Background color 	Set background colour.
+        # Background color 	Set background colour.
         return
 
     def CR(self):
-    # Carriage Return 	Move cursor to the start of the line.
+        # Carriage Return 	Move cursor to the start of the line.
         if self.newlinePending:
             # Already made
             return
@@ -2820,7 +2820,7 @@ class VT52_to_5250():
         return
 
     def ESC_q(self):
-    # Normal video 	Switch off inverse video text.
+        # Normal video 	Switch off inverse video text.
         self.statusByte = self.statusByte & 0xF7
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2828,7 +2828,7 @@ class VT52_to_5250():
         return
 
     def ESC_p(self):
-    # Reverse video 	Switch on inverse video text.
+        # Reverse video 	Switch on inverse video text.
         self.statusByte = self.statusByte | 0x08
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2836,24 +2836,24 @@ class VT52_to_5250():
         return
 
     def ESC_j(self):
-    # Save cursor position 	"Remember" cursor.
+        # Save cursor position 	"Remember" cursor.
         self.saveCursorPosition()
         return
 
     def ESC_I(self):
-    # Cursor up and insert 	Move cursor one line upwards and scroll.
+        # Cursor up and insert 	Move cursor one line upwards and scroll.
         if (self.cursorX == 0):
             self.ESC_L()
         self.ESC_A()
         return
 
     def FF(self):
-    # Formfeed 	Form feed.
+        # Formfeed 	Form feed.
         ESC_E()
         return
 
     def HT(self):
-    # Tabulator 	Horizontal tabulator.
+        # Tabulator 	Horizontal tabulator.
 
         # Calculate cursor Position
         self.jumpCursorNextTab()
@@ -2865,22 +2865,22 @@ class VT52_to_5250():
         return
 
     def VT(self):
-    # Tabulator 	Vertical tabulator
+        # Tabulator 	Vertical tabulator
         LF()
         return
 
     def ESC_w(self):
-    # Wrap off 	Disable line wrap.
+        # Wrap off 	Disable line wrap.
         # TBD
         return
 
     def ESC_v(self):
-    # Wrap on 	Enable line wrap.
+        # Wrap on 	Enable line wrap.
         # TBD
         return
 
     def ESC_e(self):
-    # Cur_on 	Show cursor.
+        # Cur_on 	Show cursor.
         self.statusByte = self.statusByte & 0x7F
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2888,7 +2888,7 @@ class VT52_to_5250():
         return
 
     def ESC_f(self):
-    # Cur_off 	Hide cursor.
+        # Cur_off 	Hide cursor.
         self.statusByte = self.statusByte | 0x80
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2896,7 +2896,7 @@ class VT52_to_5250():
         return
 
     def Blink_on(self):
-    # Switch on cursor blinking.
+        # Switch on cursor blinking.
         self.statusByte = self.statusByte | 0x20
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2904,7 +2904,7 @@ class VT52_to_5250():
         return
 
     def Blink_off(self):
-    # Switch off cursor blinking.
+        # Switch off cursor blinking.
         self.statusByte = self.statusByte & 0xDF
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
@@ -2912,12 +2912,12 @@ class VT52_to_5250():
         return
 
     def Set_blink(self):
-    # Set blink rate.
+        # Set blink rate.
         # TBD
         return
 
     def Get_blink(self):
-    # Inquire blink rate.
+        # Inquire blink rate.
         # TBD
         return
 
