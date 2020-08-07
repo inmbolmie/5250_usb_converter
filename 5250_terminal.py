@@ -134,7 +134,7 @@ scancodeDictionaries = {
         0x2C: ['+', '*', ']', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -151,9 +151,9 @@ scancodeDictionaries = {
         0x1A: ['ñ', 'Ñ', '', ''],
         0x1B: ['´', '¨', '{', chr(0x1B)],
         0x1C: ['ç', 'Ç', '}', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -171,7 +171,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -253,7 +253,7 @@ scancodeDictionaries = {
         0x2C: ['\\', '|', '', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -270,9 +270,9 @@ scancodeDictionaries = {
         0x1A: [';', ':', '', ''],
         0x1B: ['\'', '""', '', chr(0x1B)],
         0x1C: ['{', '}', '', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -290,7 +290,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -368,7 +368,7 @@ scancodeDictionaries = {
         0x2C: ['+', '*', '~', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -385,9 +385,9 @@ scancodeDictionaries = {
         0x1A: ['ö', 'Ö', '˝', ''],
         0x1B: ['ä', 'Ä', '^', chr(0x1B)],
         0x1C: ['#', 'Ä', '’', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -405,7 +405,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -511,10 +511,10 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -524,7 +524,7 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 				0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
@@ -639,10 +639,10 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -652,7 +652,7 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 			0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
@@ -775,11 +775,11 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
-				0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
+        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
+				0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
 				# TBD CENTER ARROW
-				0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
-				0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
+				0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
+				0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -789,7 +789,7 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 				0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW
         0x49: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
@@ -924,7 +924,7 @@ class Interceptor(object):
         '''
         assert self.master_fd is None
         if not argv:
-            argv = [os.environ['SHELL'] , "--norc"]
+            argv = [os.environ['SHELL'], "--norc"]
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
@@ -1165,7 +1165,7 @@ def openSerial(port, speed):
 
 
 # Class that controls the seri'4277_DE':al port (USB) for send and receive
-class SerialPortControl :
+class SerialPortControl:
 
     # Wait for responses from terminals and invoke their processing
     def waitResponse(self, serialPort, pushToInputQueue, terminal):
@@ -1220,7 +1220,7 @@ class SerialPortControl :
         lastmillis = [None] * 7
 
         # Repeat forever
-        while True :
+        while True:
 
             # iterate through initialized terminals
             for terminal in term:
@@ -1374,7 +1374,7 @@ class SerialPortControl :
                 debugLog.write("TERMINAL:" + str(terminal) +
                                " SENT AN EXCEPTION CODE: " + str(status.getExceptionStatus()) + "\n")
                 term[terminal].resetException()
-            elif status.getExceptionStatus() == 0 :
+            elif status.getExceptionStatus() == 0:
                 if not inputQueue[terminal].empty():
                     term[terminal].setInitialized(1)
                     secondWord = inputQueue[terminal].get()
@@ -1402,7 +1402,7 @@ class SerialPortControl :
                                 status.getResponseLevel())
 
             # Send ACK if it is needed to indicate to the 5250 we have read its status
-            if term[terminal].getForceAck() or term[terminal].getPollActive() :
+            if term[terminal].getForceAck() or term[terminal].getPollActive():
                 term[terminal].setForceAck(0)
                 # debugLog.write ("SENDING ACK " + str(term.getForceAck()) + " " + str(term.getPollActive()) + "\n")
                 term[terminal].ACK()
@@ -2258,13 +2258,13 @@ class VT52_to_5250():
         return self.getEncodedPosition(0, 0)
 
     def getBeginningCurrentLineEncodedPosition(self):
-        return self.getEncodedPosition(self.cursorX , 0)
+        return self.getEncodedPosition(self.cursorX, 0)
 
     def getEndCurrentLineEncodedPosition(self):
-        return self.getEncodedPosition(self.cursorX , 79)
+        return self.getEncodedPosition(self.cursorX, 79)
 
     def getLowerRightPenultimateEncodedPosition(self):
-        return self.getEncodedPosition(22 , 79)
+        return self.getEncodedPosition(22, 79)
 
     # Get cursor position in 5250 format
     def getEncodedCursorPosition(self):
