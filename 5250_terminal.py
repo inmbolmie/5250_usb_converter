@@ -1995,7 +1995,7 @@ class VT52_to_5250():
         for char in string:
             try:
                 # Some custom character translations
-                if 'CUSTOM_CHARACTER_CONVERSIONS' in self.scancodeDictionary and  char in self.scancodeDictionary['CUSTOM_CHARACTER_CONVERSIONS']:
+                if 'CUSTOM_CHARACTER_CONVERSIONS' in self.scancodeDictionary and char in self.scancodeDictionary['CUSTOM_CHARACTER_CONVERSIONS']:
                     ebcdicArray.append(
                         self.scancodeDictionary['CUSTOM_CHARACTER_CONVERSIONS'][char])
 
