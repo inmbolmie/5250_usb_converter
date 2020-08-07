@@ -41,20 +41,20 @@ import cmd
 
 # Configure the defaulf dictionary to use if nothing is specified in the
 # command line, from those defined in scancodeDictionaries
-DEFAULT_SCANCODE_DICTIONARY='5250_ES'
+DEFAULT_SCANCODE_DICTIONARY = '5250_ES'
 
 # Configure the defaulf station address if nothing is specified in the
 # command line
-DEFAULT_STATION_ADDRESS=0
+DEFAULT_STATION_ADDRESS = 0
 
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
-DEFAULT_SLOW_POLLING=False
+DEFAULT_SLOW_POLLING = False
 SLOW_POLL_MILLISECONDS = 5
 ULTRA_SLOW_POLL_MILLISECONDS = 1000
 
 # Default EBCDIC codepage for character translations
-DEFAULT_CODEPAGE='cp037'
+DEFAULT_CODEPAGE = 'cp037'
 
 
 # Scancode lookup tables
@@ -818,33 +818,33 @@ scancodeDictionaries = {
 
 
 # Max commands pending to send to 5251 in command queue (flow control)
-COMMAND_QUEUE_MAX_PENDING=50
+COMMAND_QUEUE_MAX_PENDING = 50
 
 # 5250 commands
 # Not all available commands are used here
-CLEAR=int('10010', 2)
-EOQ=int('1100010', 2)
-INSERT_CHARACTER=int('00011', 2)
-LOAD_ADDRESS_COUNTER=int('10101', 2)
-LOAD_CURSOR_REGISTER=int('10111', 2)
-LOAD_REFERENCE_COUNTER=int('00111', 2)
-MOVE_DATA=int('00110', 2)
-POLL=int('10000', 2)
-ACK=int('110000', 2)
-READ_ACTIVATE=int('0', 2)
-WRITE_ACTIVATE=int('1', 2)
-READ_DATA=int('01000', 2)
-READ_FIELD_IMMEDIATE=int('11001', 2)
-READ_REGISTERS=int('11100', 2)
-READ_TO_END_OF_LINE=int('01010', 2)
-RESET=int('00010', 2)
-SET_MODE=int('10011', 2)
-WRITE_CONTROL_DATA=int('00101', 2)
-WRITE_DATA_LOAD_CURSOR=int('10001', 2)
-WRITE_DATA_LOAD_CURSOR_INDICATORS=int('1010001', 2)
-WRITE_IMMEDIATE_DATA=int('11101', 2)
-RESET_MSR=int('10010010', 2)
-RESET_LIGHT_PEN=int('10100010', 2)
+CLEAR = int('10010', 2)
+EOQ = int('1100010', 2)
+INSERT_CHARACTER = int('00011', 2)
+LOAD_ADDRESS_COUNTER = int('10101', 2)
+LOAD_CURSOR_REGISTER = int('10111', 2)
+LOAD_REFERENCE_COUNTER = int('00111', 2)
+MOVE_DATA = int('00110', 2)
+POLL = int('10000', 2)
+ACK = int('110000', 2)
+READ_ACTIVATE = int('0', 2)
+WRITE_ACTIVATE = int('1', 2)
+READ_DATA = int('01000', 2)
+READ_FIELD_IMMEDIATE = int('11001', 2)
+READ_REGISTERS = int('11100', 2)
+READ_TO_END_OF_LINE = int('01010', 2)
+RESET = int('00010', 2)
+SET_MODE = int('10011', 2)
+WRITE_CONTROL_DATA = int('00101', 2)
+WRITE_DATA_LOAD_CURSOR = int('10001', 2)
+WRITE_DATA_LOAD_CURSOR_INDICATORS = int('1010001', 2)
+WRITE_IMMEDIATE_DATA = int('11101', 2)
+RESET_MSR = int('10010010', 2)
+RESET_LIGHT_PEN = int('10100010', 2)
 
 
 # Start of pseudo-terminal management code
@@ -907,7 +907,7 @@ class Interceptor(object):
 
     def __init__(self, terminal):
         self.master_fd = None
-        self.term=terminal
+        self.term = terminal
         self.ttypid = None
         global disableInputCapture
 
@@ -947,7 +947,7 @@ class Interceptor(object):
         # except tty.error:    # This is the same as termios.error
         #     restore = 0
 
-        restore=0
+        restore = 0
         self._init_fd()
         try:
             self._copy()
@@ -1278,7 +1278,7 @@ class SerialPortControl :
                             term[terminal.getStationAddress()].setPollActive(0)
                             self.processResponse(terminal.getStationAddress())
                         else:
-                            doNotSendCommands=1
+                            doNotSendCommands = 1
 
                     # if outputCommandQueue[terminal].empty():
                         # wait a little not to trash too much CPU as we are
@@ -1324,7 +1324,7 @@ class SerialPortControl :
             # Generally we won't be reading anything from the terminal other
             # than polling statuses
             # So this logic is very simplified
-            firstWord=inputQueue[terminal].get()
+            firstWord = inputQueue[terminal].get()
             # the5250log.write(firstWord)
             status = term[terminal].decodeStatusResponse(firstWord)
 
@@ -1333,7 +1333,7 @@ class SerialPortControl :
                 debugLog.write (id + " RECEIVED STATUS WORD: " + firstWord)
                 debugLog.write(id + "   stationAddress: " +
                                str(status.getStationAddress()) + "\n")
-                debugLog.write (id +"   busy: " + str(status.getBusy()) + "\n")
+                debugLog.write (id + "   busy: " + str(status.getBusy()) + "\n")
                 debugLog.write(id + "   outstandingStatus: " +
                                str(status.getOutstandingStatus()) + "\n")
                 debugLog.write(id + "   exceptionStatus: " +
@@ -1370,15 +1370,15 @@ class SerialPortControl :
             elif status.getExceptionStatus() != 0 and term[terminal].getInitialized():
                 # Exception, log and send a reset command
                 if not inputQueue[terminal].empty():
-                    secondWord=inputQueue[terminal].get()
+                    secondWord = inputQueue[terminal].get()
                 debugLog.write("TERMINAL:" + str(terminal) +
                                " SENT AN EXCEPTION CODE: " + str(status.getExceptionStatus()) + "\n")
                 term[terminal].resetException()
             elif status.getExceptionStatus() == 0 :
                 if not inputQueue[terminal].empty():
                     term[terminal].setInitialized(1)
-                    secondWord=inputQueue[terminal].get()
-                    if len(secondWord) >=2:
+                    secondWord = inputQueue[terminal].get()
+                    if len(secondWord) >= 2:
                         if debugConnection:
                             debugLog.write ("RECEIVED DATA WORD: " + secondWord)
                         # the5250log.write(secondWord)
@@ -1415,11 +1415,11 @@ class SerialPortControl :
 # Class to hold the status decoded from a POLL response
 class StatusResponse():
     def __init__(self):
-        self.stationAddress=0
-        self.busy=0
-        self.outstandingStatus=0
-        self.exceptionStatus=0
-        self.responseLevel=0
+        self.stationAddress = 0
+        self.busy = 0
+        self.outstandingStatus = 0
+        self.exceptionStatus = 0
+        self.responseLevel = 0
         return
 
     def getStationAddress(self):
@@ -1463,7 +1463,7 @@ class StatusResponse():
 class MyPrompt(cmd.Cmd):
     prompt = '5250> '
     intro = "Welcome! Type ? to list commands"
-    cmd.Cmd.activeTerminal=0
+    cmd.Cmd.activeTerminal = 0
 
     def do_exit(self, inp):
         print("Bye")
@@ -1477,7 +1477,7 @@ class MyPrompt(cmd.Cmd):
         return
 
     def do_setactiveterminal(self, addr):
-        cmd.Cmd.activeTerminal=int(addr)
+        cmd.Cmd.activeTerminal = int(addr)
         return
 
     def do_input(self, inp):
@@ -1738,12 +1738,12 @@ class VT52_to_5250():
         self.savedCursorY = 0
         self.busy = 1
         self.responseLevel = 0
-        self.isInExceptionState=0
-        self.isShiftEnabled=0
-        self.isControlEnabled=0
-        self.isAltEnabled=0
+        self.isInExceptionState = 0
+        self.isShiftEnabled = 0
+        self.isControlEnabled = 0
+        self.isAltEnabled = 0
         self.isExtraEnabled = 0
-        self.forceAck=0
+        self.forceAck = 0
         self.pollActive = 0
         self.initialized = 0
         self.newlinePending = 0
@@ -1782,7 +1782,7 @@ class VT52_to_5250():
         return self.lowSpeedPolling
 
     def setInitialized(self, value):
-        self.initialized=value
+        self.initialized = value
         return
 
     def getInitialized(self):
@@ -1799,28 +1799,28 @@ class VT52_to_5250():
         return self.forceAck
 
     def setForceAck(self, value):
-        self.forceAck=value
+        self.forceAck = value
         return
 
     def getBusy(self):
         return self.busy
 
     def setBusy(self, state):
-        self.busy=state
+        self.busy = state
         return
 
     def getResponseLevel(self):
         return self.responseLevel
 
     def setResponseLevel(self, state):
-        self.responseLevel=state
+        self.responseLevel = state
         return
 
     def getIsInExceptionState(self):
         return self.isInExceptionState
 
     def setIsInExceptionState(self, state):
-        self.isInExceptionState=state
+        self.isInExceptionState = state
         return
 
     # Extracts escape chars from string and calls the adequate method to
@@ -1922,7 +1922,7 @@ class VT52_to_5250():
                         self.incompleteSequence.append(character3)
                         continue
                     character4 = stringArray.pop(0)
-                    self.ESC_Y(character3 -32, character4 -32)
+                    self.ESC_Y(character3 - 32, character4 - 32)
                 elif character2 == 98:
                     self.ESC_b()
                 elif character2 == 76:
@@ -2012,16 +2012,16 @@ class VT52_to_5250():
         # Split in chunks of 10 or less so that the string fits into the 5250
         # command buffer
         pieces = chunks(ebcdicArray, 10)
-        i=1
+        i = 1
         for piece in pieces:
-            i=i+1
+            i = i+1
             # Check if we are writing over the screen buffer. In that case
             # we need to insert a new line
             if len(piece) > self.getCharsToEndOfScreen():
 
                 # write self.getCharsToEndOfScreen() chars
                 first = piece[:self.getCharsToEndOfScreen()]
-                second= piece[self.getCharsToEndOfScreen():]
+                second = piece[self.getCharsToEndOfScreen():]
 
                 first2 = bytearray(first)
                 first2.insert(0, len(first))
@@ -2037,12 +2037,12 @@ class VT52_to_5250():
                 # write rest of chars
                 if len(second) > 0:
                     # delete first line
-                    self.cursorX=0
-                    self.cursorY=0
+                    self.cursorX = 0
+                    self.cursorY = 0
                     # self.EOQ()
                     self.ESC_M()
-                    self.cursorX=23
-                    self.cursorY=0
+                    self.cursorX = 23
+                    self.cursorY = 0
                     self.transmitCommand(
                         LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
                     self.transmitCommand(
@@ -2062,18 +2062,18 @@ class VT52_to_5250():
                 # so we cannot for example insert inmediately a new line at the bottom if we were already in the last line
                 if self.newlinePending:
                     # delete first line
-                    self.cursorX=0
-                    self.cursorY=0
+                    self.cursorX = 0
+                    self.cursorY = 0
                     # self.EOQ()
                     self.ESC_M()
-                    self.cursorX=23
-                    self.cursorY=0
+                    self.cursorX = 23
+                    self.cursorY = 0
                     self.transmitCommand(
                         LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
                     self.transmitCommand(
                         LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
                     self.EOQ()
-                    self.newlinePending=False
+                    self.newlinePending = False
                     self.cursorInPreviousLine = False
 
                 setNewLinePending = False
@@ -2084,7 +2084,7 @@ class VT52_to_5250():
                     setCursorInPreviousLine = True
 
                 if len(piece) == self.getCharsToEndOfScreen():
-                    setNewLinePending=True
+                    setNewLinePending = True
 
                 piece2 = bytearray(piece)
                 piece2.insert(0, len(piece))
@@ -2168,7 +2168,7 @@ class VT52_to_5250():
                 fourthByte = ((i & 0xC0) >> 6) + (destination << 2) + 0x40
             else:
                 fourthByte = ((i & 0xC0) >> 6) + (7 << 2) + 0x40
-            index=index+1
+            index = index+1
             toTx.append(thirdByte)
             toTx.append(fourthByte)
 
@@ -2196,15 +2196,15 @@ class VT52_to_5250():
 
     # Increment cursor position without changing line
     def incrementCursorKeepLine(self, inc):
-        self.newlinePending=False
-        self.cursorInPreviousLine=False
+        self.newlinePending = False
+        self.cursorInPreviousLine = False
         self.cursorY = min([max([0, self.cursorY + inc]), 79])
         return
 
     # Increment cursor position changing line if needed
     def incrementCursor(self, inc):
-        self.newlinePending=False
-        self.cursorInPreviousLine=False
+        self.newlinePending = False
+        self.cursorInPreviousLine = False
         self.cursorX = min(
             [max([0, (self.cursorX + ((self.cursorY + inc) // 80))]), 23])
         self.cursorY = min([max([0, ((self.cursorY + inc) % 80) ]), 79])
@@ -2216,36 +2216,36 @@ class VT52_to_5250():
 
     # Get number of characters left to write before we reach the end of current line
     def getCharsToEndOfLine(self):
-        return 80 -self.cursorY
+        return 80 - self.cursorY
 
     # Move cursor
     def positionCursor(self, x, y):
-        self.newlinePending=False
-        self.cursorInPreviousLine=False
+        self.newlinePending = False
+        self.cursorInPreviousLine = False
         self.cursorX = x
         self.cursorY = y
         return
 
     # Save current cursor position
     def saveCursorPosition(self):
-        self.savedNewlinePending=self.newlinePending
-        self.savedCursorInPreviousLine=self.cursorInPreviousLine
+        self.savedNewlinePending = self.newlinePending
+        self.savedCursorInPreviousLine = self.cursorInPreviousLine
         self.savedCursorX = self.cursorX
         self.savedCursorY = self.cursorY
         return
 
     # Restore saved cursor position
     def restoreCursorPosition(self):
-        self.newlinePending=self.savedNewlinePending
-        self.cursorInPreviousLine=self.savedCursorInPreviousLine
+        self.newlinePending = self.savedNewlinePending
+        self.cursorInPreviousLine = self.savedCursorInPreviousLine
         self.cursorX = self.savedCursorX
         self.cursorY = self.savedCursorY
         return
 
     # Tabulator jump
     def jumpCursorNextTab(self):
-        self.newlinePending=False
-        self.cursorInPreviousLine=False
+        self.newlinePending = False
+        self.cursorInPreviousLine = False
         self.cursorY = ((self.cursorY + 8) // 8) * 8
         if (self.cursorY > 79):
             self.cursorY = self.cursorY % 80
@@ -2268,12 +2268,12 @@ class VT52_to_5250():
 
     # Get cursor position in 5250 format
     def getEncodedCursorPosition(self):
-        if self.cursorX<0:
+        if self.cursorX < 0:
             # What? Go away, nothing to see here
-            self.cursorX=0
-        if self.cursorY<0:
+            self.cursorX = 0
+        if self.cursorY < 0:
             # WTF? I told you to go away!
-            self.cursorY=0
+            self.cursorY = 0
         return self.getEncodedPosition(self.cursorX, self.cursorY)
 
     # Get first char of next line position
@@ -2282,8 +2282,8 @@ class VT52_to_5250():
 
     # Position cursor in origin
     def zeroCursorPosition(self):
-        self.newlinePending=False
-        self.cursorInPreviousLine=False
+        self.newlinePending = False
+        self.cursorInPreviousLine = False
         self.cursorX = 0
         self.cursorY = 0
         return
@@ -2605,9 +2605,9 @@ class VT52_to_5250():
         if self.cursorX  > 0 and self.cursorInPreviousLine:
             if not self.newlinePending:
                 self.cursorX = self.cursorX - 1
-            self.cursorY=79
+            self.cursorY = 79
         elif self.cursorInPreviousLine:
-            self.cursorY=79
+            self.cursorY = 79
         # decremento cursor column
         self.incrementCursorKeepLine(-1)
         # update cursor position
@@ -2625,7 +2625,7 @@ class VT52_to_5250():
             self.cursorX = self.cursorX - 1
 
         if self.cursorInPreviousLine:
-            self.cursorY=79
+            self.cursorY = 79
 
         # increment cursor column
         self.incrementCursorKeepLine(1)
@@ -2644,7 +2644,7 @@ class VT52_to_5250():
             if self.cursorInPreviousLine:
                 if not self.newlinePending:
                     self.cursorX = self.cursorX - 1
-                self.cursorY=79
+                self.cursorY = 79
             self.cursorX = self.cursorX - 1
             # update cursor position
             self.positionCursor(self.cursorX, self.cursorY )
@@ -2674,9 +2674,9 @@ class VT52_to_5250():
     # Insert line 	Insert a line and move cursor to beginning
         # Move lines one position to the bottom
         # Hide cursor.
-        hidden=False
+        hidden = False
         if not self.statusByte & 0x80:
-            hidden=True
+            hidden = True
             self.statusByte = self.statusByte | 0x80
             self.transmitCommand(WRITE_CONTROL_DATA,
                                  self.destinationAddr, [self.statusByte])
@@ -2715,9 +2715,9 @@ class VT52_to_5250():
     def ESC_M(self):
     # Delete line 	Remove line position cursor first column.
         # Hide cursor.
-        hidden=False
+        hidden = False
         if not self.statusByte & 0x80:
-            hidden=True
+            hidden = True
             self.statusByte = self.statusByte | 0x80
             self.transmitCommand(WRITE_CONTROL_DATA,
                                  self.destinationAddr, [self.statusByte])
@@ -2769,14 +2769,14 @@ class VT52_to_5250():
     # Line feed 	Line feed.
         if (self.cursorX == 23):
             # Last line
-            prevCursorY=self.cursorY
+            prevCursorY = self.cursorY
             # Need to delete line
             # delete first line
-            self.cursorX=0
-            self.cursorY=0
+            self.cursorX = 0
+            self.cursorY = 0
             self.ESC_M()
-            self.cursorX=23
-            self.cursorY=prevCursorY
+            self.cursorX = 23
+            self.cursorY = prevCursorY
             self.transmitCommand(
                 LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
             self.transmitCommand(
@@ -2811,7 +2811,7 @@ class VT52_to_5250():
             # Already made
             return
         if self.cursorInPreviousLine and self.cursorX > 0:
-            self.cursorX = self.cursorX -1
+            self.cursorX = self.cursorX - 1
         self.incrementCursorKeepLine(-80)
         self.transmitCommand(
             LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
@@ -2939,13 +2939,13 @@ if __name__ == '__main__':
     ignoreNextParam = False
 
     inputArgs = sys.argv
-    numterminals=0
+    numterminals = 0
 
-    if len(inputArgs)==1:
+    if len(inputArgs) == 1:
         # Default action is to look for terminal address = DEFAULT_STATION_ADDRESS
         inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
-    numpars=len(inputArgs)
+    numpars = len(inputArgs)
     # Iterate through terminal specifications from the command line
     for i in range(1,  numpars + 1):
 
@@ -2953,10 +2953,10 @@ if __name__ == '__main__':
             ignoreNextParam = False
             continue
 
-        if (i == numpars) and numterminals==0:
+        if (i == numpars) and numterminals == 0:
             inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
-        elif (i == numpars) and numterminals>0:
+        elif (i == numpars) and numterminals > 0:
             continue
 
         if inputArgs[i] == '-h' or inputArgs[i] == '-H' or inputArgs[i] == 'H' or inputArgs[i] == 'h':
@@ -3021,7 +3021,7 @@ if __name__ == '__main__':
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress])
 
-        numterminals=numterminals+1
+        numterminals = numterminals+1
 
     writeLog = None
     readLog = None
@@ -3036,5 +3036,5 @@ if __name__ == '__main__':
     serialController = SerialPortControl()
     _thread.start_new_thread(serialController.write, (None,))
 
-    disableInputCapture=1
+    disableInputCapture = 1
     MyPrompt().cmdloop()
