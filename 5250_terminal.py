@@ -524,7 +524,7 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
         0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
@@ -652,7 +652,7 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
         0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
