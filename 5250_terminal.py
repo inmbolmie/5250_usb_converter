@@ -815,8 +815,6 @@ scancodeDictionaries = {
 }
 
 
-
-
 # Max commands pending to send to 5251 in command queue (flow control)
 COMMAND_QUEUE_MAX_PENDING = 50
 
