@@ -64,8 +64,10 @@ DEFAULT_CODEPAGE = 'cp037'
 # Position 1: Shift + key
 # Position 2: Alt + key
 # Position 3: Ctrl + key
-# Position 4 (optional): Extra char to send when the first char resolves to ESC (0x1B)
-# Position 5 (optional): When the EXTRA scancode is received before the given scancode, send 0x1B plus this char
+# Position 4 (optional): Extra char to send when the first char resolves to
+#                        ESC (0x1B)
+# Position 5 (optional): When the EXTRA scancode is received before the given
+#                        scancode, send 0x1B plus this char
 
 scancodeDictionaries = {
 
@@ -153,7 +155,8 @@ scancodeDictionaries = {
         0x1C: ['ç', 'Ç', '}', chr(0x1D)],
         0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        # NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],
         0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -179,7 +182,8 @@ scancodeDictionaries = {
         # ROW 5
         0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
             '[': 0x4A,
             ']': 0x5A,
@@ -272,7 +276,8 @@ scancodeDictionaries = {
         0x1C: ['{', '}', '', chr(0x1D)],
         0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        # NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],
         0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -298,7 +303,8 @@ scancodeDictionaries = {
         # ROW 5
         0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
@@ -387,7 +393,8 @@ scancodeDictionaries = {
         0x1C: ['#', 'Ä', '’', chr(0x1D)],
         0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        # NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],
         0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -413,7 +420,8 @@ scancodeDictionaries = {
         # ROW 5
         0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
@@ -524,23 +532,28 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
         0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
+        # NUMPAD 8  EXTRA UP ARROW
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-        0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
+        # NUMPAD 4   EXTRA LEFT ARROW
+        0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
+        # NUMPAD 6 EXTRA RIGHT ARROW
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],
         0x58: [chr(0x0D), '', '', ''],  # ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
+        # NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
         0x71: ['.', '', '', ''],
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
@@ -652,23 +665,28 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
         0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
+        # NUMPAD 8  EXTRA UP ARROW
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-        0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
+        # NUMPAD 4   EXTRA LEFT ARROW
+        0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
+        # NUMPAD 6 EXTRA RIGHT ARROW
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],
         0x58: [chr(0x0D), '', '', ''],  # ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
+        # NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
         0x71: ['.', '', '', ''],
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
@@ -789,23 +807,27 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
+        # NUMPAD 8  EXTRA UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],
         0x49: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
+        # NUMPAD 4   EXTRA LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],
         0x45: ['5', '5', '', ''],
         0x46: ['6', '6', '', '', 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
         # ROW 4
         0x41: ['1', '1', '', ''],
-        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
+        # NUMPAD 2  EXTRA DOWN ARROW
+        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'],
         0x43: ['3', '3', '', ''],
         0x2D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 5
         0x40: ['0', '0', '', ''],
         0x4A: ['.', '', '', ''],
 
-        # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
         },
     },
@@ -998,7 +1020,8 @@ class Interceptor(object):
             # Read data from shell if it is available and there aren't many
             # pending commands in queue (flow control)
             q_size = outputCommandQueue[self.term.getStationAddress()].qsize()
-            if master_fd in rfds and (q_size < COMMAND_QUEUE_MAX_PENDING) and self.term.getInitialized():
+            if master_fd in rfds and (q_size < COMMAND_QUEUE_MAX_PENDING) and \
+                    self.term.getInitialized():
                 try:
                     data = os.read(self.master_fd, 128)
                 except (IOError, OSError, TypeError):
@@ -1341,7 +1364,8 @@ class SerialPortControl:
 
             term[terminal].setBusy(status.getBusy())
 
-            if inputQueue[terminal].empty() and (status.getExceptionStatus() == 7):
+            if inputQueue[terminal].empty() and \
+                    (status.getExceptionStatus() == 7):
                 # Terminal detected but needs to be initialized
 
                 # Reset terminal
@@ -1358,19 +1382,21 @@ class SerialPortControl:
                 term[terminal].SET_MODE()
 
                 # Clear screen and init shell
-                debugLog.write(
-                    "STARTING SHELL FOR DETECTED TERMINAL: " + str(terminal) + "\n")
+                debugLog.write("STARTING SHELL FOR DETECTED TERMINAL: " +
+                               str(terminal) + "\n")
                 term[terminal].ESC_E()
                 _thread.start_new_thread(
                     interceptors[terminal].arranque, (None,))
                 return
 
-            elif status.getExceptionStatus() != 0 and term[terminal].getInitialized():
+            elif status.getExceptionStatus() != 0 and \
+                    term[terminal].getInitialized():
                 # Exception, log and send a reset command
                 if not inputQueue[terminal].empty():
                     secondWord = inputQueue[terminal].get()
                 debugLog.write("TERMINAL:" + str(terminal) +
-                               " SENT AN EXCEPTION CODE: " + str(status.getExceptionStatus()) + "\n")
+                               " SENT AN EXCEPTION CODE: " +
+                               str(status.getExceptionStatus()) + "\n")
                 term[terminal].resetException()
             elif status.getExceptionStatus() == 0:
                 if not inputQueue[terminal].empty():
@@ -1382,27 +1408,38 @@ class SerialPortControl:
                         # the5250log.write(secondWord)
                         scancode = term[terminal].decodeDataResponse(
                             secondWord)
-                        # debugLog.write ("RECEIVED DATA BYTE: " + str(scancode) + "\n")
-                        # get keystroke if ack is not pending and is different from 0x00 and 0xFF
-                        # debugLog.write ("CANDIDATE SCANCODE: " + hex(scancode) + " RLEVEL: " + str(term.getResponseLevel()) + "\n")
-                        if ((not term[terminal].getResponseLevel() == status.getResponseLevel()) and (scancode != 0x00) and (scancode != 0xFF)):
+                        # debugLog.write ("RECEIVED DATA BYTE: " +
+                        # str(scancode) + "\n")
+                        # get keystroke if ack is not pending and is different
+                        # from 0x00 and 0xFF
+                        # debugLog.write ("CANDIDATE SCANCODE: " +
+                        # hex(scancode) + " RLEVEL: " +
+                        # str(term.getResponseLevel()) + "\n")
+                        if ((not term[terminal].getResponseLevel() ==
+                                status.getResponseLevel()) and
+                                (scancode != 0x00) and (scancode != 0xFF)):
                             term[terminal].setResponseLevel(
                                 status.getResponseLevel())
                             if debugKeystrokes:
-                                debugLog.write(
-                                    "RECEIVED SCANCODE: " + hex(scancode) + " FROM TERMINAL: " + str(terminal) + "\n")
+                                debugLog.write("RECEIVED SCANCODE: " +
+                                               hex(scancode) +
+                                               " FROM TERMINAL: " +
+                                               str(terminal) + "\n")
                             # Convert scancode and send to the SHELL
                             if scancode != "":
                                 # Send to SHELL
                                 term[terminal].processScanCode(scancode)
-                        if not term[terminal].getResponseLevel() == status.getResponseLevel():
+                        if not term[terminal].getResponseLevel() == \
+                                status.getResponseLevel():
                             term[terminal].setResponseLevel(
                                 status.getResponseLevel())
 
-            # Send ACK if it is needed to indicate to the 5250 we have read its status
+            # Send ACK if it is needed to indicate to the 5250 we have read
+            # its status
             if term[terminal].getForceAck() or term[terminal].getPollActive():
                 term[terminal].setForceAck(0)
-                # debugLog.write ("SENDING ACK " + str(term.getForceAck()) + " " + str(term.getPollActive()) + "\n")
+                # debugLog.write ("SENDING ACK " + str(term.getForceAck()) +
+                # " " + str(term.getPollActive()) + "\n")
                 term[terminal].ACK()
 
         return
@@ -1669,13 +1706,15 @@ class MyPrompt(cmd.Cmd):
 
     def do_txstatusbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
-            WRITE_CONTROL_DATA, term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
+            WRITE_CONTROL_DATA, term[cmd.Cmd.activeTerminal].destinationAddr,
+            [int(status)])
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
     def do_txindicatorsbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
-            WRITE_DATA_LOAD_CURSOR_INDICATORS, term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
+            WRITE_DATA_LOAD_CURSOR_INDICATORS,
+            term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
@@ -1683,8 +1722,7 @@ class MyPrompt(cmd.Cmd):
         piece = bytearray()
         piece.insert(0, int(char, 0))
         piece.insert(0, 1)
-        term[cmd.Cmd.activeTerminal].transmitCommand(
-            WRITE_DATA_LOAD_CURSOR, term[cmd.Cmd.activeTerminal].destinationAddr, piece)
+        term[cmd.Cmd.activeTerminal].transmitCommand(WRITE_DATA_LOAD_CURSOR, term[cmd.Cmd.activeTerminal].destinationAddr, piece)
         term[cmd.Cmd.activeTerminal].incrementCursor(1)
         term[cmd.Cmd.activeTerminal].EOQ()
         return
@@ -1725,7 +1763,8 @@ def reverseByte(byte):
 # Class that implments the VT52 to 5250 conversion and holds the terminal
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
-    def __init__(self, address, scancodeDictionary, lowSpeedPolling, EBCDICcodepage):
+    def __init__(self, address, scancodeDictionary, lowSpeedPolling,
+                 EBCDICcodepage):
         self.lowSpeedPolling = lowSpeedPolling
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
@@ -1865,7 +1904,8 @@ class VT52_to_5250():
                         if len(stringArray) == 0:
                             # It seems the escape sequence is incomplete and
                             # the rest will be received in the next string
-                            # debugLog.write ("INCOMPLETE ANSI ESCAPE SEQUENCE\n")
+                            # debugLog.write
+                            # ("INCOMPLETE ANSI ESCAPE SEQUENCE\n")
                             self.incompleteSequence = bytearray()
                             self.incompleteSequence.append(0x1b)
                             self.incompleteSequence.append(0x5B)
@@ -2041,10 +2081,12 @@ class VT52_to_5250():
                     self.ESC_M()
                     self.cursorX = 23
                     self.cursorY = 0
-                    self.transmitCommand(
-                        LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-                    self.transmitCommand(
-                        LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+                    self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                         self.destinationAddr,
+                                         self.getEncodedCursorPosition())
+                    self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                         self.destinationAddr,
+                                         self.getEncodedCursorPosition())
                     self.EOQ()
 
                     # txstring
@@ -2055,9 +2097,12 @@ class VT52_to_5250():
 
             else:
 
-                # Stuff to manage vt52 weirdness in cursor positioning when writing over the end of line
-                # because if no char is written after reaching EOL the cursor is really still in the previous line if we try to move it
-                # so we cannot for example insert inmediately a new line at the bottom if we were already in the last line
+                # Stuff to manage vt52 weirdness in cursor positioning when
+                # writing over the end of line because if no char is written
+                # after reaching EOL the cursor is really still in the
+                # previous line if we try to move it so we cannot for example
+                # insert inmediately a new line at the bottom if we were
+                # already in the last line
                 if self.newlinePending:
                     # delete first line
                     self.cursorX = 0
@@ -2066,10 +2111,12 @@ class VT52_to_5250():
                     self.ESC_M()
                     self.cursorX = 23
                     self.cursorY = 0
-                    self.transmitCommand(
-                        LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-                    self.transmitCommand(
-                        LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+                    self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                         self.destinationAddr,
+                                         self.getEncodedCursorPosition())
+                    self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                         self.destinationAddr,
+                                         self.getEncodedCursorPosition())
                     self.EOQ()
                     self.newlinePending = False
                     self.cursorInPreviousLine = False
@@ -2078,7 +2125,8 @@ class VT52_to_5250():
                 setCursorInPreviousLine = False
 
                 if len(piece) == self.getCharsToEndOfLine():
-                    # Cursor in Vt52 will be in the position x-1,79 regarding cursor movement
+                    # Cursor in Vt52 will be in the position x-1,79 regarding
+                    # cursor movement
                     setCursorInPreviousLine = True
 
                 if len(piece) == self.getCharsToEndOfScreen():
@@ -2096,7 +2144,8 @@ class VT52_to_5250():
                     self.newlinePending = True
 
                 if setCursorInPreviousLine:
-                    # Cursor in Vt52 will be in the position x-1,79 regarding cursor movement
+                    # Cursor in Vt52 will be in the position x-1,79 regarding
+                    # cursor movement
                     self.cursorInPreviousLine = True
 
         return
@@ -2105,7 +2154,8 @@ class VT52_to_5250():
 
     def decodeStatusResponse(self, response):
         # Ej: 0101 1100 0100 0111  not initialized  RAW: 1011100001111000
-        # Ej: 0000 0000 0100 1111  initialized after set mode command  RAW: 1000000011111000
+        # Ej: 0000 0000 0100 1111  initialized after set mode command
+        # RAW: 1000000011111000
 
         status = StatusResponse()
 
@@ -2120,8 +2170,10 @@ class VT52_to_5250():
             (reverseByte(statusWordA) >> 2)
         # 11100001110
 
-        # debugLog.write ("DECODED STATUS BYTE A " + str(reverseByte(statusWordA)) + "\n")
-        # debugLog.write ("DECODED STATUS BYTE B " + str(reverseByte(statusWordB)) + "\n")
+        # debugLog.write ("DECODED STATUS BYTE A " +
+        # str(reverseByte(statusWordA)) + "\n")
+        # debugLog.write ("DECODED STATUS BYTE B " +
+        # str(reverseByte(statusWordB)) + "\n")
         # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
         # 10000000
         status.setStationAddress((statusWord & 0x700) >> 8)
@@ -2182,7 +2234,8 @@ class VT52_to_5250():
         return
 
     # Mark end of a related command sequence
-    # At this point the serial code will wait for a response before sending more commands to this terminal
+    # At this point the serial code will wait for a response before sending
+    # more commands to this terminal
     # to avoid buffer overruns
     def endOfCommandSequence(self):
         outputCommandQueue[self.destinationAddr].put("")
@@ -2208,11 +2261,13 @@ class VT52_to_5250():
         self.cursorY = min([max([0, ((self.cursorY + inc) % 80)]), 79])
         return
 
-    # Get number of characters left to write before we reach the end of screen buffer
+    # Get number of characters left to write before we reach the end of screen
+    # buffer
     def getCharsToEndOfScreen(self):
         return 1920 - (80*self.cursorX + self.cursorY)
 
-    # Get number of characters left to write before we reach the end of current line
+    # Get number of characters left to write before we reach the end of current
+    # line
     def getCharsToEndOfLine(self):
         return 80 - self.cursorY
 
@@ -2286,8 +2341,8 @@ class VT52_to_5250():
         self.cursorY = 0
         return
 
-    # Process scan code, either setting make/break status or converting to ASCII
-    # And sending to the shell
+    # Process scan code, either setting make/break status or converting to
+    # ASCII and sending to the shell
     def processScanCode(self, scancode):
         global interceptors
         # Look for break keys
@@ -2306,7 +2361,8 @@ class VT52_to_5250():
             # debugLog.write("SPECIAL SHIFT DISABLED\n")
         elif scancode in self.scancodeDictionary['CTRL_PRESS']:
 
-            if self.isControlEnabled and len(self.scancodeDictionary['CTRL_RELEASE']) == 0:
+            if self.isControlEnabled and \
+                    len(self.scancodeDictionary['CTRL_RELEASE']) == 0:
                 # needed if you use a non-break key for releasing CONTROL
                 self.isControlEnabled = 0
             else:
@@ -2318,7 +2374,8 @@ class VT52_to_5250():
             self.isControlEnabled = 0
             # debugLog.write("SPECIAL CONTROL DISABLED\n")
         elif scancode in self.scancodeDictionary['ALT_PRESS']:
-            if self.isAltEnabled and len(self.scancodeDictionary['ALT_RELEASE']) == 0:
+            if self.isAltEnabled and \
+                    len(self.scancodeDictionary['ALT_RELEASE']) == 0:
                 # needed if you use a non-break key for releasing CONTROL
                 self.isAltEnabled = 0
             else:
@@ -2335,26 +2392,35 @@ class VT52_to_5250():
             # Turn on light
             if self.isCapsLockEnabled:
                 self.indicatorsByte = self.indicatorsByte | 0x10
-                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS, self.destinationAddr, [
-                                     self.indicatorsByte])
+                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
+                                     self.destinationAddr,
+                                     [self.indicatorsByte])
             else:
                 self.indicatorsByte = self.indicatorsByte & 0xEF
-                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS, self.destinationAddr, [
-                                     self.indicatorsByte])
+                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
+                                     self.destinationAddr,
+                                     [self.indicatorsByte])
             self.EOQ()
 
         else:
             # regular key
             # Transmit regular, shifted, control, or alt variant
-            # debugLog.write("RECEIVED SCANCODE:" + hex(scancode)+ " FROM TERMINAL: " + str(self.destinationAddr)  +   "\n")
+            # debugLog.write("RECEIVED SCANCODE:" + hex(scancode) +
+            #                " FROM TERMINAL: " +
+            #                str(self.destinationAddr)  +   "\n")
             if scancode not in self.scancodeDictionary:
                 # error
-                # debugLog.write("UNKNOWN SCANCODE: " + str(scancode) + " FOR TERMINAL: " + str(self.destinationAddr) + "\n")
+                # debugLog.write("UNKNOWN SCANCODE: " + str(scancode) +
+                #                " FOR TERMINAL: " +
+                #                str(self.destinationAddr) + "\n")
                 self.isExtraEnabled = 0
                 return
 
             else:
-                if (self.isShiftEnabled and not self.isCapsLockEnabled) or (not self.isShiftEnabled and self.isCapsLockEnabled):
+                if \
+                        (self.isShiftEnabled and not self.isCapsLockEnabled) \
+                        or \
+                        (not self.isShiftEnabled and self.isCapsLockEnabled):
                     # SHIFT+key
 
                     if self.scancodeDictionary[scancode][1] == chr(0x1B):
@@ -2426,7 +2492,8 @@ class VT52_to_5250():
         self.isExtraEnabled = 0
         return
 
-    # VT52 escape sequences implemented as 5250 commands and other 5250 management commands
+    # VT52 escape sequences implemented as 5250 commands and other 5250
+    # management commands
     #
     # Clear sc
 
@@ -2462,10 +2529,12 @@ class VT52_to_5250():
         # Backspace 	Delete character to left of cursor.
         self.incrementCursor(-1)
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         self.transmitCommand(WRITE_DATA_LOAD_CURSOR,
                              self.destinationAddr, [1, 0x40])
@@ -2482,8 +2551,9 @@ class VT52_to_5250():
     def ESC_J(self):
         # Clear to end of screen 	Clear screen from cursor onwards.
         # Move address counter to cursor position
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         # Move reference counter to lower right corner
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getLowerRightCornerEncodedPosition())
@@ -2495,8 +2565,9 @@ class VT52_to_5250():
     def ESC_K(self):
         # Clear to end of line 	Clear line from cursor onwards.
         # Move address counter to cursor position
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         # Move reference counter to end of current line
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getEndCurrentLineEncodedPosition())
@@ -2518,10 +2589,12 @@ class VT52_to_5250():
         # Move cursor to upper left corner
         self.zeroCursorPosition()
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2547,8 +2620,9 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getBeginningCurrentLineEncodedPosition())
         # Move reference counter to cursor position
-        self.transmitCommand(
-            LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_REFERENCE_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         # Send clear command
         self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
@@ -2560,8 +2634,9 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
                              self.getUpperLeftCornerEncodedPosition())
         # Move reference counter to cursor position
-        self.transmitCommand(
-            LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_REFERENCE_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         # Send clear command
         self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
@@ -2578,10 +2653,12 @@ class VT52_to_5250():
 
         # update cursor position
         self.positionCursor(self.cursorX, self.cursorY)
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
 
         return
@@ -2591,10 +2668,12 @@ class VT52_to_5250():
         # zero cursor position
         self.zeroCursorPosition()
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2609,17 +2688,21 @@ class VT52_to_5250():
         # decremento cursor column
         self.incrementCursorKeepLine(-1)
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
     def ESC_C(self):
         # Cursor right 	Move cursor one column to the right.
 
-        if self.cursorX > 0 and self.cursorInPreviousLine and not self.newlinePending:
+        if self.cursorX > 0 and \
+                self.cursorInPreviousLine and \
+                not self.newlinePending:
             self.cursorX = self.cursorX - 1
 
         if self.cursorInPreviousLine:
@@ -2628,10 +2711,12 @@ class VT52_to_5250():
         # increment cursor column
         self.incrementCursorKeepLine(1)
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2646,10 +2731,12 @@ class VT52_to_5250():
             self.cursorX = self.cursorX - 1
             # update cursor position
             self.positionCursor(self.cursorX, self.cursorY)
-            self.transmitCommand(
-                LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-            self.transmitCommand(
-                LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
             self.EOQ()
         return
 
@@ -2657,10 +2744,12 @@ class VT52_to_5250():
         # Set cursor position 	Position cursor.
         self.positionCursor(x, y)
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2681,14 +2770,16 @@ class VT52_to_5250():
             self.EOQ()
 
         # for x in range(23, self.cursorX, -1):
-        self.transmitCommand(
-            LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedPosition(23, 79))
+        self.transmitCommand(LOAD_REFERENCE_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedPosition(23, 79))
         # Move reference counter to beginning of current line
         self.transmitCommand(LOAD_CURSOR_REGISTER, self.destinationAddr,
                              self.getEncodedPosition(self.cursorX, 0))
         # Move cursor counter to end of screen
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedPosition(22, 79))
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedPosition(22, 79))
         # Move data
         self.transmitCommand(MOVE_DATA, self.destinationAddr, [])
         # update cursor position
@@ -2696,10 +2787,12 @@ class VT52_to_5250():
 
         # Cursor to first column
         self.incrementCursorKeepLine(-80)
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         # Clear current line
         self.ESC_K()
         # Restore cursor
@@ -2723,14 +2816,17 @@ class VT52_to_5250():
 
         if self.cursorX != 23:
             # copy previous line
-            self.transmitCommand(
-                LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedPosition(self.cursorX, 0))
+            self.transmitCommand(LOAD_REFERENCE_COUNTER,
+                                 self.destinationAddr,
+                                 self.getEncodedPosition(self.cursorX, 0))
             # Move reference counter to beginning of current line
-            self.transmitCommand(LOAD_ADDRESS_COUNTER, self.destinationAddr,
+            self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                 self.destinationAddr,
                                  self.getEncodedPosition(self.cursorX + 1, 0))
             # Move cursor counter to end of screen
-            self.transmitCommand(
-                LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedPosition(23, 79))
+            self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                 self.destinationAddr,
+                                 self.getEncodedPosition(23, 79))
             # Move data
             self.transmitCommand(MOVE_DATA, self.destinationAddr, [])
             # update cursor position
@@ -2739,21 +2835,25 @@ class VT52_to_5250():
         # Clear last line
         # delete last line
         # Move address counter to beginning of last line
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedPosition(23, 0))
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedPosition(23, 0))
         # Move reference counter to end of last line
-        self.transmitCommand(
-            LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedPosition(23, 79))
+        self.transmitCommand(LOAD_REFERENCE_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedPosition(23, 79))
         # Send clear command
         self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
 
         # Cursor to first column
         self.incrementCursorKeepLine(-80)
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         # Restore cursor
         if hidden:
@@ -2775,18 +2875,22 @@ class VT52_to_5250():
             self.ESC_M()
             self.cursorX = 23
             self.cursorY = prevCursorY
-            self.transmitCommand(
-                LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-            self.transmitCommand(
-                LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
             self.EOQ()
         else:
             # Otherwise
             self.incrementCursor(80)
-            self.transmitCommand(
-                LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-            self.transmitCommand(
-                LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_CURSOR_REGISTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
+            self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                                 self.destinationAddr,
+                                 self.getEncodedCursorPosition())
             self.EOQ()
         return
 
@@ -2794,8 +2898,9 @@ class VT52_to_5250():
         # Restore cursor position 	Restore saved cursor.
         self.restoreCursorPosition()
         # update cursor position
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2811,10 +2916,12 @@ class VT52_to_5250():
         if self.cursorInPreviousLine and self.cursorX > 0:
             self.cursorX = self.cursorX - 1
         self.incrementCursorKeepLine(-80)
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
 
         return
@@ -2857,10 +2964,12 @@ class VT52_to_5250():
 
         # Calculate cursor Position
         self.jumpCursorNextTab()
-        self.transmitCommand(
-            LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
-        self.transmitCommand(
-            LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_CURSOR_REGISTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
+        self.transmitCommand(LOAD_ADDRESS_COUNTER,
+                             self.destinationAddr,
+                             self.getEncodedCursorPosition())
         self.EOQ()
         return
 
@@ -2940,7 +3049,8 @@ if __name__ == '__main__':
     numterminals = 0
 
     if len(inputArgs) == 1:
-        # Default action is to look for terminal address = DEFAULT_STATION_ADDRESS
+        # Default action is to look for
+        # terminal address = DEFAULT_STATION_ADDRESS
         inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
     numpars = len(inputArgs)
@@ -2957,9 +3067,14 @@ if __name__ == '__main__':
         elif (i == numpars) and numterminals > 0:
             continue
 
-        if inputArgs[i] == '-h' or inputArgs[i] == '-H' or inputArgs[i] == 'H' or inputArgs[i] == 'h':
+        if inputArgs[i] == '-h' or \
+           inputArgs[i] == '-H' or \
+           inputArgs[i] == 'H' or \
+           inputArgs[i] == 'h':
             sys.exit(
-                "USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] [STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:[EBCDIC_CODEPAGE]] ... ")
+                "USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] " +
+                "[STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:" +
+                "[EBCDIC_CODEPAGE]] ... ")
 
         if inputArgs[i] == '-c':
             # Extra connection debugging
@@ -3004,8 +3119,10 @@ if __name__ == '__main__':
         if len(termdef) > 3:
             codepage = termdef[3]
 
-        print("Searching for terminal address: " + str(termAddress) + "; with scancode dictionary: " +
-              termDictionary + "; slow poll active: " + str(slowPoll) + "; EBCDIC codepage: " + codepage + "\n")
+        print("Searching for terminal address: " + str(termAddress) +
+              "; with scancode dictionary: " + termDictionary +
+              "; slow poll active: " + str(slowPoll) +
+              "; EBCDIC codepage: " + codepage + "\n")
 
         # Initializing terminal "termAddress"
 
