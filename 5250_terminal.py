@@ -1132,7 +1132,7 @@ def bps_to_termios_sym(bps):
 
 # Routine to initialize USB-serial port
 def openSerial(port, speed):
-    print("Connecting to 5250 converter USB Device at " + port )
+    print("Connecting to 5250 converter USB Device at " + port)
     fd = None
     try:
         fd = os.open(port, os.O_RDWR | os.O_NOCTTY | os.O_NDELAY)
@@ -1211,7 +1211,7 @@ class SerialPortControl :
         global term
         global debugLog
         global ttyfile
-        fd = openSerial(ttyfile, 57600 )
+        fd = openSerial(ttyfile, 57600)
         time.sleep(1) # wait for Arduino
         serialPort = os.fdopen(fd, "r")
         serialPortWrite = os.fdopen(fd, "w")
@@ -2126,12 +2126,12 @@ class VT52_to_5250():
         # debugLog.write ("DECODED STATUS BYTE B " + str(reverseByte(statusWordB)) + "\n")
         # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
         # 10000000
-        status.setStationAddress((statusWord & 0x700) >> 8 )
-        status.setOutstandingStatus((statusWord & 0x10) >> 4 )
-        status.setResponseLevel((statusWord & 0x01) )
+        status.setStationAddress((statusWord & 0x700) >> 8)
+        status.setOutstandingStatus((statusWord & 0x10) >> 4)
+        status.setResponseLevel((statusWord & 0x01))
 
-        status.setBusy((statusWord & 0x80) >> 7 )
-        status.setExceptionStatus((statusWord & 0xE) >> 1 )
+        status.setBusy((statusWord & 0x80) >> 7)
+        status.setExceptionStatus((statusWord & 0xE) >> 1)
 
         return status
 
@@ -2192,7 +2192,7 @@ class VT52_to_5250():
 
     # Get cursor position in 5250 format  (x*80 + y)
     def getEncodedPosition(self, x, y):
-        return (x*80 + y ).to_bytes(2, byteorder='big')
+        return (x*80 + y).to_bytes(2, byteorder='big')
 
     # Increment cursor position without changing line
     def incrementCursorKeepLine(self, inc):
@@ -2207,12 +2207,12 @@ class VT52_to_5250():
         self.cursorInPreviousLine = False
         self.cursorX = min(
             [max([0, (self.cursorX + ((self.cursorY + inc) // 80))]), 23])
-        self.cursorY = min([max([0, ((self.cursorY + inc) % 80) ]), 79])
+        self.cursorY = min([max([0, ((self.cursorY + inc) % 80)]), 79])
         return
 
     # Get number of characters left to write before we reach the end of screen buffer
     def getCharsToEndOfScreen(self):
-        return 1920 - (80*self.cursorX  + self.cursorY )
+        return 1920 - (80*self.cursorX  + self.cursorY)
 
     # Get number of characters left to write before we reach the end of current line
     def getCharsToEndOfLine(self):
@@ -2249,7 +2249,7 @@ class VT52_to_5250():
         self.cursorY = ((self.cursorY + 8) // 8) * 8
         if (self.cursorY > 79):
             self.cursorY = self.cursorY % 80
-            self.cursorX = min([23, (self.cursorX + 1) ])
+            self.cursorX = min([23, (self.cursorX + 1)])
 
     def getLowerRightCornerEncodedPosition(self):
         return self.getEncodedPosition(23, 79)
@@ -2579,7 +2579,7 @@ class VT52_to_5250():
             self.cursorX = self.cursorX + 1
 
         # update cursor position
-        self.positionCursor(self.cursorX, self.cursorY )
+        self.positionCursor(self.cursorX, self.cursorY)
         self.transmitCommand(
             LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
         self.transmitCommand(
@@ -2647,7 +2647,7 @@ class VT52_to_5250():
                 self.cursorY = 79
             self.cursorX = self.cursorX - 1
             # update cursor position
-            self.positionCursor(self.cursorX, self.cursorY )
+            self.positionCursor(self.cursorX, self.cursorY)
             self.transmitCommand(
                 LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
             self.transmitCommand(
