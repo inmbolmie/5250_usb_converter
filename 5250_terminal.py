@@ -1732,7 +1732,7 @@ class VT52_to_5250():
         self.scancodeDictionary = scancodeDictionaries[scancodeDictionary]
         self.cursorX = 0
         self.cursorY = 0
-        self.savedCursorX  = 0
+        self.savedCursorX = 0
         self.savedCursorY = 0
         self.busy = 1
         self.responseLevel = 0
@@ -2151,14 +2151,14 @@ class VT52_to_5250():
 
     # Encodes a command + data or poll to send over the serial interface
     def transmitCommandOrPoll(self, command, destination, data, isPoll):
-        firstByte = (command & 0x3F)  + 0x40
+        firstByte = (command & 0x3F) + 0x40
         secondByte = ((command & 0xC0) >> 6) + (destination << 2) + 0x40
         toTx = bytearray()
         toTx.append(firstByte)
         toTx.append(secondByte)
         index = 1
         for i in data:
-            thirdByte = (i & 0x3F)  + 0x40
+            thirdByte = (i & 0x3F) + 0x40
             if thirdByte == 0x7F:
                 # weird bug with DEL chars
                 thirdByte = 0x3F
@@ -2210,7 +2210,7 @@ class VT52_to_5250():
 
     # Get number of characters left to write before we reach the end of screen buffer
     def getCharsToEndOfScreen(self):
-        return 1920 - (80*self.cursorX  + self.cursorY)
+        return 1920 - (80*self.cursorX + self.cursorY)
 
     # Get number of characters left to write before we reach the end of current line
     def getCharsToEndOfLine(self):
@@ -2570,7 +2570,7 @@ class VT52_to_5250():
     def ESC_B(self):
     # Cursor down 	Move cursor one line downwards.
         # increment cursor line
-        if self.cursorX  > 0 and self.cursorInPreviousLine:
+        if self.cursorX > 0 and self.cursorInPreviousLine:
             self.cursorY = 79
 
         elif self.cursorX < 23:
@@ -2600,7 +2600,7 @@ class VT52_to_5250():
 
     def ESC_D(self):
     # Cursor left 	Move cursor one column to the left.
-        if self.cursorX  > 0 and self.cursorInPreviousLine:
+        if self.cursorX > 0 and self.cursorInPreviousLine:
             if not self.newlinePending:
                 self.cursorX = self.cursorX - 1
             self.cursorY = 79
@@ -2619,7 +2619,7 @@ class VT52_to_5250():
     def ESC_C(self):
     # Cursor right 	Move cursor one column to the right.
 
-        if self.cursorX  > 0 and self.cursorInPreviousLine and not self.newlinePending:
+        if self.cursorX > 0 and self.cursorInPreviousLine and not self.newlinePending:
             self.cursorX = self.cursorX - 1
 
         if self.cursorInPreviousLine:
@@ -2897,7 +2897,7 @@ class VT52_to_5250():
 
     def Blink_on(self):
     # Switch on cursor blinking.
-        self.statusByte  = self.statusByte | 0x20
+        self.statusByte = self.statusByte | 0x20
         self.transmitCommand(WRITE_CONTROL_DATA,
                              self.destinationAddr, [self.statusByte])
         self.EOQ()
