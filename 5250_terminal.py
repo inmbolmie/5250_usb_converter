@@ -84,20 +84,20 @@ scancodeDictionaries = {
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-        0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
-        0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
+        0x7C: [chr(0x1B), chr(0x1B), '', ''],  # F1 as ESC
+        0x6F: [chr(0x1B), chr(0x1B), '', ''],  # F2 as ESC
         # ROW 2
-        0x6C: ['', '', '', ''], #F3
-        0x6D: ['', '', '', ''], #F4
+        0x6C: ['', '', '', ''],  # F3
+        0x6D: ['', '', '', ''],  # F4
         # ROW 3
-        0x6E: ['', '', '', ''], #F5
-        0x7D: ['', '', '', ''], #F6
+        0x6E: ['', '', '', ''],  # F5
+        0x7D: ['', '', '', ''],  # F6
         # ROW 4
-        0x71: ['', '', '', ''], #F7
-        0x70: ['', '', '', ''], #F8
+        0x71: ['', '', '', ''],  # F7
+        0x70: ['', '', '', ''],  # F8
         # ROW 5
-        0x72: ['', '', '', ''], #F9
-        0x73: ['', '', '', ''], #F10
+        0x72: ['', '', '', ''],  # F9
+        0x73: ['', '', '', ''],  # F10
 
         # MAIN ALPHA AND NUMPAD BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -115,11 +115,11 @@ scancodeDictionaries = {
         0x3A: ['0', '=', '', ''],
         0x3B: ['\'', '?', '', chr(0x1C)],
         0x3C: ['¡', '¿', '', ''],
-        0x3D: [chr(0x08), chr(0x08), '', ''], #BS
+        0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         0x4B: ['', '', '', ''], #
-        0x4C: ['', '', '', ''], #DUP
+        0x4C: ['', '', '', ''],  # DUP
         # ROW 2
-        0x20: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x21: ['q', 'Q', '', chr(0x11)],
         0x22: ['w', 'W', '', chr(0x17)],
         0x23: ['e', 'E', '', chr(0x05)],
@@ -132,11 +132,11 @@ scancodeDictionaries = {
         0x2A: ['p', 'P', '', chr(0x10)],
         0x2B: ['`', '^', '[', chr(0x1B)],
         0x2C: ['+', '*', ']', chr(0x1D)],
-        0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
-        0x4E: ['', '', '', ''],  #CAMPO-
+        0x4E: ['', '', '', ''],  # CAMPO-
         # ROW 3
         # 0x54: ['', '', ''], #SHIFT
         0x11: ['a', 'A', '', chr(0x01)],
@@ -151,10 +151,10 @@ scancodeDictionaries = {
         0x1A: ['ñ', 'Ñ', '', ''],
         0x1B: ['´', '¨', '{', chr(0x1B)],
         0x1C: ['ç', 'Ç', '}', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
-        0x4D: [chr(0x0D), '', '', ''], #ENTER
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
         0x0E: ['<', '>', '|', ''],
@@ -171,13 +171,13 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
         0x4A: [',', '', '', ''],
         # ROW 5
-        0x0F: [' ', ' ', '', ''], #SPACE BAR
+        0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
@@ -203,8 +203,8 @@ scancodeDictionaries = {
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-        0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
-        0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
+        0x7C: [chr(0x1B), chr(0x1B), '', ''],  # F1 as ESC
+        0x6F: [chr(0x1B), chr(0x1B), '', ''],  # F2 as ESC
         # ROW 2
         # 0x6C: ['', '', '', ''], #F3
         # 0x6D: ['', '', '', ''], #F4
@@ -234,11 +234,11 @@ scancodeDictionaries = {
         0x3A: ['0', ')', '', ''],
         0x3B: ['-', '_', '', chr(0x1C)],
         0x3C: ['=', '+', '', ''],
-        0x3D: [chr(0x08), chr(0x08), '', ''], #BS
+        0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         0x4B: ['', '', '', ''], #
-        0x4C: ['', '', '', ''], #DUP
+        0x4C: ['', '', '', ''],  # DUP
         # ROW 2
-        0x20: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x21: ['q', 'Q', '', chr(0x11)],
         0x22: ['w', 'W', '', chr(0x17)],
         0x23: ['e', 'E', '', chr(0x05)],
@@ -251,11 +251,11 @@ scancodeDictionaries = {
         0x2A: ['p', 'P', '', chr(0x10)],
         0x2B: ['¢', '!', '', chr(0x1B)],
         0x2C: ['\\', '|', '', chr(0x1D)],
-        0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
-        0x4E: ['', '', '', ''],  #CAMPO-
+        0x4E: ['', '', '', ''],  # CAMPO-
         # ROW 3
         # 0x54 ['', '', ''], #SHIFT
         0x11: ['a', 'A', '', chr(0x01)],
@@ -270,10 +270,10 @@ scancodeDictionaries = {
         0x1A: [';', ':', '', ''],
         0x1B: ['\'', '""', '', chr(0x1B)],
         0x1C: ['{', '}', '', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
-        0x4D: [chr(0x0D), '', '', ''], #ENTER
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
         0x0E: ['<', '>', '|', ''],
@@ -290,13 +290,13 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
         0x4A: [',', '', '', ''],
         # ROW 5
-        0x0F: [' ', ' ', '', ''], #SPACE BAR
+        0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
@@ -318,8 +318,8 @@ scancodeDictionaries = {
         # FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-        0x7C: [chr(0x1B), chr(0x1B), '', ''], #F1 as ESC
-        0x6F: [chr(0x1B), chr(0x1B), '', ''], #F2 as ESC
+        0x7C: [chr(0x1B), chr(0x1B), '', ''],  # F1 as ESC
+        0x6F: [chr(0x1B), chr(0x1B), '', ''],  # F2 as ESC
         # ROW 2
         # 0x6C: ['', '', '', ''], #F3
         # 0x6D: ['', '', '', ''], #F4
@@ -349,11 +349,11 @@ scancodeDictionaries = {
         0x3A: ['0', '=', '}', ''],
         0x3B: ['ß', '?', '\\', chr(0x1C)],
         0x3C: ['´', '`', '¸', ''],
-        0x3D: [chr(0x08), chr(0x08), '', ''], #BS
+        0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         0x4B: ['', '', '', ''], #
-        0x4C: ['', '', '', ''], #DUP
+        0x4C: ['', '', '', ''],  # DUP
         # ROW 2
-        0x20: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x21: ['q', 'Q', '@', chr(0x11)],
         0x22: ['w', 'W', 'ł', chr(0x17)],
         0x23: ['e', 'E', '€', chr(0x05)],
@@ -366,11 +366,11 @@ scancodeDictionaries = {
         0x2A: ['p', 'P', 'þ', chr(0x10)],
         0x2B: ['`', '^', '¨', chr(0x1B)],
         0x2C: ['+', '*', '~', chr(0x1D)],
-        0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
-        0x4E: ['', '', '', ''],  #CAMPO-
+        0x4E: ['', '', '', ''],  # CAMPO-
         # ROW 3
         # 0x54: ['', '', ''], #SHIFT
         0x11: ['a', 'A', 'æ', chr(0x01)],
@@ -385,10 +385,10 @@ scancodeDictionaries = {
         0x1A: ['ö', 'Ö', '˝', ''],
         0x1B: ['ä', 'Ä', '^', chr(0x1B)],
         0x1C: ['#', 'Ä', '’', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 and RIGHT ARROW
-        0x4D: [chr(0x0D), '', '', ''], #ENTER
+        0x46: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 and RIGHT ARROW
+        0x4D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
         0x0E: ['<', '>', '|', ''],
@@ -405,13 +405,13 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
         0x4A: [',', '', '', ''],
         # ROW 5
-        0x0F: [' ', ' ', '', ''], #SPACE BAR
+        0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
         # Custom character conversions, from ASCII char to EBCDIC code that will override the DEFAULT_CODEPAGE conversions
         'CUSTOM_CHARACTER_CONVERSIONS': {
@@ -432,7 +432,7 @@ scancodeDictionaries = {
 
         # ESC AND FUNCTION BLOCK KEYS MAPPINGS
         # KEYS FROM LEFT TO RIGHT
-        0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
+        0x08: [chr(0x1B), chr(0x1B), '', ''],  # ESC
         # 0x07: ['', '', '', ''], #F1
         # 0x0F: ['', '', '', ''], #F2
         # 0x17: ['', '', '', ''], #F3
@@ -462,9 +462,9 @@ scancodeDictionaries = {
         0x45: ['0', '=', '', ''],
         0x4E: ['\'', '?', '', chr(0x1C)],
         0x55: ['¡', '¿', '', ''],
-        0x66: [chr(0x08), chr(0x08), '', ''], #BS
+        0x66: [chr(0x08), chr(0x08), '', ''],  # BS
         # ROW 2
-        0x0D: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x0D: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x15: ['q', 'Q', '', chr(0x11)],
         0x1D: ['w', 'W', '', chr(0x17)],
         0x24: ['e', 'E', '', chr(0x05)],
@@ -476,7 +476,7 @@ scancodeDictionaries = {
         0x44: ['o', 'O', '', chr(0x0F)],
         0x4D: ['p', 'P', '', chr(0x10)],
         0x5B: ['+', '*', ']', chr(0x1D)],
-        0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x5A: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         # ROW 3
         0x1C: ['a', 'A', '', chr(0x01)],
         0x1B: ['s', 'S', '', chr(0x13)],
@@ -503,7 +503,7 @@ scancodeDictionaries = {
         0x49: ['.', ':', '', ''],
         0x4A: ['-', '_', '', chr(0x1F)],
         # ROW 5
-        0x29: [' ', ' ', '', ''], #SPACE BAR
+        0x29: [' ', ' ', '', ''],  # SPACE BAR
 
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -511,10 +511,10 @@ scancodeDictionaries = {
 
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'],  # UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'],  # LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'],  # DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'],  # RIGHT ARROW
 
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -524,17 +524,17 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
                                 0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
-        0x58: [chr(0x0D), '', '', ''], #ENTER,
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
+        0x58: [chr(0x0D), '', '', ''],  # ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
@@ -557,7 +557,7 @@ scancodeDictionaries = {
         'SHIFT_RELEASE': [0x92, 0xD9],
         'CAPS_LOCK': [0x11],
         'EXTRA': [],
-        0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
+        0x08: [chr(0x1B), chr(0x1B), '', ''],  # ESC
         # 0x07: ['', '', '', ''], #F1
         # 0x0F: ['', '', '', ''], #F2
         # 0x17: ['', '', '', ''], #F3
@@ -589,9 +589,9 @@ scancodeDictionaries = {
         0x45: ['0', '=', '}', ''],
         0x4E: ['ß', '?', '\\', chr(0x1C)],
         0x55: ['´', '`', '¸', ''],
-        0x66: [chr(0x08), chr(0x08), '', ''], #BS
+        0x66: [chr(0x08), chr(0x08), '', ''],  # BS
         # ROW 2
-        0x0D: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x0D: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x15: ['q', 'Q', '@', chr(0x11)],
         0x1D: ['w', 'W', 'ł', chr(0x17)],
         0x24: ['e', 'E', '€', chr(0x05)],
@@ -603,7 +603,7 @@ scancodeDictionaries = {
         0x44: ['o', 'O', 'ø', chr(0x0F)],
         0x4D: ['p', 'P', 'þ', chr(0x10)],
         0x5B: ['ü', 'Ü', '~', chr(0x1D)],
-        0x5A: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x5A: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         # ROW 3
         0x1C: ['a', 'A', 'æ', chr(0x01)],
         0x1B: ['s', 'S', 'ſ', chr(0x13)],
@@ -630,7 +630,7 @@ scancodeDictionaries = {
         0x49: ['.', ':', '…', ''],
         0x4A: ['-', '_', '–', chr(0x1F)],
         # ROW 5
-        0x29: [' ', ' ', '', ''], #SPACE BAR
+        0x29: [' ', ' ', '', ''],  # SPACE BAR
 
 
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
@@ -639,10 +639,10 @@ scancodeDictionaries = {
 
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'],  # UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'],  # LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'],  # DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'],  # RIGHT ARROW
 
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -652,17 +652,17 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
                         0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
-        0x58: [chr(0x0D), '', '', ''], #ENTER,
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
+        0x58: [chr(0x0D), '', '', ''],  # ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
@@ -682,13 +682,13 @@ scancodeDictionaries = {
         'ALT_RELEASE': [],
         'SHIFT_PRESS': [0x57, 0x56],
         'SHIFT_RELEASE': [0xD7, 0xD6],
-        'CAPS_LOCK': [0x7E],  #Grdst
+        'CAPS_LOCK': [0x7E],  # Grdst
         'EXTRA': [0x6F],
 
         # LEFT FUNCTION KEYS MAPPINGS (F1-F10)
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
                                 # ROW 1
-        0x7C: [chr(0x1B), chr(0x1B), '', ''], #ESC
+        0x7C: [chr(0x1B), chr(0x1B), '', ''],  # ESC
         # TBD UP TO F10
 
         # TOP FUNCTION KEYS MAPPINGS (F1-F24)
@@ -724,9 +724,9 @@ scancodeDictionaries = {
         0x3A: ['0', '=', '}', ''],
         0x3B: ['ß', '?', '\\', chr(0x1C)],
         0x3C: ['´', '`', '¸', ''],
-        0x3D: [chr(0x08), chr(0x08), '', ''], #BS
+        0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         # ROW 2
-        0x20: [chr(0x09), chr(0x09), '', ''], #TAB
+        0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
         0x21: ['q', 'Q', '@', chr(0x11)],
         0x22: ['w', 'W', 'ł', chr(0x17)],
         0x23: ['e', 'E', '€', chr(0x05)],
@@ -739,7 +739,7 @@ scancodeDictionaries = {
         0x2A: ['p', 'P', 'þ', chr(0x10)],
         0x2B: ['ü', 'Ü', '~', chr(0x1D)],
         0x2C: ['+', '*', '~', chr(0x1D)],
-        0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
+        0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         # ROW 3
         0x11: ['a', 'A', 'æ', chr(0x01)],
         0x12: ['s', 'S', 'ſ', chr(0x13)],
@@ -766,7 +766,7 @@ scancodeDictionaries = {
         0x09: ['.', ':', '…', ''],
         0x0a: ['-', '_', '–', chr(0x1F)],
         # ROW 5
-        0x0F: [' ', ' ', '', ''], #SPACE BAR
+        0x0F: [' ', ' ', '', ''],  # SPACE BAR
 
 
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
@@ -775,11 +775,11 @@ scancodeDictionaries = {
 
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'], #UP ARROW
-                                0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'], #LEFT ARROW
+        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'],  # UP ARROW
+                                0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'],  # LEFT ARROW
                                 # TBD CENTER ARROW
-                                0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'], #RIGHT ARROW
-                                0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'], #DOWN ARROW
+                                0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'],  # RIGHT ARROW
+                                0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'],  # DOWN ARROW
 
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -789,18 +789,18 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
                                 0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'], #NUMPAD 8  EXTRA UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],  # NUMPAD 8  EXTRA UP ARROW
         0x49: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-                                0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
+                                0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],  # NUMPAD 4   EXTRA LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', '', '', 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
+        0x46: ['6', '6', '', '', 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
         # ROW 4
                                 0x41: ['1', '1', '', ''],
-        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'],  # NUMPAD 2  EXTRA DOWN ARROW
         0x43: ['3', '3', '', ''],
-        0x2D: [chr(0x0D), '', '', ''], #ENTER
+        0x2D: [chr(0x0D), '', '', ''],  # ENTER
         # ROW 5
                                 0x40: ['0', '0', '', ''],
         0x4A: ['.', '', '', ''],
@@ -1979,7 +1979,7 @@ class VT52_to_5250():
                         self.txString(stringToTxArray.decode())
                         stringToTxArray = bytearray()
                     self.BS()
-                elif character == 0x07: #BELL
+                elif character == 0x07:  # BELL
                     # Bell
                     self.BEL()
                     continue
