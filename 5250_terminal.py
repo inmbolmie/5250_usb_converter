@@ -1330,10 +1330,10 @@ class SerialPortControl:
 
             if debugConnection:
                 id = self.randomString()
-                debugLog.write (id + " RECEIVED STATUS WORD: " + firstWord)
+                debugLog.write(id + " RECEIVED STATUS WORD: " + firstWord)
                 debugLog.write(id + "   stationAddress: " +
                                str(status.getStationAddress()) + "\n")
-                debugLog.write (id + "   busy: " + str(status.getBusy()) + "\n")
+                debugLog.write(id + "   busy: " + str(status.getBusy()) + "\n")
                 debugLog.write(id + "   outstandingStatus: " +
                                str(status.getOutstandingStatus()) + "\n")
                 debugLog.write(id + "   exceptionStatus: " +
@@ -1356,7 +1356,7 @@ class SerialPortControl:
                 # to send
                 # a SET_MODE command to iniatize the terminal
                 if debugConnection:
-                    debugLog.write ("SETTING MODE\n")
+                    debugLog.write("SETTING MODE\n")
                 term[terminal].SET_MODE()
 
                 # Clear screen and init shell
@@ -1380,7 +1380,7 @@ class SerialPortControl:
                     secondWord = inputQueue[terminal].get()
                     if len(secondWord) >= 2:
                         if debugConnection:
-                            debugLog.write ("RECEIVED DATA WORD: " + secondWord)
+                            debugLog.write("RECEIVED DATA WORD: " + secondWord)
                         # the5250log.write(secondWord)
                         scancode = term[terminal].decodeDataResponse(
                             secondWord)
@@ -1703,7 +1703,7 @@ class MyPrompt(cmd.Cmd):
         return
 
     def do_decodeStringData(self, inp):
-        print ("TRANSLATING:" + str(inp) + " " + str(len(inp)) + "\n")
+        print("TRANSLATING:" + str(inp) + " " + str(len(inp)) + "\n")
         for i in range(0, len(inp), 2):
 
             dataWordA = int.from_bytes(inp[i].encode(), byteorder='big') & 0x3F
