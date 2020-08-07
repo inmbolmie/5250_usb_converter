@@ -76,8 +76,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0xD4],
         'ALT_PRESS': [0x68],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x57,0x56],
-        'SHIFT_RELEASE': [0xD7,0xD6],
+        'SHIFT_PRESS': [0x57, 0x56],
+        'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
         	
@@ -134,7 +134,7 @@ scancodeDictionaries = {
         0x2C: ['+', '*', ']', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -151,9 +151,9 @@ scancodeDictionaries = {
         0x1A: ['ñ', 'Ñ', '', ''],
         0x1B: ['´', '¨', '{', chr(0x1B)],
         0x1C: ['ç', 'Ç', '}', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -171,7 +171,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -195,8 +195,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0xD4],
         'ALT_PRESS': [0x68],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x57,0x56],
-        'SHIFT_RELEASE': [0xD7,0xD6],
+        'SHIFT_PRESS': [0x57, 0x56],
+        'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
         	
@@ -253,7 +253,7 @@ scancodeDictionaries = {
         0x2C: ['\\', '|', '', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -270,9 +270,9 @@ scancodeDictionaries = {
         0x1A: [';', ':', '', ''],
         0x1B: ['\'', '""', '', chr(0x1B)],
         0x1C: ['{', '}', '', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -290,7 +290,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -310,8 +310,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0xD4],
         'ALT_PRESS': [0x68],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x57,0x56],
-        'SHIFT_RELEASE': [0xD7,0xD6],
+        'SHIFT_PRESS': [0x57, 0x56],
+        'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],
         'EXTRA': [],
         	
@@ -368,7 +368,7 @@ scancodeDictionaries = {
         0x2C: ['+', '*', '~', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''], #ENTER
         0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8 and UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8 and UP ARROW
         0x49: ['9', '9', '', ''],
         0x4E: ['', '', '', ''],  #CAMPO-
         # ROW 3
@@ -385,9 +385,9 @@ scancodeDictionaries = {
         0x1A: ['ö', 'Ö', '˝', ''],
         0x1B: ['ä', 'Ä', '^', chr(0x1B)],
         0x1C: ['#', 'Ä', '’', chr(0x1D)],
-        0x44: ['4', '4', chr(0x1B), chr(0x1B) ,'D'], #NUMPAD 4 and LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B) , 'D'], #NUMPAD 4 and LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', chr(0x1B), chr(0x1B) ,'C'], #NUMPAD 6 and RIGHT ARROW
+        0x46: ['6', '6', chr(0x1B), chr(0x1B) , 'C'], #NUMPAD 6 and RIGHT ARROW
         0x4D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 4
         # 0x57: ['', '', ''], #CTRL
@@ -405,7 +405,7 @@ scancodeDictionaries = {
         # 0x56: ['', '', ''], #ALT
         0x0C: ['', '', '', ''],
         0x41: ['1', '1', '', ''],
-        0x42: ['2', '2', chr(0x1B), chr(0x1B) ,'B'], #NUMPAD 2 and DOWN ARROW
+        0x42: ['2', '2', chr(0x1B), chr(0x1B) , 'B'], #NUMPAD 2 and DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x68: ['', '', '', ''],
         0x40: ['0', '0', '', ''],
@@ -425,8 +425,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0x94],
         'ALT_PRESS': [0x58],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x12,0x59],
-        'SHIFT_RELEASE': [0x92,0xD9],
+        'SHIFT_PRESS': [0x12, 0x59],
+        'SHIFT_RELEASE': [0x92, 0xD9],
         'CAPS_LOCK': [0x11],
         'EXTRA': [],
         	
@@ -511,10 +511,10 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -524,17 +524,17 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 				0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-				0x6b: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
+				0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B),'C'], #NUMPAD 6 EXTRA RIGHT ARROW
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         0x58: [chr(0x0D), '', '', ''], #ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B),'B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2  EXTRA DOWN ARROW
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
@@ -553,8 +553,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0x94],
         'ALT_PRESS': [0X58],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x12,0x59],
-        'SHIFT_RELEASE': [0x92,0xD9],
+        'SHIFT_PRESS': [0x12, 0x59],
+        'SHIFT_RELEASE': [0x92, 0xD9],
         'CAPS_LOCK': [0x11],
         'EXTRA': [],
         0x08: [chr(0x1B), chr(0x1B), '', ''], #ESC
@@ -639,10 +639,10 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
-        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
-        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
-        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
+        0x63: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
+        0x61: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
+        0x60: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
+        0x6A: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -652,17 +652,17 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 			0x6C: ['7', '7', '', ''],
-        0x75: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW        
+        0x75: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW        
         0x7D: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
-				0x6b: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
+				0x6b: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x73: ['5', '5', '', ''],
-        0x74: ['6', '6', chr(0x1B), chr(0x1B),'C'], #NUMPAD 6 EXTRA RIGHT ARROW
+        0x74: ['6', '6', chr(0x1B), chr(0x1B), 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         0x58: [chr(0x0D), '', '', ''], #ENTER,
         # ROW 4
         0x69: ['1', '1', '', ''],
-        0x72: ['2', '2', chr(0x1B), chr(0x1B),'B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x72: ['2', '2', chr(0x1B), chr(0x1B), 'B'], #NUMPAD 2  EXTRA DOWN ARROW
         0x7A: ['3', '3', '', ''],
         # ROW 5
         0x70: ['0', '0', '', ''],
@@ -680,8 +680,8 @@ scancodeDictionaries = {
         'CTRL_RELEASE': [0xD4],
         'ALT_PRESS': [0x68],
         'ALT_RELEASE': [],
-        'SHIFT_PRESS': [0x57,0x56],
-        'SHIFT_RELEASE': [0xD7,0xD6],
+        'SHIFT_PRESS': [0x57, 0x56],
+        'SHIFT_RELEASE': [0xD7, 0xD6],
         'CAPS_LOCK': [0x7E],  #Grdst
         'EXTRA': [0x6F],
         
@@ -775,11 +775,11 @@ scancodeDictionaries = {
         
         # ARROW KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'A'], #UP ARROW
-				0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'D'], #LEFT ARROW
+        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'A'], #UP ARROW
+				0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'D'], #LEFT ARROW
 				# TBD CENTER ARROW
-				0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'C'], #RIGHT ARROW
-				0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '' ,'B'], #DOWN ARROW
+				0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'C'], #RIGHT ARROW
+				0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '' , 'B'], #DOWN ARROW
         	
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -789,16 +789,16 @@ scancodeDictionaries = {
         0x7F: ['-', '-', '', ''],
         # ROW 2
 				0x47: ['7', '7', '', ''],
-        0x48: ['8', '8', chr(0x1B), chr(0x1B) ,'A'], #NUMPAD 8  EXTRA UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B) , 'A'], #NUMPAD 8  EXTRA UP ARROW
         0x49: ['9', '9', '', ''],
         0x7B: ['+', '+', '', ''],
         # ROW 3
- 				0x44: ['4', '4', chr(0x1B), chr(0x1B),'D'], #NUMPAD 4   EXTRA LEFT ARROW
+ 				0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'], #NUMPAD 4   EXTRA LEFT ARROW
         0x45: ['5', '5', '', ''],
-        0x46: ['6', '6', '', '','C'], #NUMPAD 6 EXTRA RIGHT ARROW
+        0x46: ['6', '6', '', '', 'C'], #NUMPAD 6 EXTRA RIGHT ARROW
         # ROW 4
 				0x41: ['1', '1', '', ''],
-        0x42: ['2', chr(0x1B), chr(0x1B), '','B'], #NUMPAD 2  EXTRA DOWN ARROW
+        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'], #NUMPAD 2  EXTRA DOWN ARROW
         0x43: ['3', '3', '', ''],
         0x2D: [chr(0x0D), '', '', ''], #ENTER
         # ROW 5
@@ -924,7 +924,7 @@ class Interceptor(object):
         '''
         assert self.master_fd is None
         if not argv:
-            argv = [os.environ['SHELL'] ,"--norc"]
+            argv = [os.environ['SHELL'] , "--norc"]
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
@@ -1067,7 +1067,7 @@ class Interceptor(object):
             n = os.write(master_fd, data.encode())
             data = data[n:]
 
-    def arranque(self,_passarg):
+    def arranque(self, _passarg):
         self.spawn()
         return
 
@@ -1168,12 +1168,12 @@ def openSerial(port, speed):
 class SerialPortControl :
 
     # Wait for responses from terminals and invoke their processing
-    def waitResponse(self,serialPort,pushToInputQueue, terminal):
+    def waitResponse(self, serialPort, pushToInputQueue, terminal):
         global debugLog
         global term
         global debugConnection
         while True:
-            fds, wfds, xfds = select.select([serialPort], [], [],1)
+            fds, wfds, xfds = select.select([serialPort], [], [], 1)
             if serialPort in fds:
                 ans = serialPort.readline()
                 if "\n" not in ans:
@@ -1204,14 +1204,14 @@ class SerialPortControl :
         return
 
     # Send commands to the terminals
-    def write(self,_passarg):
+    def write(self, _passarg):
         global outputQueue
         global inputQueue
         global outputCommandQueue
         global term
         global debugLog
         global ttyfile
-        fd = openSerial(ttyfile,57600 )
+        fd = openSerial(ttyfile, 57600 )
         time.sleep(1) # wait for Arduino
         serialPort = os.fdopen(fd, "r")
         serialPortWrite = os.fdopen(fd, "w")
@@ -1306,7 +1306,7 @@ class SerialPortControl :
 
     # Utility to generate random string to keep log lines correlation when
     # needed for debugging purposes
-    def randomString(self,stringLength=4):
+    def randomString(self, stringLength=4):
         letters = string.ascii_lowercase
         return ''.join(random.choice(letters) for i in range(stringLength))
 
@@ -1425,35 +1425,35 @@ class StatusResponse():
     def getStationAddress(self):
         return self.stationAddress
 
-    def setStationAddress(self,value):
+    def setStationAddress(self, value):
         self.stationAddress = value
         return
 
     def getBusy(self):
         return self.busy
 
-    def setBusy(self,busy):
+    def setBusy(self, busy):
         self.busy = busy
         return
 
     def getOutstandingStatus(self):
         return self.outstandingStatus
 
-    def setOutstandingStatus(self,value):
+    def setOutstandingStatus(self, value):
         self.outstandingStatus = value
         return
 
     def getExceptionStatus(self):
         return self.exceptionStatus
 
-    def setExceptionStatus(self,value):
+    def setExceptionStatus(self, value):
         self.exceptionStatus = value
         return
 
     def getResponseLevel(self):
         return self.responseLevel
 
-    def setResponseLevel(self,value):
+    def setResponseLevel(self, value):
         self.responseLevel = value
         return
 
@@ -1469,14 +1469,14 @@ class MyPrompt(cmd.Cmd):
         print("Bye")
         return True
 
-    def do_restartterminal(self,addr):
+    def do_restartterminal(self, addr):
         interceptors[int(addr)].restart()
         time.sleep(2)
         term[int(addr)].ESC_E()
-        _thread.start_new_thread(interceptors[int(addr)].arranque,(None,))
+        _thread.start_new_thread(interceptors[int(addr)].arranque, (None,))
         return
 
-    def do_setactiveterminal(self,addr):
+    def do_setactiveterminal(self, addr):
         cmd.Cmd.activeTerminal=int(addr)
         return
 
@@ -1489,15 +1489,15 @@ class MyPrompt(cmd.Cmd):
         interceptors[cmd.Cmd.activeTerminal].stdin_read(inp + " ")
         return
 
-    def do_txstring(self,string):
+    def do_txstring(self, string):
         term[cmd.Cmd.activeTerminal].txString(string)
         return
 
-    def do_cr(self,inp):
+    def do_cr(self, inp):
         term[cmd.Cmd.activeTerminal].CR()
         return
 
-    def do_lf(self,inp):
+    def do_lf(self, inp):
         term[cmd.Cmd.activeTerminal].LF()
         return
 
@@ -1663,36 +1663,36 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].VT()
         return
 
-    def do_getcursor(self,inp):
+    def do_getcursor(self, inp):
         print("XPOS: " + str(term.cursorX) + "\n")
         print("YPOS: " + str(term.cursorY) + "\n")
         print("BUFFERPOS: " + str(term.getEncodedCursorPosition()) + "\n")
         return
 
-    def do_txstatusbyte(self,status):
+    def do_txstatusbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
             WRITE_CONTROL_DATA, term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
-    def do_txindicatorsbyte(self,status):
+    def do_txindicatorsbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
             WRITE_DATA_LOAD_CURSOR_INDICATORS, term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
-    def do_txchar(self,char):
+    def do_txchar(self, char):
         piece = bytearray()
-        piece.insert(0,int(char,0))
-        piece.insert(0,1)
+        piece.insert(0, int(char, 0))
+        piece.insert(0, 1)
         term[cmd.Cmd.activeTerminal].transmitCommand(
             WRITE_DATA_LOAD_CURSOR, term[cmd.Cmd.activeTerminal].destinationAddr, piece)
         term[cmd.Cmd.activeTerminal].incrementCursor(1)
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
-    def do_sendscancode(self,code):
-        term[cmd.Cmd.activeTerminal].processScanCode(int(code,16))
+    def do_sendscancode(self, code):
+        term[cmd.Cmd.activeTerminal].processScanCode(int(code, 16))
         return
 
     def do_tx(self, inp):
@@ -1704,7 +1704,7 @@ class MyPrompt(cmd.Cmd):
 
     def do_decodeStringData(self, inp):
         print ("TRANSLATING:" + str(inp) + " " + str(len(inp)) + "\n")
-        for i in range(0,len(inp), 2):
+        for i in range(0, len(inp), 2):
 
             dataWordA = int.from_bytes(inp[i].encode(), byteorder='big') & 0x3F
             dataWordB = int.from_bytes(
@@ -1727,7 +1727,7 @@ def reverseByte(byte):
 # Class that implments the VT52 to 5250 conversion and holds the terminal
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
-    def __init__(self,address,scancodeDictionary, lowSpeedPolling, EBCDICcodepage):
+    def __init__(self, address, scancodeDictionary, lowSpeedPolling, EBCDICcodepage):
         self.lowSpeedPolling = lowSpeedPolling
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
@@ -1781,7 +1781,7 @@ class VT52_to_5250():
     def getLowSpeedPolling(self):
         return self.lowSpeedPolling
 
-    def setInitialized(self,value):
+    def setInitialized(self, value):
         self.initialized=value
         return
 
@@ -1991,7 +1991,7 @@ class VT52_to_5250():
             self.txString(stringToTxArray.decode())
         return
 
-    def txString(self,string):
+    def txString(self, string):
     # Converts to EBCDIC and transmits an ASCII string
         ebcdicArray = bytearray()
         for char in string:
@@ -2024,9 +2024,9 @@ class VT52_to_5250():
                 second= piece[self.getCharsToEndOfScreen():]
 
                 first2 = bytearray(first)
-                first2.insert(0,len(first))
+                first2.insert(0, len(first))
                 second2 = bytearray(second)
-                second2.insert(0,len(second))
+                second2.insert(0, len(second))
 
                 if len(first) > 0:
                     self.transmitCommand(
@@ -2087,7 +2087,7 @@ class VT52_to_5250():
                     setNewLinePending=True
 
                 piece2 = bytearray(piece)
-                piece2.insert(0,len(piece))
+                piece2.insert(0, len(piece))
                 self.transmitCommand(WRITE_DATA_LOAD_CURSOR,
                                      self.destinationAddr, piece2)
                 self.incrementCursor(len(piece))
@@ -2145,14 +2145,14 @@ class VT52_to_5250():
 
         return (reverseByte(dataWordB) << 3) + (reverseByte(dataWordA) >> 2)
 
-    def transmitCommand(self,command,destination,data):
-        return self.transmitCommandOrPoll(command,destination,data,0)
+    def transmitCommand(self, command, destination, data):
+        return self.transmitCommandOrPoll(command, destination, data, 0)
 
-    def transmitPoll(self,command,destination,data):
-        return self.transmitCommandOrPoll(command,destination,data,1)
+    def transmitPoll(self, command, destination, data):
+        return self.transmitCommandOrPoll(command, destination, data, 1)
 
     # Encodes a command + data or poll to send over the serial interface
-    def transmitCommandOrPoll(self,command,destination,data,isPoll):
+    def transmitCommandOrPoll(self, command, destination, data, isPoll):
         firstByte = (command & 0x3F)  + 0x40
         secondByte = ((command & 0xC0) >> 6) + (destination << 2) + 0x40
         toTx = bytearray()
@@ -2191,14 +2191,14 @@ class VT52_to_5250():
         return
 
     # Get cursor position in 5250 format  (x*80 + y)
-    def getEncodedPosition(self,x,y):
+    def getEncodedPosition(self, x, y):
         return (x*80 + y ).to_bytes(2, byteorder='big')
 
     # Increment cursor position without changing line
     def incrementCursorKeepLine(self, inc):
         self.newlinePending=False
         self.cursorInPreviousLine=False
-        self.cursorY = min([max([0,self.cursorY + inc]), 79])
+        self.cursorY = min([max([0, self.cursorY + inc]), 79])
         return
 
     # Increment cursor position changing line if needed
@@ -2207,7 +2207,7 @@ class VT52_to_5250():
         self.cursorInPreviousLine=False
         self.cursorX = min(
             [max([0, (self.cursorX + ((self.cursorY + inc) // 80))]), 23])
-        self.cursorY = min([max([0,((self.cursorY + inc) % 80) ]), 79])
+        self.cursorY = min([max([0, ((self.cursorY + inc) % 80) ]), 79])
         return
 
     # Get number of characters left to write before we reach the end of screen buffer
@@ -2219,7 +2219,7 @@ class VT52_to_5250():
         return 80 -self.cursorY
 
     # Move cursor
-    def positionCursor(self,x,y):
+    def positionCursor(self, x, y):
         self.newlinePending=False
         self.cursorInPreviousLine=False
         self.cursorX = x
@@ -2249,22 +2249,22 @@ class VT52_to_5250():
         self.cursorY = ((self.cursorY + 8) // 8) * 8
         if (self.cursorY > 79):
             self.cursorY = self.cursorY % 80
-            self.cursorX = min([23,(self.cursorX + 1) ])
+            self.cursorX = min([23, (self.cursorX + 1) ])
 
     def getLowerRightCornerEncodedPosition(self):
-        return self.getEncodedPosition(23,79)
+        return self.getEncodedPosition(23, 79)
 
     def getUpperLeftCornerEncodedPosition(self):
-        return self.getEncodedPosition(0,0)
+        return self.getEncodedPosition(0, 0)
 
     def getBeginningCurrentLineEncodedPosition(self):
-        return self.getEncodedPosition(self.cursorX ,0)
+        return self.getEncodedPosition(self.cursorX , 0)
 
     def getEndCurrentLineEncodedPosition(self):
-        return self.getEncodedPosition(self.cursorX ,79)
+        return self.getEncodedPosition(self.cursorX , 79)
 
     def getLowerRightPenultimateEncodedPosition(self):
-        return self.getEncodedPosition(22 ,79)
+        return self.getEncodedPosition(22 , 79)
 
     # Get cursor position in 5250 format
     def getEncodedCursorPosition(self):
@@ -2274,11 +2274,11 @@ class VT52_to_5250():
         if self.cursorY<0:
             # WTF? I told you to go away!
             self.cursorY=0
-        return self.getEncodedPosition(self.cursorX,self.cursorY)
+        return self.getEncodedPosition(self.cursorX, self.cursorY)
 
     # Get first char of next line position
     def getBeginningNextLineEncodedPosition(self):
-        return self.getEncodedPosition(min([self.cursorX + 1, 23]),0)
+        return self.getEncodedPosition(min([self.cursorX + 1, 23]), 0)
 
     # Position cursor in origin
     def zeroCursorPosition(self):
@@ -2434,7 +2434,7 @@ class VT52_to_5250():
 
     def SET_MODE(self):
     # Set transmission mode to zero fill
-        self.transmitCommand(SET_MODE,self.destinationAddr,[0])
+        self.transmitCommand(SET_MODE, self.destinationAddr, [0])
         self.EOQ()
         return
 
@@ -2446,17 +2446,17 @@ class VT52_to_5250():
 
     def POLL(self):
     # Poll station
-        self.transmitPoll(POLL,self.destinationAddr,[])
+        self.transmitPoll(POLL, self.destinationAddr, [])
         return
 
     def ACK(self):
     # ACK station response
-        self.transmitPoll(ACK,self.destinationAddr,[])
+        self.transmitPoll(ACK, self.destinationAddr, [])
         return
 
     def EOQ(self):
     # End of command queue
-        self.transmitCommand(EOQ,self.destinationAddr,[])
+        self.transmitCommand(EOQ, self.destinationAddr, [])
         self.endOfCommandSequence()
         return
 
@@ -2490,7 +2490,7 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getLowerRightCornerEncodedPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
         return
 
@@ -2503,7 +2503,7 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getEndCurrentLineEncodedPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
         return
 
@@ -2516,7 +2516,7 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getLowerRightCornerEncodedPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         # Move cursor to upper left corner
         self.zeroCursorPosition()
         # update cursor position
@@ -2536,7 +2536,7 @@ class VT52_to_5250():
         self.transmitCommand(LOAD_REFERENCE_COUNTER, self.destinationAddr,
                              self.getEndCurrentLineEncodedPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         # Move cursor to beginiing lina
         self.transmitCommand(LOAD_CURSOR_REGISTER, self.destinationAddr,
                              self.getBeginningCurrentLineEncodedPosition())
@@ -2552,7 +2552,7 @@ class VT52_to_5250():
         self.transmitCommand(
             LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
         return
 
@@ -2565,7 +2565,7 @@ class VT52_to_5250():
         self.transmitCommand(
             LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedCursorPosition())
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
         return
 
@@ -2579,7 +2579,7 @@ class VT52_to_5250():
             self.cursorX = self.cursorX + 1
 
         # update cursor position
-        self.positionCursor(self.cursorX,self.cursorY )
+        self.positionCursor(self.cursorX, self.cursorY )
         self.transmitCommand(
             LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
         self.transmitCommand(
@@ -2647,7 +2647,7 @@ class VT52_to_5250():
                 self.cursorY=79
             self.cursorX = self.cursorX - 1
             # update cursor position
-            self.positionCursor(self.cursorX,self.cursorY )
+            self.positionCursor(self.cursorX, self.cursorY )
             self.transmitCommand(
                 LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
             self.transmitCommand(
@@ -2655,9 +2655,9 @@ class VT52_to_5250():
             self.EOQ()
         return
 
-    def ESC_Y(self,x,y):
+    def ESC_Y(self, x, y):
     # Set cursor position 	Position cursor.
-        self.positionCursor(x,y)
+        self.positionCursor(x, y)
         # update cursor position
         self.transmitCommand(
             LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedCursorPosition())
@@ -2692,7 +2692,7 @@ class VT52_to_5250():
         self.transmitCommand(
             LOAD_ADDRESS_COUNTER, self.destinationAddr, self.getEncodedPosition(22, 79))
         # Move data
-        self.transmitCommand(MOVE_DATA,self.destinationAddr,[])
+        self.transmitCommand(MOVE_DATA, self.destinationAddr, [])
         # update cursor position
         self.EOQ()
 
@@ -2734,7 +2734,7 @@ class VT52_to_5250():
             self.transmitCommand(
                 LOAD_CURSOR_REGISTER, self.destinationAddr, self.getEncodedPosition(23, 79))
             # Move data
-            self.transmitCommand(MOVE_DATA,self.destinationAddr,[])
+            self.transmitCommand(MOVE_DATA, self.destinationAddr, [])
             # update cursor position
             self.EOQ()
 
@@ -2747,7 +2747,7 @@ class VT52_to_5250():
         self.transmitCommand(
             LOAD_REFERENCE_COUNTER, self.destinationAddr, self.getEncodedPosition(23, 79))
         # Send clear command
-        self.transmitCommand(CLEAR,self.destinationAddr,[])
+        self.transmitCommand(CLEAR, self.destinationAddr, [])
         self.EOQ()
 
         # Cursor to first column
@@ -3026,15 +3026,15 @@ if __name__ == '__main__':
     writeLog = None
     readLog = None
     if debugIO:
-        writeLog = open("write.log","wb", buffering=0)
-        readLog = open("read.log","wb", buffering=0)
+        writeLog = open("write.log", "wb", buffering=0)
+        readLog = open("read.log", "wb", buffering=0)
 
-    debugLog = open("debug.log","w", buffering=1)
+    debugLog = open("debug.log", "w", buffering=1)
     # the5250log = open("5250.log","w", buffering=1)
 
     # Run serial port controller in its own thread
     serialController = SerialPortControl()
-    _thread.start_new_thread(serialController.write,(None,))
+    _thread.start_new_thread(serialController.write, (None,))
 
     disableInputCapture=1
     MyPrompt().cmdloop()
