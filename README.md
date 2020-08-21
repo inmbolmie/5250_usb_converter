@@ -16,6 +16,8 @@ The converter functionality is divided between two components:
 * The hardware adapter, that is based on a Teensy 4 microcontroller installed in a custom PCB that serves as a harware interface to the Twinax bus. The adapter is connected via USB to a Linux host computer.
 * A Python script that runs in the host computer and manages protocol conversion and terminal sessions.
 
+The converter works in Linux systems and Windows 10 systems installing the optional Linux Subsystem component (WSL)
+
 
 ## Included files
 
@@ -60,7 +62,7 @@ The on-board terminators are enabled installing the two JP1 jumpers (1 & 2). You
 
 ## Python script installation
 
-No special installation should be required. You need to have the Python3 interpreter, and currently Linux is the only OS supported.
+No special installation should be required. You need to have the Python3 interpreter. Currently Linux is the preferred OS, but the script has been tested to work in WSL Ubuntu under Windows 10.
 
 The only Python module you should have to install is `ebcdic`, if you don’t already have it you need to execute in your system the command:
 
@@ -76,6 +78,15 @@ Just run the script with no arguments if you only have a 5250 terminal at addres
 
 You can change the default terminal address editing the value `DEFAULT_STATION_ADDRESS` at the beginning of the script
 
+Under WSL in Windows you obviously need first to install the WSL support and a Linux distribution. For that refer to http://docs.microsoft.com/windows/wsl/install-win10
+
+To run the program under WSL you need at least to specify the right COM port to use with the `-t` parameter. Check in the Windows device manager the COM port assigned to the converter and then run...
+
+`$ python3 5250_terminal.py -t /dev/ttySX`
+
+...where `X` is the assigned COM port, for example for a converter connected to COM3 run:
+
+`$ python3 5250_terminal.py -t /dev/ttyS3`
 
 ## Specify other connected terminals
 
