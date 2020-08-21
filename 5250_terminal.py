@@ -1177,6 +1177,11 @@ def openSerial(port, speed):
     attrs[LFLAG] = 0xA30
 
     termios.tcsetattr(fd, termios.TCSANOW, attrs)
+    
+    #Black magic needed for Ubuntu WSL under Windows 10
+    fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' ) 
+    fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
+    termios.tcflush(fd, termios.TCIFLUSH) 
 
     # Configure non-blocking I(O)
     fl = fcntl.fcntl(fd, fcntl.F_GETFL)
@@ -1185,7 +1190,7 @@ def openSerial(port, speed):
     return fd
 
 
-# Class that controls the seri'4277_DE':al port (USB) for send and receive
+# Class that controls the serial port (USB) for send and receive
 class SerialPortControl:
 
     # Wait for responses from terminals and invoke their processing
