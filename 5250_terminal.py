@@ -53,6 +53,9 @@ DEFAULT_SLOW_POLLING = False
 SLOW_POLL_MILLISECONDS = 5
 ULTRA_SLOW_POLL_MILLISECONDS = 1000
 
+# Keyboard clicker enabled or not by default
+DEFAULT_KEYBOARD_CLICKER_ENABLED = True
+
 # Default EBCDIC codepage for character translations
 DEFAULT_CODEPAGE = 'cp037'
 
@@ -106,7 +109,7 @@ scancodeDictionaries = {
         # ROW 1
         0x3E: ['º', 'ª', '\\', ''],
         0x31: ['1', '!', '|', ''],
-        0x32: ['2', '""', '@', ''],
+        0x32: ['2', '"', '@', ''],
         0x33: ['3', '·', '#', ''],
         0x34: ['4', '$', '~', ''],
         0x35: ['5', '%', '½', ''],
@@ -344,7 +347,7 @@ scancodeDictionaries = {
         # ROW 1
         0x3E: ['^', '°', '′', ''],
         0x31: ['1', '!', '¹', ''],
-        0x32: ['2', '""', '²', ''],
+        0x32: ['2', '"', '²', ''],
         0x33: ['3', '§', '³', ''],
         0x34: ['4', '$', '¼', ''],
         0x35: ['5', '%', '½', ''],
@@ -370,7 +373,7 @@ scancodeDictionaries = {
         0x28: ['i', 'I', '→', chr(0x09)],
         0x29: ['o', 'O', 'ø', chr(0x0F)],
         0x2A: ['p', 'P', 'þ', chr(0x10)],
-        0x2B: ['`', '^', '¨', chr(0x1B)],
+        0x2B: ['ü', 'Ü', '¨', chr(0x1B)],
         0x2C: ['+', '*', '~', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         0x47: ['7', '7', '', ''],
@@ -459,7 +462,7 @@ scancodeDictionaries = {
         # ROW 1
         0x0E: ['º', 'ª', '\\', ''],
         0x16: ['1', '!', '|', ''],
-        0x1E: ['2', '""', '@', ''],
+        0x1E: ['2', '"', '@', ''],
         0x26: ['3', '·', '#', ''],
         0x25: ['4', '$', '~', ''],
         0x2E: ['5', '%', '½', ''],
@@ -591,7 +594,7 @@ scancodeDictionaries = {
         # ROW 1
         0x0E: ['^', '°', '′', ''],
         0x16: ['1', '!', '¹', ''],
-        0x1E: ['2', '""', '²', ''],
+        0x1E: ['2', '"', '²', ''],
         0x26: ['3', '§', '³', ''],
         0x25: ['4', '$', '¼', ''],
         0x2E: ['5', '%', '½', ''],
@@ -644,7 +647,7 @@ scancodeDictionaries = {
         0x4A: ['-', '_', '–', chr(0x1F)],
         # ROW 5
         0x29: [' ', ' ', '', ''],  # SPACE BAR
-
+        0x2B: ['`', '^', '¨', chr(0x1B)],
 
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
@@ -731,7 +734,7 @@ scancodeDictionaries = {
         # ROW 1
         0x3E: ['^', '°', '′', ''],
         0x31: ['1', '!', '¹', ''],
-        0x32: ['2', '""', '²', ''],
+        0x32: ['2', '"', '²', ''],
         0x33: ['3', '§', '³', ''],
         0x34: ['4', '$', '¼', ''],
         0x35: ['5', '%', '½', ''],
@@ -1177,11 +1180,11 @@ def openSerial(port, speed):
     attrs[LFLAG] = 0xA30
 
     termios.tcsetattr(fd, termios.TCSANOW, attrs)
-    
+
     #Black magic needed for Ubuntu WSL under Windows 10
-    fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' ) 
+    fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' )
     fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
-    termios.tcflush(fd, termios.TCIFLUSH) 
+    termios.tcflush(fd, termios.TCIFLUSH)
 
     # Configure non-blocking I(O)
     fl = fcntl.fcntl(fd, fcntl.F_GETFL)
@@ -1769,7 +1772,7 @@ def reverseByte(byte):
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
     def __init__(self, address, scancodeDictionary, lowSpeedPolling,
-                 EBCDICcodepage):
+                 EBCDICcodepage, clickerEnabled):
         self.lowSpeedPolling = lowSpeedPolling
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
@@ -1792,8 +1795,9 @@ class VT52_to_5250():
         self.cursorInPreviousLine = 0
         self.savedNewlinePending = 0
         self.savedCursorInPreviousLine = 0
-        self.statusByte = 0
         self.incompleteSequence = bytearray()
+        self.clickerEnabled = clickerEnabled
+        self.statusByte = 0
         # Meaning of each statusByte bits:
         # 0x80 Hide cursor
         # 0x40 ???? unknown ATM
@@ -1803,6 +1807,8 @@ class VT52_to_5250():
         # 0x04 Reset exception status
         # 0x02 Disable keyboard clicker (solenoid) but no solenoid, no fun...
         # 0x01 Bell, audible alert. Very loud indeed
+        if not self.clickerEnabled:
+            self.statusByte = 0x02
         self.indicatorsByte = 0
         # Meaning of each indicatorsBye bits:
         # 0x80 Highest light on
@@ -1817,6 +1823,19 @@ class VT52_to_5250():
         return
 
     # Various getters and setters
+    def toggleEnabledClicker(self):
+        if self.clickerEnabled:
+            self.clickerEnabled = False
+            self.statusByte = self.statusByte | 0x02
+        else:
+            self.clickerEnabled = True
+            self.statusByte = self.statusByte & 0xFD
+        # tx to terminal
+        self.transmitCommand(WRITE_CONTROL_DATA, self.destinationAddr, [
+                             self.statusByte])
+        self.EOQ()
+        return
+
     def getStationAddress(self):
         return self.destinationAddr
 
@@ -2457,8 +2476,13 @@ class VT52_to_5250():
                             self.scancodeDictionary[scancode][3])
 
                 elif self.isAltEnabled:
+
+                    # Check for enable/disble solenid
+                    if self.scancodeDictionary[scancode][0] == 's':
+                        self.toggleEnabledClicker()
+
                     # Check if ESC + key
-                    if self.scancodeDictionary[scancode][2] == chr(0x1B):
+                    elif self.scancodeDictionary[scancode][2] == chr(0x1B):
                         # Cursors
                         interceptors[self.destinationAddr].stdin_read(
                             self.scancodeDictionary[scancode][2])
@@ -2506,6 +2530,9 @@ class VT52_to_5250():
         # Set transmission mode to zero fill
         self.transmitCommand(SET_MODE, self.destinationAddr, [0])
         self.EOQ()
+        self.transmitCommand(WRITE_CONTROL_DATA, self.destinationAddr, [
+                             self.statusByte])
+        self.EOQ()
         return
 
     def resetException(self):
@@ -2548,9 +2575,10 @@ class VT52_to_5250():
 
     def BEL(self):
         # Bell, audible alert
-        self.transmitCommand(WRITE_CONTROL_DATA, self.destinationAddr, [
-                             self.statusByte | 0x01])
-        self.EOQ()
+        if self.clickerEnabled:
+            self.transmitCommand(WRITE_CONTROL_DATA, self.destinationAddr, [
+                                self.statusByte | 0x01])
+            self.EOQ()
         return
 
     def ESC_J(self):
@@ -3058,6 +3086,8 @@ if __name__ == '__main__':
         # terminal address = DEFAULT_STATION_ADDRESS
         inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
+    clickerEnabled = DEFAULT_KEYBOARD_CLICKER_ENABLED
+
     numpars = len(inputArgs)
     # Iterate through terminal specifications from the command line
     for i in range(1,  numpars + 1):
@@ -3099,6 +3129,12 @@ if __name__ == '__main__':
             debugKeystrokes = True
             continue
 
+        if inputArgs[i] == '-s':
+            # Disable clicker
+            print("Disabling keyboard clicker\n")
+            clickerEnabled = False
+            continue
+
         if inputArgs[i] == '-t':
             print("Using tty device at: " + inputArgs[i + 1] + "\n")
             ttyfile = inputArgs[i+1]
@@ -3111,6 +3147,7 @@ if __name__ == '__main__':
         termDictionary = DEFAULT_SCANCODE_DICTIONARY
         slowPoll = DEFAULT_SLOW_POLLING
         codepage = DEFAULT_CODEPAGE
+
 
         if len(termdef) > 1:
             termDictionary = termdef[1]
@@ -3137,7 +3174,7 @@ if __name__ == '__main__':
         outputCommandQueue[termAddress] = queue.Queue()
         # Terminal conversion object
         term[termAddress] = VT52_to_5250(
-            termAddress, termDictionary, slowPoll, codepage)
+            termAddress, termDictionary, slowPoll, codepage, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress])
 
