@@ -1506,7 +1506,11 @@ class StatusResponse():
 class MyPrompt(cmd.Cmd):
     prompt = '5250> '
     intro = "Welcome! Type ? to list commands"
-    cmd.Cmd.activeTerminal = 0
+
+    def __init__(self):
+        cmd.Cmd.activeTerminal = defaultActiveTerminal
+        super().__init__()
+        return
 
     def do_exit(self, inp):
         print("Bye")
@@ -1520,7 +1524,19 @@ class MyPrompt(cmd.Cmd):
         return
 
     def do_setactiveterminal(self, addr):
-        cmd.Cmd.activeTerminal = int(addr)
+        try:
+            if term[int(addr)] is None:
+                print("Error, the specified terminal '" + addr + "' isn't initialized")
+                return
+            cmd.Cmd.activeTerminal = int(addr)
+            return
+        except ValueError:
+            print("Invalid terminal")
+            return
+
+
+    def do_getactiveterminal(self,inp):
+        print("The currently active terminal is: " + str(cmd.Cmd.activeTerminal) )
         return
 
     def do_input(self, inp):
@@ -3077,6 +3093,7 @@ if __name__ == '__main__':
     debugConnection = False
     ttyfile = "/dev/ttyACM0"
     ignoreNextParam = False
+    defaultActiveTerminal = None
 
     inputArgs = sys.argv
     numterminals = 0
@@ -3087,6 +3104,8 @@ if __name__ == '__main__':
         inputArgs.append(str(DEFAULT_STATION_ADDRESS))
 
     clickerEnabled = DEFAULT_KEYBOARD_CLICKER_ENABLED
+
+
 
     numpars = len(inputArgs)
     # Iterate through terminal specifications from the command line
@@ -3177,6 +3196,9 @@ if __name__ == '__main__':
             termAddress, termDictionary, slowPoll, codepage, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress])
+        # Set active terminal if none defined
+        if defaultActiveTerminal is None:
+            defaultActiveTerminal = termAddress
 
         numterminals = numterminals+1
 
