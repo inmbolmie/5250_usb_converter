@@ -950,7 +950,7 @@ class Interceptor(object):
         if not argv:
             argv = [os.environ['SHELL'], "--norc"]
             if enableLoginShell:
-                argv.append("--login")
+                argv = ["login"]
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
