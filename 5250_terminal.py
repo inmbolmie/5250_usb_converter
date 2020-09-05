@@ -933,6 +933,7 @@ class Interceptor(object):
         self.term = terminal
         self.ttypid = None
         global disableInputCapture
+        global enableLoginShell
 
     def restart(self):
         if self.ttypid is not None:
@@ -948,6 +949,8 @@ class Interceptor(object):
         assert self.master_fd is None
         if not argv:
             argv = [os.environ['SHELL'], "--norc"]
+            if enableLoginShell:
+                argv.append("--login")
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
@@ -3094,6 +3097,7 @@ if __name__ == '__main__':
     ttyfile = "/dev/ttyACM0"
     ignoreNextParam = False
     defaultActiveTerminal = None
+    enableLoginShell = False
 
     inputArgs = sys.argv
     numterminals = 0
@@ -3158,6 +3162,11 @@ if __name__ == '__main__':
             print("Using tty device at: " + inputArgs[i + 1] + "\n")
             ttyfile = inputArgs[i+1]
             ignoreNextParam = True
+            continue
+
+        if inputArgs[i] == '-l':
+            print("Enabling login shell\n")
+            enableLoginShell = True
             continue
 
         termdef = inputArgs[i].split(":")
