@@ -1318,7 +1318,8 @@ class SerialPortControl:
                         # time.sleep(0.01)
 
                     # debugLog.write ("COMMANDS " +str(outputCommandQueue.empty()) + " " + str(term.getBusy())  + "\n")
-                    while (not outputCommandQueue[terminal.getStationAddress()].empty()) and (not terminal.getBusy()) and not doNotSendCommands:
+                    while (not outputCommandQueue[terminal.getStationAddress()].empty()) and (not terminal.getBusy()) and not doNotSendCommands and \
+                            terminal.getBlockUntilResponseLevel() is None:
                         # debugLog.write ("SENDING COMMANDS\n")
                         element = outputCommandQueue[terminal.getStationAddress()].get(
                         )
@@ -1440,10 +1441,26 @@ class SerialPortControl:
                             if scancode != "":
                                 # Send to SHELL
                                 term[terminal].processScanCode(scancode)
+                            # Force we need to receive a further change in
+                            # responseLevel to allow the terminal to receive
+                            # more commands
+                            term[terminal].setBlockUntilResponseLevel(
+                                1 - status.getResponseLevel())
+
+
                         if not term[terminal].getResponseLevel() == \
                                 status.getResponseLevel():
                             term[terminal].setResponseLevel(
                                 status.getResponseLevel())
+
+                        # Check if we can unlock terminal after a responseLevel
+                        # update
+                        if not term[terminal].getBlockUntilResponseLevel() \
+                                is None and \
+                                term[terminal].getResponseLevel() == \
+                                term[terminal].getBlockUntilResponseLevel() \
+                                and scancode == 0x00:
+                            term[terminal].setBlockUntilResponseLevel(None)
 
             # Send ACK if it is needed to indicate to the 5250 we have read
             # its status
@@ -1817,6 +1834,7 @@ class VT52_to_5250():
         self.incompleteSequence = bytearray()
         self.clickerEnabled = clickerEnabled
         self.statusByte = 0
+        self.blockUntilResponseLevel = None
         # Meaning of each statusByte bits:
         # 0x80 Hide cursor
         # 0x40 ???? unknown ATM
@@ -1840,6 +1858,14 @@ class VT52_to_5250():
         # 0x01 Lowest light on
         self.isCapsLockEnabled = 0
         return
+
+
+    def setBlockUntilResponseLevel(self,level):
+        self.blockUntilResponseLevel = level
+        return
+
+    def getBlockUntilResponseLevel(self):
+        return self.blockUntilResponseLevel
 
     # Various getters and setters
     def toggleEnabledClicker(self):
