@@ -1317,9 +1317,12 @@ class SerialPortControl:
                         # not in a hurry
                         # time.sleep(0.01)
 
+                    sentCommands = False
                     # debugLog.write ("COMMANDS " +str(outputCommandQueue.empty()) + " " + str(term.getBusy())  + "\n")
                     while (not outputCommandQueue[terminal.getStationAddress()].empty()) and (not terminal.getBusy()) and not doNotSendCommands and \
                             terminal.getBlockUntilResponseLevel() is None:
+
+                        sentCommands = True
                         # debugLog.write ("SENDING COMMANDS\n")
                         element = outputCommandQueue[terminal.getStationAddress()].get(
                         )
@@ -1334,6 +1337,11 @@ class SerialPortControl:
                                 # Retry
                                 debugLog.write("RETRYING: " + element + "\n")
                                 serialPortWrite.write(element)
+
+                    if sentCommands:
+                        #Blocking further commands until we receive a responseLevel change
+                        terminal.setBlockUntilResponseLevel(
+                            1 - terminal.getResponseLevel())
 
         return
 
