@@ -1551,6 +1551,41 @@ class MyPrompt(cmd.Cmd):
         interceptors[cmd.Cmd.activeTerminal].stdin_read(inp + " ")
         return
 
+    def do_ctrlkey(self, string):
+
+        ctrlscancode = term[cmd.Cmd.activeTerminal].scancodeDictionary['CTRL_PRESS'][0]
+        term[cmd.Cmd.activeTerminal].processScanCode(ctrlscancode)
+
+        for i in range(0, len(string)):
+            for key, value in term[cmd.Cmd.activeTerminal].scancodeDictionary.items():
+                try:
+                    if value[0] == string[i]:
+                        term[cmd.Cmd.activeTerminal].processScanCode(key)
+                except:
+                    pass
+        if len(term[cmd.Cmd.activeTerminal].scancodeDictionary['CTRL_RELEASE']):
+            ctrlscancode = term[cmd.Cmd.activeTerminal].scancodeDictionary['CTRL_RELEASE'][0]
+            term[cmd.Cmd.activeTerminal].processScanCode(ctrlscancode)
+        return
+
+    def do_altkey(self, string):
+
+        ctrlscancode = term[cmd.Cmd.activeTerminal].scancodeDictionary['ALT_PRESS'][0]
+        term[cmd.Cmd.activeTerminal].processScanCode(ctrlscancode)
+
+        for i in range(0, len(string)):
+            for key, value in term[cmd.Cmd.activeTerminal].scancodeDictionary.items():
+                try:
+                    if value[0] == string[i].lower():
+                        term[cmd.Cmd.activeTerminal].processScanCode(key)
+                except:
+                    pass
+        # Release if enabled
+        if len(term[cmd.Cmd.activeTerminal].scancodeDictionary['ALT_RELEASE']):
+            ctrlscancode = term[cmd.Cmd.activeTerminal].scancodeDictionary['ALT_RELEASE'][0]
+            term[cmd.Cmd.activeTerminal].processScanCode(ctrlscancode)
+        return
+
     def do_txstring(self, string):
         term[cmd.Cmd.activeTerminal].txString(string)
         return
