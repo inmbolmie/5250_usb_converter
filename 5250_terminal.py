@@ -28,6 +28,8 @@ import os
 import pty
 import select
 import signal
+import socket
+import stat
 import sys
 import termios
 import tty
@@ -36,6 +38,7 @@ import string
 import random
 import cmd
 
+m = None
 
 # Some important default parameters
 
@@ -1497,8 +1500,12 @@ class StatusResponse():
 #
 class MyPrompt(cmd.Cmd):
     prompt = '5250> '
+    use_rawinput = False
     intro = "Welcome! Type ? to list commands"
     cmd.Cmd.activeTerminal = 0
+
+    def __init__(self):
+        super(MyPrompt, self).__init__(stdin=m, stdout=m)
 
     def do_exit(self, inp):
         print("Bye")
@@ -3152,4 +3159,25 @@ if __name__ == '__main__':
     _thread.start_new_thread(serialController.write, (None,))
 
     disableInputCapture = 1
+
+    spath = "/tmp/5250_cmd_sock"
+    try:
+        if stat.S_ISSOCK(os.stat(spath).st_mode):
+            os.remove(spath)
+        else:
+            print(f"Path '{spath}' exists but is not a socket. Exiting")
+            sys.exit(1)
+    except FileNotFoundError:
+        pass
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(spath)
+    s.listen(1)
+    print(f"Making UDS socket available at {spath}.")
+    print(f"Use e.g. `$ socat stdio UNIX:{spath}` to connect.")
+    cs, ca = s.accept()
+    m = cs.makefile(mode="rw")
+
     MyPrompt().cmdloop()
+
+    os.remove(spath)
