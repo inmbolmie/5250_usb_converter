@@ -125,6 +125,26 @@ Finally you can specify for ASCII to EBCDIC translation a different codepage, `c
 
 ...this will look for a terminal at adress 0 using the 5250_ES keyboard mapping, with slow polling disabled and using EBCDIC codepage `cp500` for character translation. You can only specify here codepages supported by the `ebcdic` Python module.
 
+## Remote access to command line
+
+The program can be launched to accept TCP connections on port TCP/5251 for remote access to CMD interface. Use for that the `-p` parameter:
+
+`$ python3 5250_terminal.py -p`
+
+Then you can connect remotely to the CMD using:
+
+`$ telnet <host> 5251`
+
+Multiple simultaneous connections are allowed.
+
+You can also expose the CMD using a Unix Domain Socket with the `-u` parameter:
+
+`$ python3 5250_terminal.py -u`
+
+Then you can connect to the CMD using:
+
+`$ socat stdio UNIX:/tmp/5250_cmd_sock`
+
 
 ## Debugging
 
