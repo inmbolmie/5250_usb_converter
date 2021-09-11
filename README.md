@@ -7,7 +7,7 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
-This converter **only works with IBM 5250 compatible terminals**. Particulary, this is not IBM 3270 compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller) 
+This converter **only works with IBM 5250 compatible terminals**. Particularly, this is not IBM 3270 compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller) 
 
 For any question or if you tried and worked/didn't work get in touch at this email address: **inmbolmie [AT] gmail [DOT] com**
 
