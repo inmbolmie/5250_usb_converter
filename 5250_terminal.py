@@ -1519,8 +1519,10 @@ class MyPrompt(cmd.Cmd):
         super().__init__()
         return
 
-    def __init__(self):
-        super(MyPrompt, self).__init__(stdin=m, stdout=m)
+    def __init__(self, file):
+        cmd.Cmd.activeTerminal = defaultActiveTerminal
+        super(MyPrompt, self).__init__(stdin=file, stdout=file)
+        return
 
     def do_exit(self, inp):
         print("Bye")
@@ -3125,6 +3127,58 @@ class VT52_to_5250():
         return
 
 
+#Launches Cmd attached to a file
+def spawnCmd(file, connection):
+        MyPrompt(file).cmdloop()
+        if connection is not None:
+            connection.shutdown(socket.SHUT_RDWR)
+            connection.close()
+
+
+# Listens for connections in TCP port 5251 ;-) and launches a Cmd for each
+def telnetServer():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.setblocking(True)
+    s.bind(('', 5251))
+    s.listen(5)
+    print(f"Making Telnet socket available at port 5251")
+    print(f"Use e.g. `$ telnet localhost 5251` to connect.")
+
+    while True:
+        try:
+            connection, address = s.accept()
+            connection.setblocking(True)
+            _thread.start_new_thread(spawnCmd, (connection.makefile(mode="rw"),connection))
+
+        except BlockingIOError:
+            pass
+
+
+
+# Listens at UDS socket for CMD connections
+def udsServer():
+    spath = "/tmp/5250_cmd_sock"
+    try:
+        if stat.S_ISSOCK(os.stat(spath).st_mode):
+            os.remove(spath)
+        else:
+            print(f"Path '{spath}' exists but is not a socket. Exiting")
+            sys.exit(1)
+    except FileNotFoundError:
+        pass
+
+    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind(spath)
+    s.listen(1)
+    print(f"Making UDS socket available at {spath}.")
+    print(f"Use e.g. `$ socat stdio UNIX:{spath}` to connect.")
+    cs, ca = s.accept()
+
+    _thread.start_new_thread(spawnCmd, (cs.makefile(mode="rw"),None))
+
+
 # Main method
 if __name__ == '__main__':
 
@@ -3140,6 +3194,9 @@ if __name__ == '__main__':
     ignoreNextParam = False
     defaultActiveTerminal = None
     enableLoginShell = False
+    udsSocket = False
+    telnetSocket = False
+
 
     inputArgs = sys.argv
     numterminals = 0
@@ -3211,6 +3268,18 @@ if __name__ == '__main__':
             enableLoginShell = True
             continue
 
+        if inputArgs[i] == '-u':
+            print("Enabling Unix Domain Socket\n")
+            udsSocket= True
+            ignoreNextParam = False
+            continue
+
+        if inputArgs[i] == '-p':
+            print("Enabling Telnet Service at port 5251\n")
+            telnetSocket= True
+            ignoreNextParam = False
+            continue
+
         termdef = inputArgs[i].split(":")
 
         termAddress = int(termdef[0])
@@ -3268,24 +3337,15 @@ if __name__ == '__main__':
 
     disableInputCapture = 1
 
-    spath = "/tmp/5250_cmd_sock"
-    try:
-        if stat.S_ISSOCK(os.stat(spath).st_mode):
-            os.remove(spath)
-        else:
-            print(f"Path '{spath}' exists but is not a socket. Exiting")
-            sys.exit(1)
-    except FileNotFoundError:
-        pass
-    s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-    s.bind(spath)
-    s.listen(1)
-    print(f"Making UDS socket available at {spath}.")
-    print(f"Use e.g. `$ socat stdio UNIX:{spath}` to connect.")
-    cs, ca = s.accept()
-    m = cs.makefile(mode="rw")
+    if udsSocket:
+        #Launch thread to accept UDS CMD connections
+        _thread.start_new_thread(udsServer, ())
 
-    MyPrompt().cmdloop()
+    if telnetSocket:
+        #Launch thread to accept telnet CMD connections
+        _thread.start_new_thread(telnetServer, ())
+
+    #Launch CMD for the main shell
+    MyPrompt(m).cmdloop()
 
     os.remove(spath)
