@@ -3174,9 +3174,10 @@ def udsServer():
     s.listen(1)
     print(f"Making UDS socket available at {spath}.")
     print(f"Use e.g. `$ socat stdio UNIX:{spath}` to connect.")
-    cs, ca = s.accept()
 
-    _thread.start_new_thread(spawnCmd, (cs.makefile(mode="rw"),None))
+    while True:
+        cs, ca = s.accept()
+        _thread.start_new_thread(spawnCmd, (cs.makefile(mode="rw"),cs))
 
 
 # Main method
