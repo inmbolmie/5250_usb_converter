@@ -7,7 +7,7 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
-This converter **only works with IBM 5250 compatible terminals**. Particulary, this is not IBM 3270 compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller) 
+This converter **only works with IBM 5250 compatible terminals**. Particularly, this is not IBM 3270 compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller) 
 
 For any question or if you tried and worked/didn't work get in touch at this email address: **inmbolmie [AT] gmail [DOT] com**
 
@@ -124,6 +124,26 @@ Finally you can specify for ASCII to EBCDIC translation a different codepage, `c
 `$ python3 5250_terminal.py 0:5250_ES:0:cp500`
 
 ...this will look for a terminal at adress 0 using the 5250_ES keyboard mapping, with slow polling disabled and using EBCDIC codepage `cp500` for character translation. You can only specify here codepages supported by the `ebcdic` Python module.
+
+## Remote access to command line
+
+The program can be launched to accept TCP connections on port TCP/5251 for remote access to CMD interface. Use for that the `-p` parameter:
+
+`$ python3 5250_terminal.py -p`
+
+Then you can connect remotely to the CMD using:
+
+`$ telnet <host> 5251`
+
+Multiple simultaneous connections are allowed.
+
+You can also expose the CMD using a Unix Domain Socket with the `-u` parameter:
+
+`$ python3 5250_terminal.py -u`
+
+Then you can connect to the CMD using:
+
+`$ socat stdio UNIX:/tmp/5250_cmd_sock`
 
 
 ## Debugging
