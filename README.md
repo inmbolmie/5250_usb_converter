@@ -4,10 +4,12 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 
 ![converter PCB](/pcb/term.png)
 
+__Changes (2023/03/18): Improved Teensy firmware and Python script. Binary firmware update file. Now compatible with IBM 5291 terminals. New daemon and login modes available. General stability improvements.__
+
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
-This converter **only works with IBM 5250 compatible terminals**. Particularly, this is not IBM 3270 compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller) 
+This converter **only works with IBM 5250 compatible (twinax) terminals**. Particularly, this is not IBM 3270 (coax) compatible, as that is a totally different product line of terminals from the same era but oriented for the mainframe market. Fortunately if you are interested in the 3270 equivalent of this project please refer to [this other project](https://ajk.me/building-an-ibm-3270-terminal-controller)
 
 For any question or if you tried and worked/didn't work get in touch at this email address: **inmbolmie [AT] gmail [DOT] com**
 
@@ -18,12 +20,24 @@ The converter functionality is divided between two components:
 
 The converter works in Linux systems and Windows 10 systems installing the optional Linux Subsystem component (WSL)
 
+## Compatible terminals
+
+These are the terminals reported so far to be working with the adapter:
+
+* IBM 5251
+* IBM 5291 (compatible after the 2023/03/18 Teensy firmware improvements)
+* IBM 3180-2
+* IBM 3476
+* IBM 3477
+* IBM 3488
+* IBM ISA PC 5250 ADAPTER CARD
 
 ## Included files
 
 * `5250_terminal.py`--> Python script to run at the host computer
 * `PCB` --> Eagle schematics, PDF for DIY and ZIP gerber file for manufacturing
-* `5250_interface.ino` -> Arduino source to upload to a Teensy 4.0 board
+* `5250_interface.ino` -> Arduino source to program the Teensy 4.0 board
+* `5250_interface.ino.TEENSY40.hex` -> Binary compiled firmware to upload to a Teensy 4.0 board
 
 
 ## Board instructions
@@ -43,6 +57,21 @@ For making your PCB you have several options:
 ### Programming the Teensy
 
 You only need to upload the .ino file as is to a Teensy 4 using the Arduino IDE with the teensyduino addon. More information [here](https://www.pjrc.com/teensy/first_use.html).
+
+Be sure to generate the firmware with the following settings:
+
+* Board: Teensy 4.0
+* CPU speed: 600Mhz
+* Optimize: Fastest
+
+
+__It has been reported that newer versions of the Arduino/Teensyduino environment (Arduino 2.X and Teensyduino 1.57, and maybe others) generate slower code that does not work properly with the adapter.__ The reference versions I'm using are quite old, Arduino 1.8.13 and Teensyduino 1.53. __In case of doubt generate the firmware using those versions.__
+
+I will include on the Arduino source directory a binary distribution (HEX file) generated with those versions that can be directly loaded with the Teensy utility. For that you have two options:
+
+* Load the HEX file into Teensyduino and push the "program" button on the microcontroller. Then it will flash whatever you loaded into the Teensy utility.
+* Load the HEX file into Teensyduino, then locate and run the "teensy_reboot" program on your system. That way you can flash the controller without opening the adapter box.
+
 
 ### On-board terminators
 
@@ -70,7 +99,7 @@ The only Python module you should have to install is `ebcdic`, if you don’t al
 
 
 
-## Running the script 
+## Running the script
 
 Just run the script with no arguments if you only have a 5250 terminal at address 0 and you want to use the default keyboard mappings.
 
@@ -102,7 +131,7 @@ You can specify more than one terminal as parameters to the command, up to the 7
 
 ...will look while running for terminals at the addresses 1, 2 and 3
 
-If you want to specify a different __keyboard mapping__ of those available under the 
+If you want to specify a different __keyboard mapping__ of those available under the
 `scancodeDictionaries` section (more information about that later) you can specify it next to the terminal name separated by a colon `:`
 
 `$ python3 5250_terminal.py 0 1:5250_ES`
@@ -177,16 +206,34 @@ You can optionally silence the terminal keyboard clicker, having three ways to d
 * Press at the terminal the key combination `ALT+s` to disable/enable the clicker
 
 
-## More options
+## Specify different USB device
 
 `$ python3 5250_terminal.py -t /dev/ttyACM0`
 
 The `-t DEVICE` parameter allows to specify a different serial USB device for connection to the Teensy, in case you have more than one or it is for any reason in a device different from the default `/dev/ttyACM0`
 
 
+## Daemon and login shell modes
+
+You have three command line parameters relevant for these modes:
+
+The `-d` parameter allows to start the script in daemon mode. In this mode the script will run in the background. The log file is now written to /tmp/debug.log
+
+This way you will be able to run the script on system startup with a command like this:
+
+    daemon --name="5250" -- /usr/bin/python3  ~/github/5250_usb_converter/5250_terminal.py -p -d
+
+The `-p` parameter makes the script listen on TCP port 5251 for telnet control connections.
+
+The `-l` parameter for "login" mode makes the script start a login shell on every incoming terminal session. You may have to configure the shell yourself to set the environment variable TERM=vt52 and maybe configure a correct environment for bash as those cannot be managed through the "login" command as login simply runs whatever it is on /etc/passwd. Note that this mode is insecure as requires to run the script with root privileges, for example:
+
+
+    sudo daemon --name="5250" -- /usr/bin/python3  ~/github/5250_usb_converter/5250_terminal.py -p -d -l
+
+
 ## Keyboard scancode mappings configuration
 
-The keyboard of a 5250 terminal doesn’t directly generate characters, instead a “scancode” is sent back to the host for every key pressed. Those scancodes need to be converted to characters for the tty shell. Unfortunately there are a wide variety of possible combinations across the 5250 terminal range (5251, 5291, 3196, etc) with different key counts (83 keys, 101 keys, 122 keys, etc) and many different languages. 
+The keyboard of a 5250 terminal doesn’t directly generate characters, instead a “scancode” is sent back to the host for every key pressed. Those scancodes need to be converted to characters for the tty shell. Unfortunately there are a wide variety of possible combinations across the 5250 terminal range (5251, 5291, 3196, etc) with different key counts (83 keys, 101 keys, 122 keys, etc) and many different languages.
 
 ATM I have no idea how to make a proper autodiscovery and autoconfiguration for every terminal-keyboard-language combination, so the user will need to configure this editing the 5250_terminal.py script. This is also a matter of personal preference because the older terminals have weird key legends and non-standard layouts, and the user will have to decide the key mappings that better suits his preference.
 
@@ -199,7 +246,7 @@ There is at the beginning of the script a dictionary definition called __`scanco
 * __ENHANCED_DE__ is a mapping for an enhanced (IBM model M 101-102 key) keyboard terminal
 * __122KEY_DE__ is a mapping for a German keyboard 122 key terminal
 
-Refer to this [document](ftp://ftp.www.ibm.com/systems/power/docs/systemi/v6r1/en_US/sc415605.pdf) for more information about layouts and the scancodes generated. 
+Refer to this [document](ftp://ftp.www.ibm.com/systems/power/docs/systemi/v6r1/en_US/sc415605.pdf) for more information about layouts and the scancodes generated.
 
 To change the default mapping used if no mapping is specified in the command line, you have to edit the value of the variable `DEFAULT_SCANCODE_DICTIONARY`
 
@@ -220,14 +267,14 @@ __To create a new mapping__, you can copy and modify an existing mapping, adding
     'EXTRA': [],
     0x7C: [chr(0x1B), chr(0x1B), '', ''],
     0x23: ['e', 'E', '', chr(0x05)],
-    
+
     more scancode mappings...
-    
+
     },
 
 
 
-In the first entries you have to configure the scancodes that will activate the `SHIFT`, `CONTROL` and `ALT` key modifiers (`_PRESS`) and those that will deactivate them (`_RELEASE`). Note that in your keyboard there will be special “break” keys that will generate a scancode when you press the key __and__ another different scancode when you release it. You should use those keys for `SHIFT`, `CONTROL` and `ALT` operation. 
+In the first entries you have to configure the scancodes that will activate the `SHIFT`, `CONTROL` and `ALT` key modifiers (`_PRESS`) and those that will deactivate them (`_RELEASE`). Note that in your keyboard there will be special “break” keys that will generate a scancode when you press the key __and__ another different scancode when you release it. You should use those keys for `SHIFT`, `CONTROL` and `ALT` operation.
 
 So for example if pressing the `SHIFT` key you generate a `0x54` scancode and releasing it a `0xD4` scancode, you configure the `SHIFT` mappings like this:
 
@@ -256,7 +303,7 @@ The rest of the entries are regular scancode-to-character mappings, you need to 
 * `0x23` is the scancode received from the keyboard that we are mapping
 * The first entry of the array `e` is the lowercase character generated by the scancode that will be sent to the shell
 * The second entry of the array `E` is the uppercase character generated when SHIFT is pressed of CAPS_LOCK is enabled
-* The third entry of the array (empty in this case) is the character generated when ALT is pressed 
+* The third entry of the array (empty in this case) is the character generated when ALT is pressed
 * The fourth entry of the array `chr(0x05)` is the character generated when CONTROL is pressed, in this case is defined using the syntax chr(HEX_CODE) as it is not a printable character but the control ASCII code for `^E`
 
 Some entries will have 5 fields inside the brackets like this one:
@@ -300,12 +347,12 @@ When you run the script a 5250> command prompt is presented where you can send s
 
     $ python3 5250_terminal.py
     Searching for terminal address: 0; with scancode dictionary: 5251_ES; slow poll active: False; EBCDIC codepage: cp037
-    
+
     Welcome! Type ? to list commands
     5250>
 `
 
-Type ‘?’ at the command line for a list of available commands. 
+Type ‘?’ at the command line for a list of available commands.
 
 So set the active terminal which we will send commands to, type `setactiveterminal` followed by the terminal number:
 
@@ -335,11 +382,3 @@ To exit the session and close the program just type `exit` at the prompt
 
     5250> exit
     Bye
-
-
-
-
-
-
-
-

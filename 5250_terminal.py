@@ -931,17 +931,23 @@ def findlast(s, substrs):
 # is the main entrypoint.
 class Interceptor(object):
 
-    def __init__(self, terminal):
+    def __init__(self, terminal, termAddress):
         self.master_fd = None
         self.term = terminal
         self.ttypid = None
+        self.termAddress = termAddress
         global disableInputCapture
         global enableLoginShell
+        global term
+        global inputQueue, outputCommandQueue, outputQueue
 
     def restart(self):
         if self.ttypid is not None:
             os.kill(self.ttypid, signal.SIGTERM)
+            debugLog.write("SHELL KILLED: " +
+                           str(self.termAddress) + "\n")
         self.master_fd = None
+        self.ttypid = None
         return
 
     def spawn(self, argv=None):
@@ -949,7 +955,8 @@ class Interceptor(object):
         Create a spawned process.
         Based on the code for pty.spawn().
         '''
-        assert self.master_fd is None
+        if self.master_fd is not None:
+            self.restart()
         if not argv:
             argv = [os.environ['SHELL'], "--norc"]
             if enableLoginShell:
@@ -981,6 +988,11 @@ class Interceptor(object):
         try:
             self._copy()
         except (IOError, OSError):
+            term[self.termAddress].reset()
+            debugLog.write("TERMINAL RESET DUE TO SPAWN ERROR: " +
+                           str(termAddress) + "\n")
+            self.restart()
+
             if restore:
                 tty.tcsetattr(pty.STDIN_FILENO, tty.TCSAFLUSH, mode)
 
@@ -1019,6 +1031,7 @@ class Interceptor(object):
         '''
         assert self.master_fd is not None
         master_fd = self.master_fd
+        time.sleep(1)
         while 1:
             try:
                 rfds, wfds, xfds = select.select(
@@ -1034,8 +1047,13 @@ class Interceptor(object):
                 try:
                     data = os.read(self.master_fd, 128)
                 except (IOError, OSError, TypeError):
+                    term[self.termAddress].reset()
+                    debugLog.write("TERMINAL RESET DUE TO COPY ERROR: " +
+                                   str(self.termAddress) + "\n")
+                    self.restart()
                     return
-                self.master_read(data)
+                if data is not None:
+                    self.master_read(data)
                 '''
                 Called when there is data to be sent from the child process
                 back to the user.
@@ -1088,7 +1106,12 @@ class Interceptor(object):
         Writes to the child process from its controlling terminal.
         '''
         master_fd = self.master_fd
-        assert master_fd is not None
+        if master_fd is None:
+            term[self.termAddress].reset()
+            debugLog.write("TERMINAL RESET DUE TO WRITE ERROR: " +
+                           str(self.termAddress) + "\n")
+            self.restart()
+            return
         global writeLog
         global debugIO
         if debugIO:
@@ -1253,7 +1276,7 @@ class SerialPortControl:
         # Loop to write to serial interface
 
         lastmillis = [None] * 7
-
+        lastmillisresponse  = [None] * 7
         # Repeat forever
         while True:
 
@@ -1276,11 +1299,34 @@ class SerialPortControl:
                     elif terminal.getLowSpeedPolling():
                         lastmillis[terminal.getStationAddress()] = actmillis
 
+                    #Dead terminal detection
+                    if term[terminal.getStationAddress()].getInitialized():
+                        if lastmillisresponse[terminal.getStationAddress()] is not None:
+                            if actmillis > lastmillisresponse[terminal.getStationAddress()] + 10000:
+                                debugLog.write("TERMINAL DISCONNECTED: " +
+                                               str(terminal.getStationAddress()) + "\n")
+                                term[terminal.getStationAddress()].reset()
+                                inputQueue[terminal.getStationAddress()].queue.clear();
+                                outputCommandQueue[terminal.getStationAddress()].queue.clear();
+                                outputQueue[terminal.getStationAddress()].queue.clear();
+
+                                debugLog.write("TERMINAL RESET DUE TO DISCONNECTION: " +
+                                               str(terminal.getStationAddress()) + "\n")
+                                interceptors[terminal.getStationAddress()].restart()
+
+
+
                     # time.sleep(0.001)
 
                     # Default action to keep session alive is to poll
                     # continously
-                    terminal.POLL()
+                    if (not term[terminal.getStationAddress()].getPollActive()):
+                        terminal.POLL()
+                        term[terminal.getStationAddress()].setPollActive(0)
+                    else:
+                        terminal.ACK()
+                        term[terminal.getStationAddress()].setPollActive(0)
+
                     if not outputQueue[terminal.getStationAddress()].empty():
                         towrite = outputQueue[terminal.getStationAddress()].get(
                         )
@@ -1294,7 +1340,7 @@ class SerialPortControl:
                         serialPortWrite.write(towrite)
 
                     if not inputQueue[terminal.getStationAddress()].empty():
-                        term[terminal.getStationAddress()].setPollActive(1)
+                        lastmillisresponse[terminal.getStationAddress()] = int(round(time.time() * 1000))
                         self.processResponse(terminal.getStationAddress())
 
                     doNotSendCommands = 0
@@ -1310,7 +1356,7 @@ class SerialPortControl:
                             debugLog.write("RETRYING ACK: " + towrite + "\n")
                             serialPortWrite.write(towrite)
                         if not inputQueue[terminal.getStationAddress()].empty():
-                            term[terminal.getStationAddress()].setPollActive(0)
+                            #term[terminal.getStationAddress()].setPollActive(0)
                             self.processResponse(terminal.getStationAddress())
                         else:
                             doNotSendCommands = 1
@@ -1321,21 +1367,22 @@ class SerialPortControl:
                         # time.sleep(0.01)
 
                     # debugLog.write ("COMMANDS " +str(outputCommandQueue.empty()) + " " + str(term.getBusy())  + "\n")
-                    while (not outputCommandQueue[terminal.getStationAddress()].empty()) and (not terminal.getBusy()) and not doNotSendCommands:
-                        # debugLog.write ("SENDING COMMANDS\n")
-                        element = outputCommandQueue[terminal.getStationAddress()].get(
-                        )
-                        if element == "":
-                            # self.processResponse()
-                            break
-                        else:
-                            if debugConnection:
-                                debugLog.write("WRITING COMMAND:" + element)
-                            serialPortWrite.write(element)
-                            while not self.waitResponse(serialPort, 0, terminal.getStationAddress()):
-                                # Retry
-                                debugLog.write("RETRYING: " + element + "\n")
+
+                    if (not outputCommandQueue[terminal.getStationAddress()].empty()) and (not terminal.getBusy()) and not doNotSendCommands:
+                        #debugLog.write ("SENDING " + str(outputCommandQueue[terminal.getStationAddress()].qsize())  + " COMMANDS\n")
+                        while not outputCommandQueue[terminal.getStationAddress()].empty():
+                            element = outputCommandQueue[terminal.getStationAddress()].get()
+                            if element == "":
+                                # self.processResponse()
+                                break
+                            else:
+                                if debugConnection:
+                                    debugLog.write("WRITING COMMAND:" + element)
                                 serialPortWrite.write(element)
+                                while not self.waitResponse(serialPort, 0, terminal.getStationAddress()):
+                                    # Retry
+                                    debugLog.write("RETRYING: " + element + "\n")
+                                    serialPortWrite.write(element)
 
         return
 
@@ -1349,7 +1396,7 @@ class SerialPortControl:
     # essentially status and scancodes
     def processResponse(self, terminal):
         # global the5250log
-        global inputQueue
+        global inputQueue, outputCommandQueue, outputQueue
         global term
         global debugLog
         global debugKeystrokes
@@ -1375,18 +1422,38 @@ class SerialPortControl:
                                str(status.getExceptionStatus()) + "\n")
                 debugLog.write(id + "   responseLevel: " +
                                str(status.getResponseLevel()) + "\n")
+                debugLog.write(id + "   lineParity: " +
+                               str(status.getLineParity()) + "\n")
 
             term[terminal].setBusy(status.getBusy())
+
+            term[terminal].setLineParity(status.getLineParity())
+
+            term[terminal].setPollActive(1);
+
+            hasSecondWord = False;
+
+            if not inputQueue[terminal].empty():
+                secondWord = inputQueue[terminal].get()
+                hasSecondWord = True
 
             if inputQueue[terminal].empty() and \
                     (status.getExceptionStatus() == 7):
                 # Terminal detected but needs to be initialized
 
                 # Reset terminal
+
+                term[terminal].setInitialized(0)
+                inputQueue[terminal].queue.clear();
+                outputCommandQueue[terminal].queue.clear();
+                outputQueue[terminal].queue.clear();
+                debugLog.write("TERMINAL RESET BEFORE INITIALIZATION: " +
+                               str(terminal) + "\n")
                 interceptors[terminal].restart()
 
+
                 # Wait for it do die
-                time.sleep(2)
+                time.sleep(1)
 
                 # If we get only 1 byte we are in unitialized state, we have
                 # to send
@@ -1395,27 +1462,35 @@ class SerialPortControl:
                     debugLog.write("SETTING MODE\n")
                 term[terminal].SET_MODE()
 
+                return
+
+            elif (status.getExceptionStatus() == 0 and \
+                    not term[terminal].getInitialized() and \
+                    not status.getBusy()):
                 # Clear screen and init shell
+                term[terminal].setInitialized(1)
                 debugLog.write("STARTING SHELL FOR DETECTED TERMINAL: " +
                                str(terminal) + "\n")
                 term[terminal].ESC_E()
                 _thread.start_new_thread(
                     interceptors[terminal].arranque, (None,))
+
+                if not term[terminal].getResponseLevel() == \
+                        status.getResponseLevel():
+                    term[terminal].setResponseLevel(
+                        status.getResponseLevel())
                 return
 
             elif status.getExceptionStatus() != 0 and \
                     term[terminal].getInitialized():
                 # Exception, log and send a reset command
-                if not inputQueue[terminal].empty():
-                    secondWord = inputQueue[terminal].get()
+
                 debugLog.write("TERMINAL:" + str(terminal) +
                                " SENT AN EXCEPTION CODE: " +
                                str(status.getExceptionStatus()) + "\n")
                 term[terminal].resetException()
-            elif status.getExceptionStatus() == 0:
-                if not inputQueue[terminal].empty():
-                    term[terminal].setInitialized(1)
-                    secondWord = inputQueue[terminal].get()
+            elif status.getExceptionStatus() == 0 and term[terminal].getInitialized():
+                if hasSecondWord:
                     if len(secondWord) >= 2:
                         if debugConnection:
                             debugLog.write("RECEIVED DATA WORD: " + secondWord)
@@ -1450,11 +1525,11 @@ class SerialPortControl:
 
             # Send ACK if it is needed to indicate to the 5250 we have read
             # its status
-            if term[terminal].getForceAck() or term[terminal].getPollActive():
-                term[terminal].setForceAck(0)
-                # debugLog.write ("SENDING ACK " + str(term.getForceAck()) +
-                # " " + str(term.getPollActive()) + "\n")
-                term[terminal].ACK()
+            #if (not term[terminal].getBusy()) and term[terminal].getPollActive():
+            #    # debugLog.write ("SENDING ACK " + str(term.getForceAck()) +
+            #    # " " + str(term.getPollActive()) + "\n")
+            #    term[terminal].ACK()
+            #    return
 
         return
 
@@ -1469,6 +1544,7 @@ class StatusResponse():
         self.outstandingStatus = 0
         self.exceptionStatus = 0
         self.responseLevel = 0
+        self.lineParity = 0
         return
 
     def getStationAddress(self):
@@ -1506,12 +1582,20 @@ class StatusResponse():
         self.responseLevel = value
         return
 
+    def getLineParity(self):
+        return self.lineParity
+
+    def setLineParity(self, value):
+        self.lineParity = value
+        return
+
 
 # Command line interface for debugging
 #
 class MyPrompt(cmd.Cmd):
     prompt = '5250> '
     use_rawinput = False
+    global debugConnection;
     intro = "Welcome! Type ? to list commands"
 
     def __init__(self):
@@ -1821,6 +1905,19 @@ class MyPrompt(cmd.Cmd):
                   str(inp[i + 1]) + " " + str(resultado) + "\n")
         return
 
+    def do_EOF(self, inp):
+        return
+
+    def do_enabledebug(self,inp):
+        global debugConnection
+        debugConnection = True;
+        return
+
+    def do_disabledebug(self,inp):
+        global debugConnection
+        debugConnection = False;
+        return
+
 
 def chunks(l, n):
     n = max(1, n)
@@ -1845,6 +1942,7 @@ class VT52_to_5250():
         self.savedCursorX = 0
         self.savedCursorY = 0
         self.busy = 1
+        self.lineParity = 0
         self.responseLevel = 0
         self.isInExceptionState = 0
         self.isShiftEnabled = 0
@@ -1860,6 +1958,52 @@ class VT52_to_5250():
         self.savedCursorInPreviousLine = 0
         self.incompleteSequence = bytearray()
         self.clickerEnabled = clickerEnabled
+        self.statusByte = 0
+        # Meaning of each statusByte bits:
+        # 0x80 Hide cursor
+        # 0x40 ???? unknown ATM
+        # 0x20 Enable cursor blink
+        # 0x10 Enable text blink
+        # 0x08 Reverse video
+        # 0x04 Reset exception status
+        # 0x02 Disable keyboard clicker (solenoid) but no solenoid, no fun...
+        # 0x01 Bell, audible alert. Very loud indeed
+        if not self.clickerEnabled:
+            self.statusByte = 0x02
+        self.indicatorsByte = 0
+        # Meaning of each indicatorsBye bits:
+        # 0x80 Highest light on
+        # 0x40
+        # 0x20
+        # 0x10
+        # 0x08
+        # 0x04
+        # 0x02
+        # 0x01 Lowest light on
+        self.isCapsLockEnabled = 0
+        return
+
+    def reset(self):
+        self.cursorX = 0
+        self.cursorY = 0
+        self.savedCursorX = 0
+        self.savedCursorY = 0
+        self.busy = 1
+        self.lineParity = 0
+        self.responseLevel = 0
+        self.isInExceptionState = 0
+        self.isShiftEnabled = 0
+        self.isControlEnabled = 0
+        self.isAltEnabled = 0
+        self.isExtraEnabled = 0
+        self.forceAck = 0
+        self.pollActive = 0
+        self.initialized = 0
+        self.newlinePending = 0
+        self.cursorInPreviousLine = 0
+        self.savedNewlinePending = 0
+        self.savedCursorInPreviousLine = 0
+        self.incompleteSequence = bytearray()
         self.statusByte = 0
         # Meaning of each statusByte bits:
         # 0x80 Hide cursor
@@ -1919,18 +2063,18 @@ class VT52_to_5250():
         self.pollActive = status
         return
 
-    def getForceAck(self):
-        return self.forceAck
-
-    def setForceAck(self, value):
-        self.forceAck = value
-        return
-
     def getBusy(self):
         return self.busy
 
     def setBusy(self, state):
         self.busy = state
+        return
+
+    def getLineParity(self):
+        return self.lineParity
+
+    def setLineParity(self, state):
+        self.lineParity = state
         return
 
     def getResponseLevel(self):
@@ -2270,6 +2414,8 @@ class VT52_to_5250():
         status.setBusy((statusWord & 0x80) >> 7)
         status.setExceptionStatus((statusWord & 0xE) >> 1)
 
+        status.setLineParity((statusWord & 0x40) >> 6)
+
         return status
 
     # Decode a data response from the terminal (essentially a scancode)
@@ -2292,6 +2438,10 @@ class VT52_to_5250():
     def transmitCommandOrPoll(self, command, destination, data, isPoll):
         firstByte = (command & 0x3F) + 0x40
         secondByte = ((command & 0xC0) >> 6) + (destination << 2) + 0x40
+
+        if isPoll and self.getLineParity():
+            secondByte = secondByte + 0x01
+
         toTx = bytearray()
         toTx.append(firstByte)
         toTx.append(secondByte)
@@ -2588,6 +2738,11 @@ class VT52_to_5250():
     # management commands
     #
     # Clear sc
+
+    def RESET(self):
+        # Set transmission mode to zero fill
+        self.transmitCommand(RESET, self.destinationAddr, [])
+        return
 
     def SET_MODE(self):
         # Set transmission mode to zero fill
@@ -3197,6 +3352,7 @@ if __name__ == '__main__':
     enableLoginShell = False
     udsSocket = False
     telnetSocket = False
+    daemon = False
 
 
     inputArgs = sys.argv
@@ -3281,6 +3437,13 @@ if __name__ == '__main__':
             ignoreNextParam = False
             continue
 
+        if inputArgs[i] == '-d':
+            print("Enabling daemon mode\n")
+            daemon = True
+            ignoreNextParam = False
+            continue
+
+
         termdef = inputArgs[i].split(":")
 
         termAddress = int(termdef[0])
@@ -3316,7 +3479,7 @@ if __name__ == '__main__':
         term[termAddress] = VT52_to_5250(
             termAddress, termDictionary, slowPoll, codepage, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
-        interceptors[termAddress] = Interceptor(term[termAddress])
+        interceptors[termAddress] = Interceptor(term[termAddress], termAddress)
         # Set active terminal if none defined
         if defaultActiveTerminal is None:
             defaultActiveTerminal = termAddress
@@ -3325,11 +3488,19 @@ if __name__ == '__main__':
 
     writeLog = None
     readLog = None
-    if debugIO:
-        writeLog = open("write.log", "wb", buffering=0)
-        readLog = open("read.log", "wb", buffering=0)
+    debugLog = None
 
-    debugLog = open("debug.log", "w", buffering=1)
+    if daemon:
+        debugLog = open("/tmp/debug.log", "w", buffering=1)
+    else:
+       debugLog = open("debug.log", "w", buffering=1)
+       if debugIO:
+           writeLog = open("write.log", "wb", buffering=0)
+           readLog = open("read.log", "wb", buffering=0)
+
+
+
+    debugLog.write("COMMAND LINE: " + ' '.join(inputArgs) + "\n")
     # the5250log = open("5250.log","w", buffering=1)
 
     # Run serial port controller in its own thread
@@ -3347,6 +3518,12 @@ if __name__ == '__main__':
         _thread.start_new_thread(telnetServer, ())
 
     #Launch CMD for the main shell
-    MyPrompt(m).cmdloop()
-
-    os.remove(spath)
+    if daemon:
+        try:
+            while True:
+                time.sleep(1)
+        except (SystemExit,KeyboardInterrupt):
+            pass
+    else:
+        MyPrompt(m).cmdloop()
+        os.remove(spath)
