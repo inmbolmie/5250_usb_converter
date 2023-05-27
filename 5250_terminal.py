@@ -53,8 +53,8 @@ DEFAULT_STATION_ADDRESS = 0
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
 DEFAULT_SLOW_POLLING = False
-SLOW_POLL_MILLISECONDS = 5
-ULTRA_SLOW_POLL_MILLISECONDS = 1000
+SLOW_POLL_MICROSECONDS = 5000
+ULTRA_SLOW_POLL_MICROSECONDS = 1000000
 
 # Keyboard clicker enabled or not by default
 DEFAULT_KEYBOARD_CLICKER_ENABLED = True
@@ -1275,8 +1275,8 @@ class SerialPortControl:
         serialPortWrite = os.fdopen(fd, "w")
         # Loop to write to serial interface
 
-        lastmillis = [None] * 7
-        lastmillisresponse  = [None] * 7
+        lastmicros = [None] * 7
+        lastmicrosresponse  = [None] * 7
         # Repeat forever
         while True:
 
@@ -1289,20 +1289,22 @@ class SerialPortControl:
                     # can be throw at it but some emulated terminals will have
                     # a bad day if we poll them too much so in that case we
                     # will specify a minimum polling interval
-                    if lastmillis[terminal.getStationAddress()] is None:
-                        lastmillis[terminal.getStationAddress()] = 0
+                    if lastmicros[terminal.getStationAddress()] is None:
+                        lastmicros[terminal.getStationAddress()] = 0
 
-                    actmillis = int(round(time.time() * 1000))
+                    actmicros = int(round(time.time_ns() / 1000));
 
-                    if terminal.getLowSpeedPolling() and (actmillis < (lastmillis[terminal.getStationAddress()] + SLOW_POLL_MILLISECONDS)):
+                    if terminal.getLowSpeedPolling() and (actmicros < (lastmicros[terminal.getStationAddress()] + SLOW_POLL_MICROSECONDS)):
                         continue
                     elif terminal.getLowSpeedPolling():
-                        lastmillis[terminal.getStationAddress()] = actmillis
+                        lastmicros[terminal.getStationAddress()] = actmicros
+
+                    #debugLog.write("POLL AT: " + str(actmicros) + "\n")
 
                     #Dead terminal detection
                     if term[terminal.getStationAddress()].getInitialized():
-                        if lastmillisresponse[terminal.getStationAddress()] is not None:
-                            if actmillis > lastmillisresponse[terminal.getStationAddress()] + 10000:
+                        if lastmicrosresponse[terminal.getStationAddress()] is not None:
+                            if actmicros > lastmicrosresponse[terminal.getStationAddress()] + 10000000:
                                 debugLog.write("TERMINAL DISCONNECTED: " +
                                                str(terminal.getStationAddress()) + "\n")
                                 term[terminal.getStationAddress()].reset()
@@ -1340,7 +1342,7 @@ class SerialPortControl:
                         serialPortWrite.write(towrite)
 
                     if not inputQueue[terminal.getStationAddress()].empty():
-                        lastmillisresponse[terminal.getStationAddress()] = int(round(time.time() * 1000))
+                        lastmicrosresponse[terminal.getStationAddress()] = int(round(time.time_ns() / 1000))
                         self.processResponse(terminal.getStationAddress())
 
                     doNotSendCommands = 0
@@ -3459,7 +3461,7 @@ if __name__ == '__main__':
             slowPoll = bool(int(termdef[2]))
             if int(termdef[2]) == 2:
                 # Ultra-slow poll MODE
-                SLOW_POLL_MILLISECONDS = ULTRA_SLOW_POLL_MILLISECONDS
+                SLOW_POLL_MICROSECONDS = ULTRA_SLOW_POLL_MICROSECONDS
 
         if len(termdef) > 3:
             codepage = termdef[3]
