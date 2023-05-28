@@ -52,7 +52,7 @@ DEFAULT_STATION_ADDRESS = 0
 
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
-DEFAULT_SLOW_POLLING = True
+DEFAULT_SLOW_POLLING = False
 SLOW_POLL_MICROSECONDS = 5000
 ULTRA_SLOW_POLL_MICROSECONDS = 1000000
 
