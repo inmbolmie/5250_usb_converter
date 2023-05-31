@@ -28,9 +28,10 @@ These are the terminals reported so far to be working with the adapter:
 * IBM 5291 (compatible after the 2023/03/18 Teensy firmware improvements)
 * IBM 3180-2
 * IBM 3476
-* IBM 3477
+* IBM 3477 (recommended to enable slow polling at 650 microseconds interval editing the constant SLOW_POLL_MICROSECONDS on the python script)
 * IBM 3488
 * IBM ISA PC 5250 ADAPTER CARD
+
 
 ## Included files
 

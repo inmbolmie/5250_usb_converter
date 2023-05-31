@@ -53,8 +53,8 @@ DEFAULT_STATION_ADDRESS = 0
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
 DEFAULT_SLOW_POLLING = False
-SLOW_POLL_MILLISECONDS = 5
-ULTRA_SLOW_POLL_MILLISECONDS = 1000
+SLOW_POLL_MICROSECONDS = 5000
+ULTRA_SLOW_POLL_MICROSECONDS = 1000000
 
 # Keyboard clicker enabled or not by default
 DEFAULT_KEYBOARD_CLICKER_ENABLED = True
@@ -838,6 +838,153 @@ scancodeDictionaries = {
         },
     },
 
+    '122KEY_EN': {
+
+        # SPECIAL FUNCTION KEYS MAPPINGS
+        'CTRL_PRESS': [0x54],
+        'CTRL_RELEASE': [0xD4],
+        'ALT_PRESS': [0x68],
+        'ALT_RELEASE': [],
+        'SHIFT_PRESS': [0x57, 0x56],
+        'SHIFT_RELEASE': [0xD7, 0xD6],
+        'CAPS_LOCK': [0x7E],  # Grdst
+        'EXTRA': [0x6F],
+
+        # LEFT FUNCTION KEYS MAPPINGS (F1-F10)
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        # ROW 1
+        0x7C: [chr(0x1B), chr(0x1B), '', ''],  # ESC
+        # TBD UP TO F10
+
+        # TOP FUNCTION KEYS MAPPINGS (F1-F24)
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        # ROW 1
+        0x31: ['', '', '', ''], #F1
+        0x32: ['', '', '', ''], #F2
+        0x33: ['', '', '', ''], #F3
+        0x34: ['', '', '', ''], #F4
+        0x35: ['', '', '', ''], #F5
+        0x36: ['', '', '', ''], #F6
+        0x37: ['', '', '', ''], #F7
+        0x38: ['', '', '', ''], #F8
+        0x38: ['', '', '', ''], #F9
+        0x3A: ['', '', '', ''], #F10
+        0x3B: ['', '', '', ''], #F11
+        0x3C: ['', '', '', ''], #F12
+        # TBD UP TO F24
+
+        # MAIN ALPHA BLOCK KEYS MAPPINGS
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        # ROW 1
+        0x3E: ['~', '``', '′', ''],
+        0x31: ['1', '!', '¹', ''],
+        0x32: ['2', '@', '²', ''],
+        0x33: ['3', '#', '³', ''],
+        0x34: ['4', '$', '¼', ''],
+        0x35: ['5', '%', '½', ''],
+        0x36: ['6', '^', '¬', ''],
+        0x37: ['7', '&', '{', ''],
+        0x38: ['8', '*', '[', ''],
+        0x39: ['9', '(', ']', ''],
+        0x3A: ['0', ')', '}', ''],
+        0x3B: ['-', '_', '\\', chr(0x1C)],
+        0x3C: ['=', '+', '¸', ''],
+        0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
+        # ROW 2
+        0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
+        0x21: ['q', 'Q', '@', chr(0x11)],
+        0x22: ['w', 'W', 'ł', chr(0x17)],
+        0x23: ['e', 'E', '€', chr(0x05)],
+        0x24: ['r', 'R', '¶', chr(0x12)],
+        0x25: ['t', 'T', 'ŧ', chr(0x14)],
+        0x26: ['y', 'Y', '←', chr(0x19)],
+        0x27: ['u', 'U', '↓', chr(0x15)],
+        0x28: ['i', 'I', '→', chr(0x09)],
+        0x29: ['o', 'O', 'ø', chr(0x0F)],
+        0x2A: ['p', 'P', 'þ', chr(0x10)],
+        0x2B: ['[', ']', '~', chr(0x1D)],
+        0x2C: ['|', '\\', '~', chr(0x1D)],
+        0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
+        # ROW 3
+        0x11: ['a', 'A', 'æ', chr(0x01)],
+        0x12: ['s', 'S', 'ſ', chr(0x13)],
+        0x13: ['d', 'D', 'ð', chr(0x04)],
+        0x14: ['f', 'F', 'đ', chr(0x06)],
+        0x15: ['g', 'G', 'ŋ', chr(0x07)],
+        0x16: ['h', 'H', 'ħ', chr(0x08)],
+        0x17: ['j', 'J', '.', chr(0x0A)],
+        0x18: ['k', 'K', 'ĸ', chr(0x0B)],
+        0x19: ['l', 'L', 'ł', chr(0x0C)],
+        0x1A: [';', ':', '˝', ''],
+        0x1B: ['\'', '"', '^', chr(0x1B)],
+        0x1C: ['}', '{', '’', chr(0x1D)],
+        # ROW 4
+        0x0e: ['<', '>', '|', ''],
+        0x01: ['z', 'Z', '»', chr(0x1A)],
+        0x02: ['x', 'X', '«', chr(0x18)],
+        0x03: ['c', 'C', '¢', chr(0x03)],
+        0x04: ['v', 'V', '„', chr(0x16)],
+        0x05: ['b', 'B', '“”', chr(0x02)],
+        0x06: ['n', 'N', '”', chr(0x0E)],
+        0x07: ['m', 'M', 'µ', chr(0x0D)],
+        0x08: [',', ';', '·', ''],
+        0x09: ['.', ':', '…', ''],
+        0x0a: ['/', '?', '–', chr(0x1F)],
+        # ROW 5
+        0x0F: [' ', ' ', '', ''],  # SPACE BAR
+
+
+        # TEXT EDIT MODE KEYS BLOCK MAPPINGS
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        0x4b: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], #insert?
+        0x4c: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'F'], # end works, DUP on kb
+        0x62: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], # blank
+        0xc: [chr(0x1b), chr(0x1b), chr(0x1b), '', chr(0x7F)], # delete line
+        0x6c: [chr(0x1b), chr(0x1b), chr(0x1b), '', ''], #
+        0x57: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], #
+        # 0x6c
+
+        # ARROW KEYS BLOCK MAPPINGS
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        0x71: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'A'],  # UP ARROW
+        0x72: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'D'],  # LEFT ARROW
+        # TBD CENTER ARROW
+        0x73: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'C'],  # RIGHT ARROW
+        0x70: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'B'],  # DOWN ARROW
+
+        # NUMPAD KEYS BLOCK MAPPINGS
+        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
+        # ROW 1
+        0x4A: ['/', '/', '', ''],
+        0x3E: ['*', '*', '', ''],
+        0x7F: ['-', '-', '', ''],
+        # ROW 2
+        0x47: ['7', '7', '', ''],
+        # NUMPAD 8  EXTRA UP ARROW
+        0x48: ['8', '8', chr(0x1B), chr(0x1B), 'A'],
+        0x49: ['9', '9', '', ''],
+        0x7B: ['+', '+', '', ''],
+        # ROW 3
+        # NUMPAD 4   EXTRA LEFT ARROW
+        0x44: ['4', '4', chr(0x1B), chr(0x1B), 'D'],
+        0x45: ['5', '5', '', ''],
+        0x46: ['6', '6', '', '', 'C'],  # NUMPAD 6 EXTRA RIGHT ARROW
+        # ROW 4
+        0x41: ['1', '1', '', ''],
+        # NUMPAD 2  EXTRA DOWN ARROW
+        0x42: ['2', chr(0x1B), chr(0x1B), '', 'B'],
+        0x43: ['3', '3', '', ''],
+        0x2D: [chr(0x0D), '', '', ''],  # ENTER
+        # ROW 5
+        0x40: ['0', '0', '', ''],
+        0x4A: ['.', '', '', ''],
+
+        # Custom character conversions, from ASCII char to EBCDIC code that
+        # will override the DEFAULT_CODEPAGE conversions
+        'CUSTOM_CHARACTER_CONVERSIONS': {
+        },
+    },
+
     # ENTER HERE YOUR ADDITIONAL SCANCODE MAPPINGS
 
 }
@@ -1275,8 +1422,8 @@ class SerialPortControl:
         serialPortWrite = os.fdopen(fd, "w")
         # Loop to write to serial interface
 
-        lastmillis = [None] * 7
-        lastmillisresponse  = [None] * 7
+        lastmicros = [None] * 7
+        lastmicrosresponse  = [None] * 7
         # Repeat forever
         while True:
 
@@ -1289,20 +1436,22 @@ class SerialPortControl:
                     # can be throw at it but some emulated terminals will have
                     # a bad day if we poll them too much so in that case we
                     # will specify a minimum polling interval
-                    if lastmillis[terminal.getStationAddress()] is None:
-                        lastmillis[terminal.getStationAddress()] = 0
+                    if lastmicros[terminal.getStationAddress()] is None:
+                        lastmicros[terminal.getStationAddress()] = 0
 
-                    actmillis = int(round(time.time() * 1000))
+                    actmicros = int(round(time.time_ns() / 1000));
 
-                    if terminal.getLowSpeedPolling() and (actmillis < (lastmillis[terminal.getStationAddress()] + SLOW_POLL_MILLISECONDS)):
+                    if terminal.getLowSpeedPolling() and (actmicros < (lastmicros[terminal.getStationAddress()] + SLOW_POLL_MICROSECONDS)):
                         continue
                     elif terminal.getLowSpeedPolling():
-                        lastmillis[terminal.getStationAddress()] = actmillis
+                        lastmicros[terminal.getStationAddress()] = actmicros
+
+                    #debugLog.write("POLL AT: " + str(actmicros) + "\n")
 
                     #Dead terminal detection
                     if term[terminal.getStationAddress()].getInitialized():
-                        if lastmillisresponse[terminal.getStationAddress()] is not None:
-                            if actmillis > lastmillisresponse[terminal.getStationAddress()] + 10000:
+                        if lastmicrosresponse[terminal.getStationAddress()] is not None:
+                            if actmicros > lastmicrosresponse[terminal.getStationAddress()] + 10000000:
                                 debugLog.write("TERMINAL DISCONNECTED: " +
                                                str(terminal.getStationAddress()) + "\n")
                                 term[terminal.getStationAddress()].reset()
@@ -1340,7 +1489,7 @@ class SerialPortControl:
                         serialPortWrite.write(towrite)
 
                     if not inputQueue[terminal.getStationAddress()].empty():
-                        lastmillisresponse[terminal.getStationAddress()] = int(round(time.time() * 1000))
+                        lastmicrosresponse[terminal.getStationAddress()] = int(round(time.time_ns() / 1000))
                         self.processResponse(terminal.getStationAddress())
 
                     doNotSendCommands = 0
@@ -3459,7 +3608,7 @@ if __name__ == '__main__':
             slowPoll = bool(int(termdef[2]))
             if int(termdef[2]) == 2:
                 # Ultra-slow poll MODE
-                SLOW_POLL_MILLISECONDS = ULTRA_SLOW_POLL_MILLISECONDS
+                SLOW_POLL_MICROSECONDS = ULTRA_SLOW_POLL_MICROSECONDS
 
         if len(termdef) > 3:
             codepage = termdef[3]
