@@ -2064,6 +2064,22 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
+    def do_txindicatorsbyte347x(self, status):
+        """Control the indicators that were first introduced on 3476 and 3477.
+
+        Provide a value in decimal to be included in the first data
+        frame.  There is no support for sending the second data frame.
+        """
+        status = int(status)
+        if status & 0x01 != 0:
+            print("LSB (indicating frame 2 is present) must not be set")
+            return
+        term[cmd.Cmd.activeTerminal].transmitCommand(
+            WRITE_CONTROL_DATA_INDICATORS,
+            term[cmd.Cmd.activeTerminal].destinationAddr, [status])
+        term[cmd.Cmd.activeTerminal].EOQ()
+        return
+
     def do_txchar(self, char):
         piece = bytearray()
         piece.insert(0, int(char, 0))
