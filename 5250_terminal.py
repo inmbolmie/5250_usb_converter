@@ -2660,6 +2660,10 @@ class VT52_to_5250():
 
     # Encodes a command + data or poll to send over the serial interface
     def transmitCommandOrPoll(self, command, destination, data, isPoll):
+        # @todo The destination parameter appears to be redundant and
+        # could probably be removed.
+        assert destination == self.destinationAddr
+
         firstByte = (command & 0x3F) + 0x40
         secondByte = ((command & 0xC0) >> 6) + (destination << 2) + 0x40
 
