@@ -1939,7 +1939,8 @@ class MyPrompt(cmd.Cmd):
 
     def do_escY(self, inp):
         global term
-        term[cmd.Cmd.activeTerminal].ESC_Y()
+        (x, y) = inp.split()
+        term[cmd.Cmd.activeTerminal].ESC_Y(int(x), int(y))
         return
 
     def do_escb(self, inp):
