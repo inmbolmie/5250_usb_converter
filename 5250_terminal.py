@@ -847,7 +847,7 @@ scancodeDictionaries = {
         'ALT_RELEASE': [],
         'SHIFT_PRESS': [0x57, 0x56],
         'SHIFT_RELEASE': [0xD7, 0xD6],
-        'CAPS_LOCK': [0x7E],  # Grdst
+        'CAPS_LOCK': [0x7E],  # Reset
         'EXTRA': [0x6F],
 
         # LEFT FUNCTION KEYS MAPPINGS (F1-F10)
