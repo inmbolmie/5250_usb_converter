@@ -38,8 +38,6 @@ import string
 import random
 import cmd
 
-m = None
-
 # Some important default parameters
 
 # Configure the defaulf dictionary to use if nothing is specified in the
@@ -3770,5 +3768,5 @@ if __name__ == '__main__':
         except (SystemExit,KeyboardInterrupt):
             pass
     else:
-        MyPrompt(m).cmdloop()
+        MyPrompt(None).cmdloop()
         os.remove(spath)
