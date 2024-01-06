@@ -1370,6 +1370,55 @@ def openSerial(port, speed):
     return fd
 
 
+def decodeStatusResponse(response):
+    """Decode a POLL response from the terminal"""
+    # Ej: 0101 1100 0100 0111  not initialized  RAW: 1011100001111000
+    # Ej: 0000 0000 0100 1111  initialized after set mode command
+    # RAW: 1000000011111000
+
+    status = StatusResponse()
+
+    statusWordA = int.from_bytes(
+        response[0].encode(), byteorder='big') & 0x3F
+    # 01 1100
+    statusWordB = int.from_bytes(
+        response[1].encode(), byteorder='big') & 0x1F
+    # 0 0111
+
+    statusWord = (reverseByte(statusWordB) << 3) + \
+        (reverseByte(statusWordA) >> 2)
+    # 11100001110
+
+    # debugLog.write ("DECODED STATUS BYTE A " +
+    # str(reverseByte(statusWordA)) + "\n")
+    # debugLog.write ("DECODED STATUS BYTE B " +
+    # str(reverseByte(statusWordB)) + "\n")
+    # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
+    # 10000000
+    status.setStationAddress((statusWord & 0x700) >> 8)
+    status.setOutstandingStatus((statusWord & 0x10) >> 4)
+    status.setResponseLevel((statusWord & 0x01))
+
+    status.setBusy((statusWord & 0x80) >> 7)
+    status.setExceptionStatus((statusWord & 0xE) >> 1)
+
+    status.setLineParity((statusWord & 0x40) >> 6)
+
+    return status
+
+
+def decodeDataResponse(response):
+    """Decode a data response from the terminal (essentially a
+    scancode)
+    """
+    dataWordA = int.from_bytes(
+        response[0].encode(), byteorder='big') & 0x3F
+    dataWordB = int.from_bytes(
+        response[1].encode(), byteorder='big') & 0x18
+
+    return (reverseByte(dataWordB) << 3) + (reverseByte(dataWordA) >> 2)
+
+
 # Class that controls the serial port (USB) for send and receive
 class SerialPortControl:
 
@@ -1558,7 +1607,7 @@ class SerialPortControl:
             # So this logic is very simplified
             firstWord = inputQueue[terminal].get()
             # the5250log.write(firstWord)
-            status = term[terminal].decodeStatusResponse(firstWord)
+            status = decodeStatusResponse(firstWord)
 
             if debugConnection:
                 id = self.randomString()
@@ -1645,8 +1694,7 @@ class SerialPortControl:
                         if debugConnection:
                             debugLog.write("RECEIVED DATA WORD: " + secondWord)
                         # the5250log.write(secondWord)
-                        scancode = term[terminal].decodeDataResponse(
-                            secondWord)
+                        scancode = decodeDataResponse(secondWord)
                         # debugLog.write ("RECEIVED DATA BYTE: " +
                         # str(scancode) + "\n")
                         # get keystroke if ack is not pending and is different
@@ -2602,53 +2650,6 @@ class VT52_to_5250():
                     self.cursorInPreviousLine = True
 
         return
-
-    # Decode a POLL response from the terminal
-
-    def decodeStatusResponse(self, response):
-        # Ej: 0101 1100 0100 0111  not initialized  RAW: 1011100001111000
-        # Ej: 0000 0000 0100 1111  initialized after set mode command
-        # RAW: 1000000011111000
-
-        status = StatusResponse()
-
-        statusWordA = int.from_bytes(
-            response[0].encode(), byteorder='big') & 0x3F
-        # 01 1100
-        statusWordB = int.from_bytes(
-            response[1].encode(), byteorder='big') & 0x1F
-        # 0 0111
-
-        statusWord = (reverseByte(statusWordB) << 3) + \
-            (reverseByte(statusWordA) >> 2)
-        # 11100001110
-
-        # debugLog.write ("DECODED STATUS BYTE A " +
-        # str(reverseByte(statusWordA)) + "\n")
-        # debugLog.write ("DECODED STATUS BYTE B " +
-        # str(reverseByte(statusWordB)) + "\n")
-        # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
-        # 10000000
-        status.setStationAddress((statusWord & 0x700) >> 8)
-        status.setOutstandingStatus((statusWord & 0x10) >> 4)
-        status.setResponseLevel((statusWord & 0x01))
-
-        status.setBusy((statusWord & 0x80) >> 7)
-        status.setExceptionStatus((statusWord & 0xE) >> 1)
-
-        status.setLineParity((statusWord & 0x40) >> 6)
-
-        return status
-
-    # Decode a data response from the terminal (essentially a scancode)
-
-    def decodeDataResponse(self, response):
-        dataWordA = int.from_bytes(
-            response[0].encode(), byteorder='big') & 0x3F
-        dataWordB = int.from_bytes(
-            response[1].encode(), byteorder='big') & 0x18
-
-        return (reverseByte(dataWordB) << 3) + (reverseByte(dataWordA) >> 2)
 
     def transmitCommand(self, command, destination, data):
         return self.transmitCommandOrPoll(command, destination, data, 0)
