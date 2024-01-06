@@ -23,6 +23,7 @@
 import _thread
 import time
 import array
+import errno
 import fcntl
 import os
 import pty
@@ -1359,8 +1360,17 @@ def openSerial(port, speed):
     termios.tcsetattr(fd, termios.TCSANOW, attrs)
 
     #Black magic needed for Ubuntu WSL under Windows 10
-    fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' )
-    fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
+    try:
+        fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' )
+        fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
+    except OSError as e:
+        if e.errno == errno.EINVAL:
+            # This occurs if port isn't a real serial interface.
+            # Ignore it so that PTYs may be used for testing purposes.
+            print("Ignoring ioctl() failure for TIOCMBIS (only required for "
+                  "WSL)")
+        else:
+            raise e
     termios.tcflush(fd, termios.TCIFLUSH)
 
     # Configure non-blocking I(O)
