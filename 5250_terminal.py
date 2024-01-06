@@ -1835,6 +1835,44 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].txString(string)
         return
 
+    def do_txebcdic(self, string):
+        """Send or more data bytes to display.
+
+        For example, to output "HI" in inverse video, issue either of the
+        following commands:
+          txebcdic 0x21 0xC8 0xC9 0x20
+          txebcdic 33 200 201 32
+        """
+        ebcdicArray = bytearray()
+        for word in string.split():
+            ebcdicArray.append(int(word, base=0))
+        term[cmd.Cmd.activeTerminal].txEbcdic(ebcdicArray)
+
+    def do_txchartable(self, string):
+        """Output a character table showing glyphs and attributes.
+
+        The table is in column-major order for consistency with IBM
+        documents.
+        """
+        CLEAR_ATTRIBUTES = 0x20
+        SPACE = 0x40
+
+        t = term[cmd.Cmd.activeTerminal]
+        t.CR()
+        t.LF()
+        for row in range(0, 16):
+            for col in range(16):
+                char = col << 4 | row
+                if col in [2, 3]: # char is an attribute
+                    t.txEbcdic([char])
+                    t.txString(f"{char:02X}")
+                    t.txEbcdic([CLEAR_ATTRIBUTES, SPACE])
+                else:
+                    t.txString(f" {char:02X}:")
+                    t.txEbcdic([char])
+            t.CR()
+            t.LF()
+
     def do_cr(self, inp):
         term[cmd.Cmd.activeTerminal].CR()
         return
