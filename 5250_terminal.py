@@ -2057,6 +2057,20 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
+    def do_txstatusbyte2(self, status):
+        """Send a Write Control Data command with two data frames, as is
+        supported since the 3180 Model 2.
+
+        Supply only the value to be included in the second data frame,
+        in decimal.
+        """
+        t = term[cmd.Cmd.activeTerminal]
+        t.transmitCommand(
+            WRITE_CONTROL_DATA, t.destinationAddr,
+            [t.statusByte | 0x40, int(status)])
+        t.EOQ()
+        return
+
     def do_txindicatorsbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
             WRITE_DATA_LOAD_CURSOR_INDICATORS,
