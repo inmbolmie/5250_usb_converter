@@ -2431,7 +2431,9 @@ class VT52_to_5250():
                 # In anything goes wrong (strange character or some shit)
                 # transmit a blank to keep session on sync
                 ebcdicArray = ebcdicArray + " ".encode(self.EBCDICcodepage)
+        self.txEbcdic(ebcdicArray)
 
+    def txEbcdic(self, ebcdicArray):
         # Split in chunks of 10 or less so that the string fits into the 5250
         # command buffer
         pieces = chunks(ebcdicArray, 10)
