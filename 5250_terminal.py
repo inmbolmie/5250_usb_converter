@@ -62,6 +62,8 @@ DEFAULT_KEYBOARD_CLICKER_ENABLED = True
 # Default EBCDIC codepage for character translations
 DEFAULT_CODEPAGE = 'cp037'
 
+# Default state for advanced features
+DEFAULT_FEATURES = False
 
 # Scancode lookup tables
 # Format is the scancode as a key and a 4 or 5 sized array:
@@ -1013,6 +1015,7 @@ READ_TO_END_OF_LINE = int('01010', 2)
 RESET = int('00010', 2)
 SET_MODE = int('10011', 2)
 WRITE_CONTROL_DATA = int('00101', 2)
+WRITE_CONTROL_DATA_INDICATORS = int('1000101', 2)
 WRITE_DATA_LOAD_CURSOR = int('10001', 2)
 WRITE_DATA_LOAD_CURSOR_INDICATORS = int('1010001', 2)
 WRITE_IMMEDIATE_DATA = int('11101', 2)
@@ -2081,7 +2084,7 @@ def reverseByte(byte):
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
     def __init__(self, address, scancodeDictionary, lowSpeedPolling,
-                 EBCDICcodepage, clickerEnabled):
+                 EBCDICcodepage, advancedFeatures, clickerEnabled ):
         self.lowSpeedPolling = lowSpeedPolling
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
@@ -2107,6 +2110,7 @@ class VT52_to_5250():
         self.savedCursorInPreviousLine = 0
         self.incompleteSequence = bytearray()
         self.clickerEnabled = clickerEnabled
+        self.advancedFeatures = advancedFeatures
         self.statusByte = 0
         # Meaning of each statusByte bits:
         # 0x80 Hide cursor
@@ -2777,15 +2781,27 @@ class VT52_to_5250():
             self.isCapsLockEnabled = not self.isCapsLockEnabled
             # Turn on light
             if self.isCapsLockEnabled:
-                self.indicatorsByte = self.indicatorsByte | 0x20
-                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
-                                     self.destinationAddr,
-                                     [self.indicatorsByte])
+                if not self.advancedFeatures:
+                    self.indicatorsByte = self.indicatorsByte | 0x20
+                    self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
+                                         self.destinationAddr,
+                                         [self.indicatorsByte])
+                else:
+                    self.transmitCommand(WRITE_CONTROL_DATA_INDICATORS,
+                                         self.destinationAddr,
+                                         [0x80])
+
             else:
-                self.indicatorsByte = self.indicatorsByte & 0xDF
-                self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
-                                     self.destinationAddr,
-                                     [self.indicatorsByte])
+                if not self.advancedFeatures:
+                    self.indicatorsByte = self.indicatorsByte & 0xDF
+                    self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
+                                         self.destinationAddr,
+                                         [self.indicatorsByte])
+                else:
+                    self.transmitCommand(WRITE_CONTROL_DATA_INDICATORS,
+                                         self.destinationAddr,
+                                         [0x00])
+
             self.EOQ()
 
         else:
@@ -3537,7 +3553,7 @@ if __name__ == '__main__':
             sys.exit(
                 "USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] " +
                 "[STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:" +
-                "[EBCDIC_CODEPAGE]] ... ")
+                "[EBCDIC_CODEPAGE]:[EXTRA_FEATURES]] ... ")
 
         if inputArgs[i] == '-c':
             # Extra connection debugging
@@ -3599,24 +3615,29 @@ if __name__ == '__main__':
         termDictionary = DEFAULT_SCANCODE_DICTIONARY
         slowPoll = DEFAULT_SLOW_POLLING
         codepage = DEFAULT_CODEPAGE
+        advancedFeatures = DEFAULT_FEATURES
 
 
-        if len(termdef) > 1:
+        if len(termdef) > 1 and termdef[1]!="":
             termDictionary = termdef[1]
 
-        if len(termdef) > 2:
+        if len(termdef) > 2 and termdef[2]!="":
             slowPoll = bool(int(termdef[2]))
             if int(termdef[2]) == 2:
                 # Ultra-slow poll MODE
                 SLOW_POLL_MICROSECONDS = ULTRA_SLOW_POLL_MICROSECONDS
 
-        if len(termdef) > 3:
+        if len(termdef) > 3 and termdef[3]!="":
             codepage = termdef[3]
+
+        if len(termdef) > 4 and termdef[4]!="":
+            advancedFeatures = bool(int(termdef[4]))
 
         print("Searching for terminal address: " + str(termAddress) +
               "; with scancode dictionary: " + termDictionary +
               "; slow poll active: " + str(slowPoll) +
-              "; EBCDIC codepage: " + codepage + "\n")
+              "; EBCDIC codepage: " + codepage +
+              "; advanced features: " + str(advancedFeatures) + "\n")
 
         # Initializing terminal "termAddress"
 
@@ -3626,7 +3647,7 @@ if __name__ == '__main__':
         outputCommandQueue[termAddress] = queue.Queue()
         # Terminal conversion object
         term[termAddress] = VT52_to_5250(
-            termAddress, termDictionary, slowPoll, codepage, clickerEnabled)
+            termAddress, termDictionary, slowPoll, codepage, advancedFeatures, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress], termAddress)
         # Set active terminal if none defined
