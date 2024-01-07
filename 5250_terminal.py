@@ -849,7 +849,7 @@ scancodeDictionaries = {
         'ALT_RELEASE': [],
         'SHIFT_PRESS': [0x57, 0x56],
         'SHIFT_RELEASE': [0xD7, 0xD6],
-        'CAPS_LOCK': [0x7E],  # Grdst
+        'CAPS_LOCK': [0x7E],  # Reset
         'EXTRA': [0x6F],
 
         # LEFT FUNCTION KEYS MAPPINGS (F1-F10)
@@ -1942,7 +1942,8 @@ class MyPrompt(cmd.Cmd):
 
     def do_escY(self, inp):
         global term
-        term[cmd.Cmd.activeTerminal].ESC_Y()
+        (x, y) = inp.split()
+        term[cmd.Cmd.activeTerminal].ESC_Y(int(x), int(y))
         return
 
     def do_escb(self, inp):
