@@ -2777,12 +2777,12 @@ class VT52_to_5250():
             self.isCapsLockEnabled = not self.isCapsLockEnabled
             # Turn on light
             if self.isCapsLockEnabled:
-                self.indicatorsByte = self.indicatorsByte | 0x10
+                self.indicatorsByte = self.indicatorsByte | 0x20
                 self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
                                      self.destinationAddr,
                                      [self.indicatorsByte])
             else:
-                self.indicatorsByte = self.indicatorsByte & 0xEF
+                self.indicatorsByte = self.indicatorsByte & 0xDF
                 self.transmitCommand(WRITE_DATA_LOAD_CURSOR_INDICATORS,
                                      self.destinationAddr,
                                      [self.indicatorsByte])
