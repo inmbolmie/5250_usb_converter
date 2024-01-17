@@ -23,6 +23,7 @@
 import _thread
 import time
 import array
+import code
 import errno
 import fcntl
 import os
@@ -2194,6 +2195,26 @@ class MyPrompt(cmd.Cmd):
         global debugConnection
         debugConnection = False;
         return
+
+    def do_python(self, _):
+        """Enter a Python interpreter (read-eval-print loop).
+
+        Note: Interaction with terminals using this interpreter is
+        timing-sensitive due to the use of threads, e.g. this has the
+        same effect as the 'txebcdic' example:
+
+          b = bytearray([4, 33, 200, 201, 32])
+          term[0].transmitCommand(WRITE_DATA_LOAD_CURSOR, 0, b); term[0].EOQ()
+
+        but invoking the two statements on the second line with a
+        delay between them results in the EOQ command never being
+        sent.
+        """
+        code.interact(local=globals(),
+                      banner="""\
+Interactive Python interpreter (read-eval-print loop)
+'help' for help, Ctrl-D to return to CLI""",
+                      exitmsg="Returning from Python interpreter to CLI")
 
 
 def chunks(l, n):
