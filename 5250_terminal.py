@@ -1835,6 +1835,44 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].txString(string)
         return
 
+    def do_txebcdic(self, string):
+        """Send or more data bytes to display.
+
+        For example, to output "HI" in inverse video, issue either of the
+        following commands:
+          txebcdic 0x21 0xC8 0xC9 0x20
+          txebcdic 33 200 201 32
+        """
+        ebcdicArray = bytearray()
+        for word in string.split():
+            ebcdicArray.append(int(word, base=0))
+        term[cmd.Cmd.activeTerminal].txEbcdic(ebcdicArray)
+
+    def do_txchartable(self, string):
+        """Output a character table showing glyphs and attributes.
+
+        The table is in column-major order for consistency with IBM
+        documents.
+        """
+        CLEAR_ATTRIBUTES = 0x20
+        SPACE = 0x40
+
+        t = term[cmd.Cmd.activeTerminal]
+        t.CR()
+        t.LF()
+        for row in range(0, 16):
+            for col in range(16):
+                char = col << 4 | row
+                if col in [2, 3]: # char is an attribute
+                    t.txEbcdic([char])
+                    t.txString(f"{char:02X}")
+                    t.txEbcdic([CLEAR_ATTRIBUTES, SPACE])
+                else:
+                    t.txString(f" {char:02X}:")
+                    t.txEbcdic([char])
+            t.CR()
+            t.LF()
+
     def do_cr(self, inp):
         term[cmd.Cmd.activeTerminal].CR()
         return
@@ -2019,10 +2057,40 @@ class MyPrompt(cmd.Cmd):
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
+    def do_txstatusbyte2(self, status):
+        """Send a Write Control Data command with two data frames, as is
+        supported since the 3180 Model 2.
+
+        Supply only the value to be included in the second data frame,
+        in decimal.
+        """
+        t = term[cmd.Cmd.activeTerminal]
+        t.transmitCommand(
+            WRITE_CONTROL_DATA, t.destinationAddr,
+            [t.statusByte | 0x40, int(status)])
+        t.EOQ()
+        return
+
     def do_txindicatorsbyte(self, status):
         term[cmd.Cmd.activeTerminal].transmitCommand(
             WRITE_DATA_LOAD_CURSOR_INDICATORS,
             term[cmd.Cmd.activeTerminal].destinationAddr, [int(status)])
+        term[cmd.Cmd.activeTerminal].EOQ()
+        return
+
+    def do_txindicatorsbyte347x(self, status):
+        """Control the indicators that were first introduced on 3476 and 3477.
+
+        Provide a value in decimal to be included in the first data
+        frame.  There is no support for sending the second data frame.
+        """
+        status = int(status)
+        if status & 0x01 != 0:
+            print("LSB (indicating frame 2 is present) must not be set")
+            return
+        term[cmd.Cmd.activeTerminal].transmitCommand(
+            WRITE_CONTROL_DATA_INDICATORS,
+            term[cmd.Cmd.activeTerminal].destinationAddr, [status])
         term[cmd.Cmd.activeTerminal].EOQ()
         return
 
@@ -2431,7 +2499,9 @@ class VT52_to_5250():
                 # In anything goes wrong (strange character or some shit)
                 # transmit a blank to keep session on sync
                 ebcdicArray = ebcdicArray + " ".encode(self.EBCDICcodepage)
+        self.txEbcdic(ebcdicArray)
 
+    def txEbcdic(self, ebcdicArray):
         # Split in chunks of 10 or less so that the string fits into the 5250
         # command buffer
         pieces = chunks(ebcdicArray, 10)
