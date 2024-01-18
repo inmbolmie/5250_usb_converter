@@ -939,11 +939,11 @@ scancodeDictionaries = {
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         0x4b: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], #insert?
-        0x4c: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'F'], # end works, DUP on kb
-        0x62: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], # blank
+        # 0x4c: [chr(0x1B), chr(0x1B), chr(0x1B), '', 'F'], # end works, DUP on kb
+        # 0x62: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], # blank
         0xc: [chr(0x1b), chr(0x1b), chr(0x1b), '', chr(0x7F)], # delete line
-        0x6c: [chr(0x1b), chr(0x1b), chr(0x1b), '', ''], #
-        0x57: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], #
+        # 0x6c: [chr(0x1b), chr(0x1b), chr(0x1b), '', ''], #
+        # 0x57: [chr(0x1B), chr(0x1B), chr(0x1B), '', ''], #
         # 0x6c
 
         # ARROW KEYS BLOCK MAPPINGS
