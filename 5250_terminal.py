@@ -22,6 +22,7 @@
 
 import _thread
 import time
+import argparse
 import array
 import code
 import errno
@@ -52,7 +53,7 @@ DEFAULT_STATION_ADDRESS = 0
 
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
-DEFAULT_SLOW_POLLING = False
+DEFAULT_SLOW_POLLING = 0
 SLOW_POLL_MICROSECONDS = 5000
 ULTRA_SLOW_POLL_MICROSECONDS = 1000000
 
@@ -1494,10 +1495,9 @@ class SerialPortControl:
 
                     actmicros = int(round(time.time_ns() / 1000));
 
-                    if terminal.getLowSpeedPolling() and (actmicros < (lastmicros[terminal.getStationAddress()] + SLOW_POLL_MICROSECONDS)):
+                    if actmicros < lastmicros[terminal.getStationAddress()] + terminal.getPollDelayUs():
                         continue
-                    elif terminal.getLowSpeedPolling():
-                        lastmicros[terminal.getStationAddress()] = actmicros
+                    lastmicros[terminal.getStationAddress()] = actmicros
 
                     #debugLog.write("POLL AT: " + str(actmicros) + "\n")
 
@@ -2221,9 +2221,9 @@ def reverseByte(byte):
 # Class that implments the VT52 to 5250 conversion and holds the terminal
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
-    def __init__(self, address, scancodeDictionary, lowSpeedPolling,
+    def __init__(self, address, scancodeDictionary, pollDelayUs,
                  EBCDICcodepage, advancedFeatures, clickerEnabled ):
-        self.lowSpeedPolling = lowSpeedPolling
+        self.pollDelayUs = pollDelayUs
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
         self.scancodeDictionary = scancodeDictionaries[scancodeDictionary]
@@ -2337,8 +2337,8 @@ class VT52_to_5250():
     def getStationAddress(self):
         return self.destinationAddr
 
-    def getLowSpeedPolling(self):
-        return self.lowSpeedPolling
+    def getPollDelayUs(self):
+        return self.pollDelayUs
 
     def setInitialized(self, value):
         self.initialized = value
@@ -3597,6 +3597,115 @@ def udsServer():
         _thread.start_new_thread(spawnCmd, (cs.makefile(mode="rw"),cs))
 
 
+def parseTermDef(arg):
+    """Parse and return a single terminal definition from the command line."""
+    termdef = arg.split(":")
+
+    termAddress = int(termdef[0])
+    termDictionary = DEFAULT_SCANCODE_DICTIONARY
+    pollDelayUs = DEFAULT_SLOW_POLLING
+    codepage = DEFAULT_CODEPAGE
+    advancedFeatures = DEFAULT_FEATURES
+
+    if len(termdef) > 1 and termdef[1]!="":
+        termDictionary = termdef[1]
+
+    if len(termdef) > 2 and termdef[2]!="":
+        value = termdef[2]
+        SUFFIX = "us"
+
+        def raiseParseError():
+            raise argparse.ArgumentTypeError(
+                f'"{value}" is not a valid slow poll or poll delay value: '
+                f'must be a non-negative value in microseconds with a '
+                f'"{SUFFIX}" suffix (e.g. "650us"), "0" for 0us, "1" for '
+                f'{SLOW_POLL_MICROSECONDS}us, or "2" for '
+                f'{ULTRA_SLOW_POLL_MICROSECONDS}us')
+
+        if value == "0":
+            pollDelayUs = 0
+        elif value == "1":
+            pollDelayUs = SLOW_POLL_MICROSECONDS
+        elif value == "2":
+            pollDelayUs = ULTRA_SLOW_POLL_MICROSECONDS
+        else:
+            if not value.endswith(SUFFIX):
+                raiseParseError()
+            number = value[:-1 * len(SUFFIX)]
+
+            try:
+                number = int(number)
+            except ValueError:
+                raiseParseError()
+
+            if number < 0:
+                raiseParseError()
+
+            pollDelayUs = number
+
+    if len(termdef) > 3 and termdef[3]!="":
+        codepage = termdef[3]
+
+    if len(termdef) > 4 and termdef[4]!="":
+        advancedFeatures = bool(int(termdef[4]))
+
+    return (termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures)
+
+
+def parseArgs():
+    """Parse and return command-line arguments"""
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "terminals",
+        metavar="TERM-DEFINITION",
+        help="Terminal definition(s) of the form STATION_ADDRESS"
+             "[:[SCANCODE_DICT]"
+             "[:[SLOW_POLL]"
+             "[:[EBCDIC_CODEPAGE]"
+             "[:[EXTRA_FEATURES]]]]]",
+        type=parseTermDef, nargs="*",
+        # Default action is to look for
+        # terminal address = DEFAULT_STATION_ADDRESS
+        default=[parseTermDef(str(DEFAULT_STATION_ADDRESS))])
+    parser.add_argument(
+        "-c", dest="debugConnection", action="store_true",
+        help="Enable extra connection debugging (default: disabled)")
+    parser.add_argument(
+        "-i", dest="debugIO", action="store_true",
+        help="Enable debugging of input/output from terminal (default: "
+             "disabled)")
+    parser.add_argument(
+        "-k", dest="debugKeystrokes", action="store_true",
+        help="Enable keystroke scancode debug (default: disabled)")
+
+    if DEFAULT_KEYBOARD_CLICKER_ENABLED:
+        clicker_default = "enabled"
+    else:
+        clicker_default = "disabled - option has no effect"
+    parser.add_argument(
+        "-s", dest="clickerEnabled", action="store_false",
+        help=f"Disable keyboard clicker (default: {clicker_default})")
+
+    parser.add_argument(
+        "-t", metavar="TTY-FILE", dest="ttyfile", default="/dev/ttyACM0",
+        help="Use the given TTY device file (default: %(default)s)")
+    parser.add_argument(
+        "-l", dest="enableLoginShell", action="store_true",
+        help="Enable login shell (default: disabled)")
+    parser.add_argument(
+        "-u", dest="udsSocket", action="store_true",
+        help="Enable Unix Domain Socket (default: disabled)")
+    parser.add_argument(
+        "-p", dest="telnetSocket", action="store_true",
+        help="Enable Telnet Service at port 5251 (default: disabled)")
+    parser.add_argument(
+        "-d", dest="daemon", action="store_true",
+        help="Enable daemon mode (default: disabled)")
+
+    return parser.parse_args()
+
+
 # Main method
 if __name__ == '__main__':
 
@@ -3608,131 +3717,42 @@ if __name__ == '__main__':
     debugKeystrokes = False
     debugIO = False
     debugConnection = False
-    ttyfile = "/dev/ttyACM0"
-    ignoreNextParam = False
+    ttyfile = None
     defaultActiveTerminal = None
     enableLoginShell = False
-    udsSocket = False
-    telnetSocket = False
-    daemon = False
 
 
-    inputArgs = sys.argv
-    numterminals = 0
+    args = parseArgs()
+    if args.debugConnection:
+        print("Enabling connection debug\n")
+        debugConnection = True
 
-    if len(inputArgs) == 1:
-        # Default action is to look for
-        # terminal address = DEFAULT_STATION_ADDRESS
-        inputArgs.append(str(DEFAULT_STATION_ADDRESS))
+    if args.debugIO:
+        print("Enabling I/O debug\n")
+        debugIO = True
+
+    if args.debugKeystrokes:
+        print("Enabling scancode debug\n")
+        debugKeystrokes = True
 
     clickerEnabled = DEFAULT_KEYBOARD_CLICKER_ENABLED
+    if DEFAULT_KEYBOARD_CLICKER_ENABLED and not args.clickerEnabled:
+        print("Disabling keyboard clicker\n")
+        clickerEnabled = False
 
+    print(f"Using tty device at: {args.ttyfile}\n")
+    ttyfile = args.ttyfile
 
+    if args.enableLoginShell:
+        print("Enabling login shell\n")
+        enableLoginShell = True
 
-    numpars = len(inputArgs)
-    # Iterate through terminal specifications from the command line
-    for i in range(1,  numpars + 1):
-
-        if ignoreNextParam:
-            ignoreNextParam = False
-            continue
-
-        if (i == numpars) and numterminals == 0:
-            inputArgs.append(str(DEFAULT_STATION_ADDRESS))
-
-        elif (i == numpars) and numterminals > 0:
-            continue
-
-        if inputArgs[i] == '-h' or \
-           inputArgs[i] == '-H' or \
-           inputArgs[i] == 'H' or \
-           inputArgs[i] == 'h':
-            sys.exit(
-                "USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] " +
-                "[STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:" +
-                "[EBCDIC_CODEPAGE]:[EXTRA_FEATURES]] ... ")
-
-        if inputArgs[i] == '-c':
-            # Extra connection debugging
-            print("Enabling connection debug\n")
-            debugConnection = True
-            continue
-
-        if inputArgs[i] == '-i':
-            # Debug input/output from terminal
-            print("Enabling I/O debug\n")
-            debugIO = True
-            continue
-
-        if inputArgs[i] == '-k':
-            # Debug keystrokes
-            print("Enabling scancode debug\n")
-            debugKeystrokes = True
-            continue
-
-        if inputArgs[i] == '-s':
-            # Disable clicker
-            print("Disabling keyboard clicker\n")
-            clickerEnabled = False
-            continue
-
-        if inputArgs[i] == '-t':
-            print("Using tty device at: " + inputArgs[i + 1] + "\n")
-            ttyfile = inputArgs[i+1]
-            ignoreNextParam = True
-            continue
-
-        if inputArgs[i] == '-l':
-            print("Enabling login shell\n")
-            enableLoginShell = True
-            continue
-
-        if inputArgs[i] == '-u':
-            print("Enabling Unix Domain Socket\n")
-            udsSocket= True
-            ignoreNextParam = False
-            continue
-
-        if inputArgs[i] == '-p':
-            print("Enabling Telnet Service at port 5251\n")
-            telnetSocket= True
-            ignoreNextParam = False
-            continue
-
-        if inputArgs[i] == '-d':
-            print("Enabling daemon mode\n")
-            daemon = True
-            ignoreNextParam = False
-            continue
-
-
-        termdef = inputArgs[i].split(":")
-
-        termAddress = int(termdef[0])
-        termDictionary = DEFAULT_SCANCODE_DICTIONARY
-        slowPoll = DEFAULT_SLOW_POLLING
-        codepage = DEFAULT_CODEPAGE
-        advancedFeatures = DEFAULT_FEATURES
-
-
-        if len(termdef) > 1 and termdef[1]!="":
-            termDictionary = termdef[1]
-
-        if len(termdef) > 2 and termdef[2]!="":
-            slowPoll = bool(int(termdef[2]))
-            if int(termdef[2]) == 2:
-                # Ultra-slow poll MODE
-                SLOW_POLL_MICROSECONDS = ULTRA_SLOW_POLL_MICROSECONDS
-
-        if len(termdef) > 3 and termdef[3]!="":
-            codepage = termdef[3]
-
-        if len(termdef) > 4 and termdef[4]!="":
-            advancedFeatures = bool(int(termdef[4]))
+    for (termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures) \
+        in args.terminals:
 
         print("Searching for terminal address: " + str(termAddress) +
               "; with scancode dictionary: " + termDictionary +
-              "; slow poll active: " + str(slowPoll) +
+              f"; slow poll interval: {pollDelayUs}us" +
               "; EBCDIC codepage: " + codepage +
               "; advanced features: " + str(advancedFeatures) + "\n")
 
@@ -3744,20 +3764,18 @@ if __name__ == '__main__':
         outputCommandQueue[termAddress] = queue.Queue()
         # Terminal conversion object
         term[termAddress] = VT52_to_5250(
-            termAddress, termDictionary, slowPoll, codepage, advancedFeatures, clickerEnabled)
+            termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress], termAddress)
         # Set active terminal if none defined
         if defaultActiveTerminal is None:
             defaultActiveTerminal = termAddress
 
-        numterminals = numterminals+1
-
     writeLog = None
     readLog = None
     debugLog = None
 
-    if daemon:
+    if args.daemon:
         debugLog = open("/tmp/debug.log", "w", buffering=1)
     else:
        debugLog = open("debug.log", "w", buffering=1)
@@ -3767,7 +3785,7 @@ if __name__ == '__main__':
 
 
 
-    debugLog.write("COMMAND LINE: " + ' '.join(inputArgs) + "\n")
+    debugLog.write("COMMAND LINE: " + ' '.join(sys.argv) + "\n")
     # the5250log = open("5250.log","w", buffering=1)
 
     # Run serial port controller in its own thread
@@ -3776,16 +3794,19 @@ if __name__ == '__main__':
 
     disableInputCapture = 1
 
-    if udsSocket:
+    if args.udsSocket:
+        print("Enabling Unix Domain Socket\n")
         #Launch thread to accept UDS CMD connections
         _thread.start_new_thread(udsServer, ())
 
-    if telnetSocket:
+    if args.telnetSocket:
+        print("Enabling Telnet Service at port 5251\n")
         #Launch thread to accept telnet CMD connections
         _thread.start_new_thread(telnetServer, ())
 
     #Launch CMD for the main shell
-    if daemon:
+    if args.daemon:
+        print("Enabling daemon mode\n")
         try:
             while True:
                 time.sleep(1)

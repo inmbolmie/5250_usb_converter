@@ -28,7 +28,7 @@ These are the terminals reported so far to be working with the adapter:
 * IBM 5291 (compatible after the 2023/03/18 Teensy firmware improvements)
 * IBM 3180-2
 * IBM 3476
-* IBM 3477 (recommended to enable slow polling at 650 microseconds interval editing the constant SLOW_POLL_MICROSECONDS on the python script)
+* IBM 3477 (recommended to enable slow polling at 650 microseconds interval by editing the constant SLOW_POLL_MICROSECONDS in the python script or specifying `650us` in the terminal definition on the command line)
 * IBM 3488
 * IBM ISA PC 5250 ADAPTER CARD
 
@@ -148,6 +148,12 @@ Some emulated 5250 terminals are very slow and need a longer poll interval to ma
 There is also a “very slow poll” mode that is activated specifying “2” as a mode value, this should only be used for debugging purposes as the terminal will be unusable in this mode.
 
 `$ python3 5250_terminal.py 0:5250_ES:2`
+
+An arbitrary minimum interval between polls may be specified by providing a value in microseconds with a `us` suffix, e.g.:
+
+`$ python3 5250_terminal.py 0:5250_ES:10000us`
+
+Note that the actual interval between polls may be greater than the requested value due to CPU load, scheduling latency, how quickly other terminals respond to commands, etc.
 
 Finally you can specify for ASCII to EBCDIC translation a different codepage, `cp037` is used by default but for example:
 
