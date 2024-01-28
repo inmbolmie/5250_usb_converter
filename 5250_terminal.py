@@ -1096,7 +1096,6 @@ class Interceptor(object):
         self.ttypid = None
         self.termAddress = termAddress
         global disableInputCapture
-        global enableLoginShell
         global term
         global inputQueue, outputCommandQueue, outputQueue
 
@@ -1117,15 +1116,18 @@ class Interceptor(object):
         if self.master_fd is not None:
             self.restart()
         if not argv:
-            argv = [os.environ['SHELL'], "--norc"]
-            if enableLoginShell:
-                argv = ["login"]
+            argv = [login_command]
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
         if pid == pty.CHILD:
             os.environ["TERM"] = "vt52"
-            # os.environ["PS1"] = "inmbolmie@deskthority >"
+            # Scripts which check for the following variable should
+            # probably just check that it's non-empty in case some
+            # more information about the terminal is supplied via it
+            # in the future.
+            os.environ["TWINAXTERM"] = "y"
+
             os.execlp(argv[0], *argv)
         else:
             self.ttypid = pid
@@ -3707,8 +3709,8 @@ def parseArgs():
         "-t", metavar="TTY-FILE", dest="ttyfile", default="/dev/ttyACM0",
         help="Use the given TTY device file (default: %(default)s)")
     parser.add_argument(
-        "-l", dest="enableLoginShell", action="store_true",
-        help="Enable login shell (default: disabled)")
+        "-l", "--login", metavar="PATH", default="etc/twinax_login_default",
+        help="Login/shell executable (default: %(default)s)")
     parser.add_argument(
         "-u", dest="udsSocket", action="store_true",
         help="Enable Unix Domain Socket (default: disabled)")
@@ -3719,7 +3721,13 @@ def parseArgs():
         "-d", dest="daemon", action="store_true",
         help="Enable daemon mode (default: disabled)")
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if not os.access(args.login, os.X_OK):
+        parser.error(f"The login/shell {args.login} does not exist or is not "
+                     f"executable")
+
+    return args
 
 
 # Main method
@@ -3735,7 +3743,7 @@ if __name__ == '__main__':
     debugConnection = False
     ttyfile = None
     defaultActiveTerminal = None
-    enableLoginShell = False
+    login_command = False
 
 
     args = parseArgs()
@@ -3759,9 +3767,7 @@ if __name__ == '__main__':
     print(f"Using tty device at: {args.ttyfile}\n")
     ttyfile = args.ttyfile
 
-    if args.enableLoginShell:
-        print("Enabling login shell\n")
-        enableLoginShell = True
+    login_command = args.login
 
     for (termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures) \
         in args.terminals:

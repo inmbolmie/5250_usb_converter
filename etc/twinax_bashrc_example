@@ -1,0 +1,21 @@
+# This is an example of a file which may be supplied to bash's
+# --rcfile option, as is done by
+# twinax_login_custom_terminfo_and_bashrc.
+
+# Start with the normal file, then undo things which don't work
+# properly with a VT52-like terminal.  Rather than do this, it may be
+# example to just apply desired settings here.  Modifying ~/.bashrc to
+# apply different settings when $TERM is set to vt52 or $TWINAXTERM is
+# set would also work.
+. ~/.bashrc
+
+# These are defined with unwanted --color=auto options:
+unalias egrep
+unalias fgrep
+unalias grep
+
+# If 5250_terminal.py is started under X, since $DISPLAY is still set,
+# running "emacs" will by default start it in the X session where
+# 5250_terminal.py is running rather than in the TTY.  This alias
+# works around that.  Another option would be to unset $DISPLAY.
+alias emacs="emacs -nw"

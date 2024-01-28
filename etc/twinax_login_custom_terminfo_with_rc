@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Override LOGIN_SHELL_ARGS so that if the user's login shell is bash,
+# --norc isn't passed to it, so that it loads ~/.bashrc.  This may be
+# useful if your ~/.bashrc handles VT52 terminals properly, but the
+# default shell initialization scripts supplied with modern Linux
+# distributions don't seem to, e.g. they tell grep to use colors.
+LOGIN_SHELL_ARGS=
+. $(dirname $0)/twinax_login_custom_terminfo

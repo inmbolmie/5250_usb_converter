@@ -1,0 +1,8 @@
+#!/bin/bash
+
+ETC_DIR=$(dirname $0)
+
+# Use the specified example bash initialisation file.  This assumes
+# that the user's login shell is actually bash.
+LOGIN_SHELL_ARGS="--rcfile $ETC_DIR/twinax_bashrc_example"
+. $(dirname $0)/twinax_login_custom_terminfo

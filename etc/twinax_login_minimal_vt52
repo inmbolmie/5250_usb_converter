@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. $(dirname $0)/twinax_login_common
+exec $LOGIN_SHELL

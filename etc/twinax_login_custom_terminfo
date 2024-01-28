@@ -1,0 +1,21 @@
+#!/bin/bash
+
+ETC_DIR=$(dirname $0)
+
+. "$ETC_DIR/twinax_login_common"
+
+TERMINFO=$(realpath "$ETC_DIR/terminfo")
+TERM=5250converter
+CUSTOM_TERMINFO_PATH=$TERMINFO/${TERM:0:1}/$TERM
+
+if [[ ! -f $CUSTOM_TERMINFO_PATH ]]; then
+    echo "WARNING: Custom terminfo file $CUSTOM_TERMINFO_PATH missing"
+    echo "Try running make_terminfo.sh"
+    echo "Falling back to VT52"
+    exec "$ETC_DIR/twinax_login_minimal_vt52"
+fi
+
+export TERMINFO
+export TERM
+
+exec $LOGIN_SHELL

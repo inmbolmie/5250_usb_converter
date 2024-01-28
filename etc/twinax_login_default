@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# This file could just be a symlink to the following file, but that
+# might be inconvenient for Windows users.
+exec $(dirname $0)/twinax_login_minimal_vt52
