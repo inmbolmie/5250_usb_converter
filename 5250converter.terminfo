@@ -1,0 +1,17 @@
+5250converter,
+	use=vt52,
+# replace with value taken from the "xterm" entry:
+	key_backspace=\177,
+# add F1-F12 taken from the "xterm" entry:
+	key_f1=\EOP,
+	key_f2=\EOQ,
+	key_f3=\EOR,
+	key_f4=\EOS,
+	key_f5=\E[15~,
+	key_f6=\E[17~,
+	key_f7=\E[18~,
+	key_f8=\E[19~,
+	key_f9=\E[20~,
+	key_f10=\E[21~,
+	key_f11=\E[23~,
+	key_f12=\E[24~,

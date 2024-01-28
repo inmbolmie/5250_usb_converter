@@ -984,6 +984,22 @@ scancodeDictionaries = {
 
 }
 
+# Add a scancode mapping variant which requires use of the custom
+# terminfo file.
+#
+# Use dict() to make a copy.
+scancodeDictionaries["122KEY_EN_CUSTOM"] = dict(scancodeDictionaries["122KEY_EN"])
+# Send the delete character for the Backspace key as is done by most
+# modern terminals (e.g. xterm) rather than sending ^H.  This is
+# useful in GNU Emacs so that Ctrl-H can be used to request help.  See
+# also https://github.com/inmbolmie/5250_usb_converter/issues/19  As
+# noted in that issue, generally it doesn't seem to be necessary for
+# this to match what is set in the terminfo description - what is set
+# via 'stty' seems to be what matters - so it would probably be
+# reasonably safe to apply this setting directly to 122KEY_EN instead
+# of adding this new scancode map.
+scancodeDictionaries["122KEY_EN_CUSTOM"][0x3D] = [chr(0x7F), chr(0x7F), '', '']
+
 
 # Max commands pending to send to 5251 in command queue (flow control)
 COMMAND_QUEUE_MAX_PENDING = 50
