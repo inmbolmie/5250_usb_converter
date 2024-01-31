@@ -956,10 +956,12 @@ scancodeDictionaries = {
 
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        # ROW 1
-        0x4A: ['/', '/', '', ''],
-        0x3E: ['*', '*', '', ''],
-        0x7F: ['-', '-', '', ''],
+        # ROW 1 (ALL BLANK)
+        # 0x1D is in the position of Num Lock on a 101 key keyboard,
+        # so do nothing with it
+        0x1E: ['/', '/', '', ''],
+        0x4F: ['*', '*', '', ''],
+        0x50: ['-', '-', '', ''],
         # ROW 2
         0x47: ['7', '7', '', ''],
         # NUMPAD 8  EXTRA UP ARROW
