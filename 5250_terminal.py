@@ -878,7 +878,7 @@ scancodeDictionaries = {
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-        0x3E: ['~', '``', '′', ''],
+        0x3E: ['`', '~', '′', ''],
         0x31: ['1', '!', '¹', ''],
         0x32: ['2', '@', '²', ''],
         0x33: ['3', '#', '³', ''],
@@ -905,7 +905,7 @@ scancodeDictionaries = {
         0x29: ['o', 'O', 'ø', chr(0x0F)],
         0x2A: ['p', 'P', 'þ', chr(0x10)],
         0x2B: ['[', ']', '~', chr(0x1D)],
-        0x2C: ['|', '\\', '~', chr(0x1D)],
+        0x2C: ['\\', '|', '~', chr(0x1D)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         # ROW 3
         0x11: ['a', 'A', 'æ', chr(0x01)],
