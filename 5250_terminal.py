@@ -858,39 +858,29 @@ scancodeDictionaries = {
         0x7C: [chr(0x1B), chr(0x1B), '', ''],  # ESC
         # TBD UP TO F10
 
-        # TOP FUNCTION KEYS MAPPINGS (F1-F24)
-        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        # ROW 1
-        0x31: ['', '', '', ''], #F1
-        0x32: ['', '', '', ''], #F2
-        0x33: ['', '', '', ''], #F3
-        0x34: ['', '', '', ''], #F4
-        0x35: ['', '', '', ''], #F5
-        0x36: ['', '', '', ''], #F6
-        0x37: ['', '', '', ''], #F7
-        0x38: ['', '', '', ''], #F8
-        0x38: ['', '', '', ''], #F9
-        0x3A: ['', '', '', ''], #F10
-        0x3B: ['', '', '', ''], #F11
-        0x3C: ['', '', '', ''], #F12
-        # TBD UP TO F24
-
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
         0x3E: ['`', '~', '′', ''],
-        0x31: ['1', '!', '¹', ''],
-        0x32: ['2', '@', '²', ''],
-        0x33: ['3', '#', '³', ''],
-        0x34: ['4', '$', '¼', ''],
-        0x35: ['5', '%', '½', ''],
-        0x36: ['6', '^', '¬', chr(0x1E)],
-        0x37: ['7', '&', '{', ''],
-        0x38: ['8', '*', '[', ''],
-        0x39: ['9', '(', ']', ''],
-        0x3A: ['0', ')', '}', ''],
-        0x3B: ['-', '_', '\\', chr(0x1F)],
-        0x3C: ['=', '+', '¸', ''],
+        # F1 through F12 generate the following scan codes with an
+        # 0x6F prefix, so position 5 (EXTRA) is used for those keys.
+        # The escape sequences in position 5 correspond to the "xterm"
+        # terminfo entry's key_f1 through key_f12.  F13 through F24
+        # generate the same scan codes but with a shift key down/make
+        # scan code prefix; there is no way to specify handling of the
+        # combination of Shift + EXTRA.
+        0x31: ['1', '!', '¹', '',         None, 'OP'],
+        0x32: ['2', '@', '²', '',         None, 'OQ'],
+        0x33: ['3', '#', '³', '',         None, 'OR'],
+        0x34: ['4', '$', '¼', '',         None, 'OS'],
+        0x35: ['5', '%', '½', '',         None, '[15~'],
+        0x36: ['6', '^', '¬', chr(0x1E),  None, '[17~'],
+        0x37: ['7', '&', '{', '',         None, '[18~'],
+        0x38: ['8', '*', '[', '',         None, '[19~'],
+        0x39: ['9', '(', ']', '',         None, '[20~'],
+        0x3A: ['0', ')', '}', '',         None, '[21~'],
+        0x3B: ['-', '_', '\\', chr(0x1F), None, '[23~'],
+        0x3C: ['=', '+', '¸', '',         None, '[24~'],
         0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         # ROW 2
         0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
