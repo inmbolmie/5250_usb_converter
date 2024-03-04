@@ -1,0 +1,13 @@
+# This file is intended to be sourced by login scripts
+
+# Get the user's login shell from /etc/passwd or some other configured
+# source.
+LOGIN_SHELL=$(getent passwd $LOGNAME | cut -d: -f7)
+
+# Pass $LOGIN_SHELL this option if the user's login shell seems to be
+# bash, unless LOGIN_SHELL_ARGS is already set.
+DEFAULT_BASH_ARGS=--norc
+if [[ $LOGIN_SHELL == */bash ]]; then
+    LOGIN_SHELL_ARGS=${LOGIN_SHELL_ARGS-$DEFAULT_BASH_ARGS}
+fi
+LOGIN_SHELL="$LOGIN_SHELL $LOGIN_SHELL_ARGS"

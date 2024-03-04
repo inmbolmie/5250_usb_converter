@@ -22,7 +22,10 @@
 
 import _thread
 import time
+import argparse
 import array
+import code
+import errno
 import fcntl
 import os
 import pty
@@ -38,8 +41,6 @@ import string
 import random
 import cmd
 
-m = None
-
 # Some important default parameters
 
 # Configure the defaulf dictionary to use if nothing is specified in the
@@ -52,7 +53,7 @@ DEFAULT_STATION_ADDRESS = 0
 
 # Configure the defaulf slow polling value to use if nothing is specified in
 # the command line
-DEFAULT_SLOW_POLLING = False
+DEFAULT_SLOW_POLLING = 0
 SLOW_POLL_MICROSECONDS = 5000
 ULTRA_SLOW_POLL_MICROSECONDS = 1000000
 
@@ -858,82 +859,72 @@ scancodeDictionaries = {
         0x7C: [chr(0x1B), chr(0x1B), '', ''],  # ESC
         # TBD UP TO F10
 
-        # TOP FUNCTION KEYS MAPPINGS (F1-F24)
-        # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        # ROW 1
-        0x31: ['', '', '', ''], #F1
-        0x32: ['', '', '', ''], #F2
-        0x33: ['', '', '', ''], #F3
-        0x34: ['', '', '', ''], #F4
-        0x35: ['', '', '', ''], #F5
-        0x36: ['', '', '', ''], #F6
-        0x37: ['', '', '', ''], #F7
-        0x38: ['', '', '', ''], #F8
-        0x38: ['', '', '', ''], #F9
-        0x3A: ['', '', '', ''], #F10
-        0x3B: ['', '', '', ''], #F11
-        0x3C: ['', '', '', ''], #F12
-        # TBD UP TO F24
-
         # MAIN ALPHA BLOCK KEYS MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
         # ROW 1
-        0x3E: ['~', '``', '′', ''],
-        0x31: ['1', '!', '¹', ''],
-        0x32: ['2', '@', '²', ''],
-        0x33: ['3', '#', '³', ''],
-        0x34: ['4', '$', '¼', ''],
-        0x35: ['5', '%', '½', ''],
-        0x36: ['6', '^', '¬', ''],
-        0x37: ['7', '&', '{', ''],
-        0x38: ['8', '*', '[', ''],
-        0x39: ['9', '(', ']', ''],
-        0x3A: ['0', ')', '}', ''],
-        0x3B: ['-', '_', '\\', chr(0x1C)],
-        0x3C: ['=', '+', '¸', ''],
+        0x3E: ['`', '~', '′', ''],
+        # F1 through F12 generate the following scan codes with an
+        # 0x6F prefix, so position 5 (EXTRA) is used for those keys.
+        # The escape sequences in position 5 correspond to the "xterm"
+        # terminfo entry's key_f1 through key_f12.  F13 through F24
+        # generate the same scan codes but with a shift key down/make
+        # scan code prefix; there is no way to specify handling of the
+        # combination of Shift + EXTRA.
+        0x31: ['1', '!', '¹', '',         None, 'OP'],
+        0x32: ['2', '@', '²', '',         None, 'OQ'],
+        0x33: ['3', '#', '³', '',         None, 'OR'],
+        0x34: ['4', '$', '¼', '',         None, 'OS'],
+        0x35: ['5', '%', '½', '',         None, '[15~'],
+        0x36: ['6', '^', '¬', chr(0x1E),  None, '[17~'],
+        0x37: ['7', '&', '{', '',         None, '[18~'],
+        0x38: ['8', '*', '[', '',         None, '[19~'],
+        0x39: ['9', '(', ']', '',         None, '[20~'],
+        0x3A: ['0', ')', '}', '',         None, '[21~'],
+        0x3B: ['-', '_', '\\', chr(0x1F), None, '[23~'],
+        0x3C: ['=', '+', '¸', '',         None, '[24~'],
         0x3D: [chr(0x08), chr(0x08), '', ''],  # BS
         # ROW 2
         0x20: [chr(0x09), chr(0x09), '', ''],  # TAB
-        0x21: ['q', 'Q', '@', chr(0x11)],
-        0x22: ['w', 'W', 'ł', chr(0x17)],
-        0x23: ['e', 'E', '€', chr(0x05)],
-        0x24: ['r', 'R', '¶', chr(0x12)],
-        0x25: ['t', 'T', 'ŧ', chr(0x14)],
-        0x26: ['y', 'Y', '←', chr(0x19)],
-        0x27: ['u', 'U', '↓', chr(0x15)],
-        0x28: ['i', 'I', '→', chr(0x09)],
-        0x29: ['o', 'O', 'ø', chr(0x0F)],
-        0x2A: ['p', 'P', 'þ', chr(0x10)],
+        0x21: ['q', 'Q', '@', chr(0x11), None, 'q'],
+        0x22: ['w', 'W', 'ł', chr(0x17), None, 'w'],
+        0x23: ['e', 'E', '€', chr(0x05), None, 'e'],
+        0x24: ['r', 'R', '¶', chr(0x12), None, 'r'],
+        0x25: ['t', 'T', 'ŧ', chr(0x14), None, 't'],
+        0x26: ['y', 'Y', '←', chr(0x19), None, 'y'],
+        0x27: ['u', 'U', '↓', chr(0x15), None, 'u'],
+        0x28: ['i', 'I', '→', chr(0x09), None, 'i'],
+        0x29: ['o', 'O', 'ø', chr(0x0F), None, 'o'],
+        0x2A: ['p', 'P', 'þ', chr(0x10), None, 'p'],
         0x2B: ['[', ']', '~', chr(0x1D)],
-        0x2C: ['|', '\\', '~', chr(0x1D)],
+        0x2C: ['\\', '|', '~', chr(0x1C)],
         0x2D: [chr(0x0D), chr(0x0D), '', ''],  # ENTER
         # ROW 3
-        0x11: ['a', 'A', 'æ', chr(0x01)],
-        0x12: ['s', 'S', 'ſ', chr(0x13)],
-        0x13: ['d', 'D', 'ð', chr(0x04)],
-        0x14: ['f', 'F', 'đ', chr(0x06)],
-        0x15: ['g', 'G', 'ŋ', chr(0x07)],
-        0x16: ['h', 'H', 'ħ', chr(0x08)],
-        0x17: ['j', 'J', '.', chr(0x0A)],
-        0x18: ['k', 'K', 'ĸ', chr(0x0B)],
-        0x19: ['l', 'L', 'ł', chr(0x0C)],
+        0x11: ['a', 'A', 'æ', chr(0x01), None, 'a'],
+        0x12: ['s', 'S', 'ſ', chr(0x13), None, 's'],
+        0x13: ['d', 'D', 'ð', chr(0x04), None, 'd'],
+        0x14: ['f', 'F', 'đ', chr(0x06), None, 'f'],
+        0x15: ['g', 'G', 'ŋ', chr(0x07), None, 'g'],
+        0x16: ['h', 'H', 'ħ', chr(0x08), None, 'h'],
+        0x17: ['j', 'J', '.', chr(0x0A), None, 'j'],
+        0x18: ['k', 'K', 'ĸ', chr(0x0B), None, 'k'],
+        0x19: ['l', 'L', 'ł', chr(0x0C), None, 'l'],
         0x1A: [';', ':', '˝', ''],
         0x1B: ['\'', '"', '^', chr(0x1B)],
-        0x1C: ['}', '{', '’', chr(0x1D)],
+        0x1C: ['{', '}', '’', chr(0x1D)],
         # ROW 4
         0x0e: ['<', '>', '|', ''],
-        0x01: ['z', 'Z', '»', chr(0x1A)],
-        0x02: ['x', 'X', '«', chr(0x18)],
-        0x03: ['c', 'C', '¢', chr(0x03)],
-        0x04: ['v', 'V', '„', chr(0x16)],
-        0x05: ['b', 'B', '“”', chr(0x02)],
-        0x06: ['n', 'N', '”', chr(0x0E)],
-        0x07: ['m', 'M', 'µ', chr(0x0D)],
-        0x08: [',', ';', '·', ''],
-        0x09: ['.', ':', '…', ''],
+        0x01: ['z', 'Z', '»',  chr(0x1A), None, 'z'],
+        0x02: ['x', 'X', '«',  chr(0x18), None, 'x'],
+        0x03: ['c', 'C', '¢',  chr(0x03), None, 'c'],
+        0x04: ['v', 'V', '„',  chr(0x16), None, 'v'],
+        0x05: ['b', 'B', '“”', chr(0x02), None, 'b'],
+        0x06: ['n', 'N', '”',  chr(0x0E), None, 'n'],
+        0x07: ['m', 'M', 'µ',  chr(0x0D), None, 'm'],
+        0x08: [',', '<', '·', '',         None, ','],
+        0x09: ['.', '>', '…', '',         None, '.'],
         0x0a: ['/', '?', '–', chr(0x1F)],
         # ROW 5
-        0x0F: [' ', ' ', '', ''],  # SPACE BAR
+        0x0F: [' ', ' ', '', chr(0x00)],  # SPACE BAR
 
 
         # TEXT EDIT MODE KEYS BLOCK MAPPINGS
@@ -956,10 +947,12 @@ scancodeDictionaries = {
 
         # NUMPAD KEYS BLOCK MAPPINGS
         # KEYS FROM TOP TO BOTTOM AND FROM LEFT TO RIGHT
-        # ROW 1
-        0x4A: ['/', '/', '', ''],
-        0x3E: ['*', '*', '', ''],
-        0x7F: ['-', '-', '', ''],
+        # ROW 1 (ALL BLANK)
+        # 0x1D is in the position of Num Lock on a 101 key keyboard,
+        # so do nothing with it
+        0x1E: ['/', '/', '', ''],
+        0x4F: ['*', '*', '', ''],
+        0x50: ['-', '-', '', ''],
         # ROW 2
         0x47: ['7', '7', '', ''],
         # NUMPAD 8  EXTRA UP ARROW
@@ -990,6 +983,22 @@ scancodeDictionaries = {
     # ENTER HERE YOUR ADDITIONAL SCANCODE MAPPINGS
 
 }
+
+# Add a scancode mapping variant which requires use of the custom
+# terminfo file.
+#
+# Use dict() to make a copy.
+scancodeDictionaries["122KEY_EN_CUSTOM"] = dict(scancodeDictionaries["122KEY_EN"])
+# Send the delete character for the Backspace key as is done by most
+# modern terminals (e.g. xterm) rather than sending ^H.  This is
+# useful in GNU Emacs so that Ctrl-H can be used to request help.  See
+# also https://github.com/inmbolmie/5250_usb_converter/issues/19  As
+# noted in that issue, generally it doesn't seem to be necessary for
+# this to match what is set in the terminfo description - what is set
+# via 'stty' seems to be what matters - so it would probably be
+# reasonably safe to apply this setting directly to 122KEY_EN instead
+# of adding this new scancode map.
+scancodeDictionaries["122KEY_EN_CUSTOM"][0x3D] = [chr(0x7F), chr(0x7F), '', '']
 
 
 # Max commands pending to send to 5251 in command queue (flow control)
@@ -1087,7 +1096,6 @@ class Interceptor(object):
         self.ttypid = None
         self.termAddress = termAddress
         global disableInputCapture
-        global enableLoginShell
         global term
         global inputQueue, outputCommandQueue, outputQueue
 
@@ -1108,15 +1116,18 @@ class Interceptor(object):
         if self.master_fd is not None:
             self.restart()
         if not argv:
-            argv = [os.environ['SHELL'], "--norc"]
-            if enableLoginShell:
-                argv = ["login"]
+            argv = [login_command]
 
         pid, master_fd = pty.fork()
         self.master_fd = master_fd
         if pid == pty.CHILD:
             os.environ["TERM"] = "vt52"
-            # os.environ["PS1"] = "inmbolmie@deskthority >"
+            # Scripts which check for the following variable should
+            # probably just check that it's non-empty in case some
+            # more information about the terminal is supplied via it
+            # in the future.
+            os.environ["TWINAXTERM"] = "y"
+
             os.execlp(argv[0], *argv)
         else:
             self.ttypid = pid
@@ -1361,8 +1372,17 @@ def openSerial(port, speed):
     termios.tcsetattr(fd, termios.TCSANOW, attrs)
 
     #Black magic needed for Ubuntu WSL under Windows 10
-    fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' )
-    fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
+    try:
+        fcntl.ioctl(fd, termios.TIOCMBIS,  '\x02\x00\x00\x00' )
+        fcntl.ioctl(fd, termios.TIOCMBIS,   '\x04\x00\x00\x00' )
+    except OSError as e:
+        if e.errno == errno.EINVAL:
+            # This occurs if port isn't a real serial interface.
+            # Ignore it so that PTYs may be used for testing purposes.
+            print("Ignoring ioctl() failure for TIOCMBIS (only required for "
+                  "WSL)")
+        else:
+            raise e
     termios.tcflush(fd, termios.TCIFLUSH)
 
     # Configure non-blocking I(O)
@@ -1370,6 +1390,55 @@ def openSerial(port, speed):
     fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
 
     return fd
+
+
+def decodeStatusResponse(response):
+    """Decode a POLL response from the terminal"""
+    # Ej: 0101 1100 0100 0111  not initialized  RAW: 1011100001111000
+    # Ej: 0000 0000 0100 1111  initialized after set mode command
+    # RAW: 1000000011111000
+
+    status = StatusResponse()
+
+    statusWordA = int.from_bytes(
+        response[0].encode(), byteorder='big') & 0x3F
+    # 01 1100
+    statusWordB = int.from_bytes(
+        response[1].encode(), byteorder='big') & 0x1F
+    # 0 0111
+
+    statusWord = (reverseByte(statusWordB) << 3) + \
+        (reverseByte(statusWordA) >> 2)
+    # 11100001110
+
+    # debugLog.write ("DECODED STATUS BYTE A " +
+    # str(reverseByte(statusWordA)) + "\n")
+    # debugLog.write ("DECODED STATUS BYTE B " +
+    # str(reverseByte(statusWordB)) + "\n")
+    # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
+    # 10000000
+    status.setStationAddress((statusWord & 0x700) >> 8)
+    status.setOutstandingStatus((statusWord & 0x10) >> 4)
+    status.setResponseLevel((statusWord & 0x01))
+
+    status.setBusy((statusWord & 0x80) >> 7)
+    status.setExceptionStatus((statusWord & 0xE) >> 1)
+
+    status.setLineParity((statusWord & 0x40) >> 6)
+
+    return status
+
+
+def decodeDataResponse(response):
+    """Decode a data response from the terminal (essentially a
+    scancode)
+    """
+    dataWordA = int.from_bytes(
+        response[0].encode(), byteorder='big') & 0x3F
+    dataWordB = int.from_bytes(
+        response[1].encode(), byteorder='big') & 0x18
+
+    return (reverseByte(dataWordB) << 3) + (reverseByte(dataWordA) >> 2)
 
 
 # Class that controls the serial port (USB) for send and receive
@@ -1444,10 +1513,9 @@ class SerialPortControl:
 
                     actmicros = int(round(time.time_ns() / 1000));
 
-                    if terminal.getLowSpeedPolling() and (actmicros < (lastmicros[terminal.getStationAddress()] + SLOW_POLL_MICROSECONDS)):
+                    if actmicros < lastmicros[terminal.getStationAddress()] + terminal.getPollDelayUs():
                         continue
-                    elif terminal.getLowSpeedPolling():
-                        lastmicros[terminal.getStationAddress()] = actmicros
+                    lastmicros[terminal.getStationAddress()] = actmicros
 
                     #debugLog.write("POLL AT: " + str(actmicros) + "\n")
 
@@ -1560,7 +1628,7 @@ class SerialPortControl:
             # So this logic is very simplified
             firstWord = inputQueue[terminal].get()
             # the5250log.write(firstWord)
-            status = term[terminal].decodeStatusResponse(firstWord)
+            status = decodeStatusResponse(firstWord)
 
             if debugConnection:
                 id = self.randomString()
@@ -1647,8 +1715,7 @@ class SerialPortControl:
                         if debugConnection:
                             debugLog.write("RECEIVED DATA WORD: " + secondWord)
                         # the5250log.write(secondWord)
-                        scancode = term[terminal].decodeDataResponse(
-                            secondWord)
+                        scancode = decodeDataResponse(secondWord)
                         # debugLog.write ("RECEIVED DATA BYTE: " +
                         # str(scancode) + "\n")
                         # get keystroke if ack is not pending and is different
@@ -2139,6 +2206,26 @@ class MyPrompt(cmd.Cmd):
         debugConnection = False;
         return
 
+    def do_python(self, _):
+        """Enter a Python interpreter (read-eval-print loop).
+
+        Note: Interaction with terminals using this interpreter is
+        timing-sensitive due to the use of threads, e.g. this has the
+        same effect as the 'txebcdic' example:
+
+          b = bytearray([4, 33, 200, 201, 32])
+          term[0].transmitCommand(WRITE_DATA_LOAD_CURSOR, 0, b); term[0].EOQ()
+
+        but invoking the two statements on the second line with a
+        delay between them results in the EOQ command never being
+        sent.
+        """
+        code.interact(local=globals(),
+                      banner="""\
+Interactive Python interpreter (read-eval-print loop)
+'help' for help, Ctrl-D to return to CLI""",
+                      exitmsg="Returning from Python interpreter to CLI")
+
 
 def chunks(l, n):
     n = max(1, n)
@@ -2152,9 +2239,9 @@ def reverseByte(byte):
 # Class that implments the VT52 to 5250 conversion and holds the terminal
 # status. There will be one instance of this class for each running terminal
 class VT52_to_5250():
-    def __init__(self, address, scancodeDictionary, lowSpeedPolling,
+    def __init__(self, address, scancodeDictionary, pollDelayUs,
                  EBCDICcodepage, advancedFeatures, clickerEnabled ):
-        self.lowSpeedPolling = lowSpeedPolling
+        self.pollDelayUs = pollDelayUs
         self.EBCDICcodepage = EBCDICcodepage
         self.destinationAddr = address
         self.scancodeDictionary = scancodeDictionaries[scancodeDictionary]
@@ -2268,8 +2355,8 @@ class VT52_to_5250():
     def getStationAddress(self):
         return self.destinationAddr
 
-    def getLowSpeedPolling(self):
-        return self.lowSpeedPolling
+    def getPollDelayUs(self):
+        return self.pollDelayUs
 
     def setInitialized(self, value):
         self.initialized = value
@@ -2605,53 +2692,6 @@ class VT52_to_5250():
 
         return
 
-    # Decode a POLL response from the terminal
-
-    def decodeStatusResponse(self, response):
-        # Ej: 0101 1100 0100 0111  not initialized  RAW: 1011100001111000
-        # Ej: 0000 0000 0100 1111  initialized after set mode command
-        # RAW: 1000000011111000
-
-        status = StatusResponse()
-
-        statusWordA = int.from_bytes(
-            response[0].encode(), byteorder='big') & 0x3F
-        # 01 1100
-        statusWordB = int.from_bytes(
-            response[1].encode(), byteorder='big') & 0x1F
-        # 0 0111
-
-        statusWord = (reverseByte(statusWordB) << 3) + \
-            (reverseByte(statusWordA) >> 2)
-        # 11100001110
-
-        # debugLog.write ("DECODED STATUS BYTE A " +
-        # str(reverseByte(statusWordA)) + "\n")
-        # debugLog.write ("DECODED STATUS BYTE B " +
-        # str(reverseByte(statusWordB)) + "\n")
-        # debugLog.write ("DECODED STATUS WORD " + str(statusWord) + "\n")
-        # 10000000
-        status.setStationAddress((statusWord & 0x700) >> 8)
-        status.setOutstandingStatus((statusWord & 0x10) >> 4)
-        status.setResponseLevel((statusWord & 0x01))
-
-        status.setBusy((statusWord & 0x80) >> 7)
-        status.setExceptionStatus((statusWord & 0xE) >> 1)
-
-        status.setLineParity((statusWord & 0x40) >> 6)
-
-        return status
-
-    # Decode a data response from the terminal (essentially a scancode)
-
-    def decodeDataResponse(self, response):
-        dataWordA = int.from_bytes(
-            response[0].encode(), byteorder='big') & 0x3F
-        dataWordB = int.from_bytes(
-            response[1].encode(), byteorder='big') & 0x18
-
-        return (reverseByte(dataWordB) << 3) + (reverseByte(dataWordA) >> 2)
-
     def transmitCommand(self, command, destination, data):
         return self.transmitCommandOrPoll(command, destination, data, 0)
 
@@ -2660,6 +2700,10 @@ class VT52_to_5250():
 
     # Encodes a command + data or poll to send over the serial interface
     def transmitCommandOrPoll(self, command, destination, data, isPoll):
+        # @todo The destination parameter appears to be redundant and
+        # could probably be removed.
+        assert destination == self.destinationAddr
+
         firstByte = (command & 0x3F) + 0x40
         secondByte = ((command & 0xC0) >> 6) + (destination << 2) + 0x40
 
@@ -3571,6 +3615,121 @@ def udsServer():
         _thread.start_new_thread(spawnCmd, (cs.makefile(mode="rw"),cs))
 
 
+def parseTermDef(arg):
+    """Parse and return a single terminal definition from the command line."""
+    termdef = arg.split(":")
+
+    termAddress = int(termdef[0])
+    termDictionary = DEFAULT_SCANCODE_DICTIONARY
+    pollDelayUs = DEFAULT_SLOW_POLLING
+    codepage = DEFAULT_CODEPAGE
+    advancedFeatures = DEFAULT_FEATURES
+
+    if len(termdef) > 1 and termdef[1]!="":
+        termDictionary = termdef[1]
+
+    if len(termdef) > 2 and termdef[2]!="":
+        value = termdef[2]
+        SUFFIX = "us"
+
+        def raiseParseError():
+            raise argparse.ArgumentTypeError(
+                f'"{value}" is not a valid slow poll or poll delay value: '
+                f'must be a non-negative value in microseconds with a '
+                f'"{SUFFIX}" suffix (e.g. "650us"), "0" for 0us, "1" for '
+                f'{SLOW_POLL_MICROSECONDS}us, or "2" for '
+                f'{ULTRA_SLOW_POLL_MICROSECONDS}us')
+
+        if value == "0":
+            pollDelayUs = 0
+        elif value == "1":
+            pollDelayUs = SLOW_POLL_MICROSECONDS
+        elif value == "2":
+            pollDelayUs = ULTRA_SLOW_POLL_MICROSECONDS
+        else:
+            if not value.endswith(SUFFIX):
+                raiseParseError()
+            number = value[:-1 * len(SUFFIX)]
+
+            try:
+                number = int(number)
+            except ValueError:
+                raiseParseError()
+
+            if number < 0:
+                raiseParseError()
+
+            pollDelayUs = number
+
+    if len(termdef) > 3 and termdef[3]!="":
+        codepage = termdef[3]
+
+    if len(termdef) > 4 and termdef[4]!="":
+        advancedFeatures = bool(int(termdef[4]))
+
+    return (termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures)
+
+
+def parseArgs():
+    """Parse and return command-line arguments"""
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "terminals",
+        metavar="TERM-DEFINITION",
+        help="Terminal definition(s) of the form STATION_ADDRESS"
+             "[:[SCANCODE_DICT]"
+             "[:[SLOW_POLL]"
+             "[:[EBCDIC_CODEPAGE]"
+             "[:[EXTRA_FEATURES]]]]]",
+        type=parseTermDef, nargs="*",
+        # Default action is to look for
+        # terminal address = DEFAULT_STATION_ADDRESS
+        default=[parseTermDef(str(DEFAULT_STATION_ADDRESS))])
+    parser.add_argument(
+        "-c", dest="debugConnection", action="store_true",
+        help="Enable extra connection debugging (default: disabled)")
+    parser.add_argument(
+        "-i", dest="debugIO", action="store_true",
+        help="Enable debugging of input/output from terminal (default: "
+             "disabled)")
+    parser.add_argument(
+        "-k", dest="debugKeystrokes", action="store_true",
+        help="Enable keystroke scancode debug (default: disabled)")
+
+    if DEFAULT_KEYBOARD_CLICKER_ENABLED:
+        clicker_default = "enabled"
+    else:
+        clicker_default = "disabled - option has no effect"
+    parser.add_argument(
+        "-s", dest="clickerEnabled", action="store_false",
+        help=f"Disable keyboard clicker (default: {clicker_default})")
+
+    parser.add_argument(
+        "-t", metavar="TTY-FILE", dest="ttyfile", default="/dev/ttyACM0",
+        help="Use the given TTY device file (default: %(default)s)")
+    parser.add_argument(
+        "-l", "--login", metavar="PATH", default="etc/twinax_login_default",
+        help="Login/shell executable (default: %(default)s)")
+    parser.add_argument(
+        "-u", dest="udsSocket", action="store_true",
+        help="Enable Unix Domain Socket (default: disabled)")
+    parser.add_argument(
+        "-p", dest="telnetSocket", action="store_true",
+        help="Enable Telnet Service at port 5251 (default: disabled)")
+    parser.add_argument(
+        "-d", dest="daemon", action="store_true",
+        help="Enable daemon mode (default: disabled)")
+
+    args = parser.parse_args()
+
+    if not os.access(args.login, os.X_OK):
+        parser.error(f"The login/shell {args.login} does not exist or is not "
+                     f"executable")
+
+    return args
+
+
 # Main method
 if __name__ == '__main__':
 
@@ -3582,131 +3741,40 @@ if __name__ == '__main__':
     debugKeystrokes = False
     debugIO = False
     debugConnection = False
-    ttyfile = "/dev/ttyACM0"
-    ignoreNextParam = False
+    ttyfile = None
     defaultActiveTerminal = None
-    enableLoginShell = False
-    udsSocket = False
-    telnetSocket = False
-    daemon = False
+    login_command = False
 
 
-    inputArgs = sys.argv
-    numterminals = 0
+    args = parseArgs()
+    if args.debugConnection:
+        print("Enabling connection debug\n")
+        debugConnection = True
 
-    if len(inputArgs) == 1:
-        # Default action is to look for
-        # terminal address = DEFAULT_STATION_ADDRESS
-        inputArgs.append(str(DEFAULT_STATION_ADDRESS))
+    if args.debugIO:
+        print("Enabling I/O debug\n")
+        debugIO = True
+
+    if args.debugKeystrokes:
+        print("Enabling scancode debug\n")
+        debugKeystrokes = True
 
     clickerEnabled = DEFAULT_KEYBOARD_CLICKER_ENABLED
+    if DEFAULT_KEYBOARD_CLICKER_ENABLED and not args.clickerEnabled:
+        print("Disabling keyboard clicker\n")
+        clickerEnabled = False
 
+    print(f"Using tty device at: {args.ttyfile}\n")
+    ttyfile = args.ttyfile
 
+    login_command = args.login
 
-    numpars = len(inputArgs)
-    # Iterate through terminal specifications from the command line
-    for i in range(1,  numpars + 1):
-
-        if ignoreNextParam:
-            ignoreNextParam = False
-            continue
-
-        if (i == numpars) and numterminals == 0:
-            inputArgs.append(str(DEFAULT_STATION_ADDRESS))
-
-        elif (i == numpars) and numterminals > 0:
-            continue
-
-        if inputArgs[i] == '-h' or \
-           inputArgs[i] == '-H' or \
-           inputArgs[i] == 'H' or \
-           inputArgs[i] == 'h':
-            sys.exit(
-                "USAGE: " + inputArgs[0] + " [-c] [-i] [-k] [-t ttyfile] " +
-                "[STATION_ADDRESS:[SCANCODE_DICT]:[SLOW_POLL]:" +
-                "[EBCDIC_CODEPAGE]:[EXTRA_FEATURES]] ... ")
-
-        if inputArgs[i] == '-c':
-            # Extra connection debugging
-            print("Enabling connection debug\n")
-            debugConnection = True
-            continue
-
-        if inputArgs[i] == '-i':
-            # Debug input/output from terminal
-            print("Enabling I/O debug\n")
-            debugIO = True
-            continue
-
-        if inputArgs[i] == '-k':
-            # Debug keystrokes
-            print("Enabling scancode debug\n")
-            debugKeystrokes = True
-            continue
-
-        if inputArgs[i] == '-s':
-            # Disable clicker
-            print("Disabling keyboard clicker\n")
-            clickerEnabled = False
-            continue
-
-        if inputArgs[i] == '-t':
-            print("Using tty device at: " + inputArgs[i + 1] + "\n")
-            ttyfile = inputArgs[i+1]
-            ignoreNextParam = True
-            continue
-
-        if inputArgs[i] == '-l':
-            print("Enabling login shell\n")
-            enableLoginShell = True
-            continue
-
-        if inputArgs[i] == '-u':
-            print("Enabling Unix Domain Socket\n")
-            udsSocket= True
-            ignoreNextParam = False
-            continue
-
-        if inputArgs[i] == '-p':
-            print("Enabling Telnet Service at port 5251\n")
-            telnetSocket= True
-            ignoreNextParam = False
-            continue
-
-        if inputArgs[i] == '-d':
-            print("Enabling daemon mode\n")
-            daemon = True
-            ignoreNextParam = False
-            continue
-
-
-        termdef = inputArgs[i].split(":")
-
-        termAddress = int(termdef[0])
-        termDictionary = DEFAULT_SCANCODE_DICTIONARY
-        slowPoll = DEFAULT_SLOW_POLLING
-        codepage = DEFAULT_CODEPAGE
-        advancedFeatures = DEFAULT_FEATURES
-
-
-        if len(termdef) > 1 and termdef[1]!="":
-            termDictionary = termdef[1]
-
-        if len(termdef) > 2 and termdef[2]!="":
-            slowPoll = bool(int(termdef[2]))
-            if int(termdef[2]) == 2:
-                # Ultra-slow poll MODE
-                SLOW_POLL_MICROSECONDS = ULTRA_SLOW_POLL_MICROSECONDS
-
-        if len(termdef) > 3 and termdef[3]!="":
-            codepage = termdef[3]
-
-        if len(termdef) > 4 and termdef[4]!="":
-            advancedFeatures = bool(int(termdef[4]))
+    for (termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures) \
+        in args.terminals:
 
         print("Searching for terminal address: " + str(termAddress) +
               "; with scancode dictionary: " + termDictionary +
-              "; slow poll active: " + str(slowPoll) +
+              f"; slow poll interval: {pollDelayUs}us" +
               "; EBCDIC codepage: " + codepage +
               "; advanced features: " + str(advancedFeatures) + "\n")
 
@@ -3718,20 +3786,18 @@ if __name__ == '__main__':
         outputCommandQueue[termAddress] = queue.Queue()
         # Terminal conversion object
         term[termAddress] = VT52_to_5250(
-            termAddress, termDictionary, slowPoll, codepage, advancedFeatures, clickerEnabled)
+            termAddress, termDictionary, pollDelayUs, codepage, advancedFeatures, clickerEnabled)
         # Interceptor that spawns a VT52 shell and manages info from/to it
         interceptors[termAddress] = Interceptor(term[termAddress], termAddress)
         # Set active terminal if none defined
         if defaultActiveTerminal is None:
             defaultActiveTerminal = termAddress
 
-        numterminals = numterminals+1
-
     writeLog = None
     readLog = None
     debugLog = None
 
-    if daemon:
+    if args.daemon:
         debugLog = open("/tmp/debug.log", "w", buffering=1)
     else:
        debugLog = open("debug.log", "w", buffering=1)
@@ -3741,7 +3807,7 @@ if __name__ == '__main__':
 
 
 
-    debugLog.write("COMMAND LINE: " + ' '.join(inputArgs) + "\n")
+    debugLog.write("COMMAND LINE: " + ' '.join(sys.argv) + "\n")
     # the5250log = open("5250.log","w", buffering=1)
 
     # Run serial port controller in its own thread
@@ -3750,21 +3816,24 @@ if __name__ == '__main__':
 
     disableInputCapture = 1
 
-    if udsSocket:
+    if args.udsSocket:
+        print("Enabling Unix Domain Socket\n")
         #Launch thread to accept UDS CMD connections
         _thread.start_new_thread(udsServer, ())
 
-    if telnetSocket:
+    if args.telnetSocket:
+        print("Enabling Telnet Service at port 5251\n")
         #Launch thread to accept telnet CMD connections
         _thread.start_new_thread(telnetServer, ())
 
     #Launch CMD for the main shell
-    if daemon:
+    if args.daemon:
+        print("Enabling daemon mode\n")
         try:
             while True:
                 time.sleep(1)
         except (SystemExit,KeyboardInterrupt):
             pass
     else:
-        MyPrompt(m).cmdloop()
+        MyPrompt(None).cmdloop()
         os.remove(spath)

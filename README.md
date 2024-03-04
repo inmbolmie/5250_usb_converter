@@ -28,7 +28,7 @@ These are the terminals reported so far to be working with the adapter:
 * IBM 5291 (compatible after the 2023/03/18 Teensy firmware improvements)
 * IBM 3180-2
 * IBM 3476
-* IBM 3477 (recommended to enable slow polling at 650 microseconds interval editing the constant SLOW_POLL_MICROSECONDS on the python script)
+* IBM 3477 (recommended to enable slow polling at 650 microseconds interval by editing the constant SLOW_POLL_MICROSECONDS in the python script or specifying `650us` in the terminal definition on the command line)
 * IBM 3488
 * IBM ISA PC 5250 ADAPTER CARD
 
@@ -149,6 +149,12 @@ There is also a “very slow poll” mode that is activated specifying “2” a
 
 `$ python3 5250_terminal.py 0:5250_ES:2`
 
+An arbitrary minimum interval between polls may be specified by providing a value in microseconds with a `us` suffix, e.g.:
+
+`$ python3 5250_terminal.py 0:5250_ES:10000us`
+
+Note that the actual interval between polls may be greater than the requested value due to CPU load, scheduling latency, how quickly other terminals respond to commands, etc.
+
 Finally you can specify for ASCII to EBCDIC translation a different codepage, `cp037` is used by default but for example:
 
 `$ python3 5250_terminal.py 0:5250_ES:0:cp500`
@@ -214,7 +220,7 @@ You can optionally silence the terminal keyboard clicker, having three ways to d
 The `-t DEVICE` parameter allows to specify a different serial USB device for connection to the Teensy, in case you have more than one or it is for any reason in a device different from the default `/dev/ttyACM0`
 
 
-## Daemon and login shell modes
+## Daemon mode and/or the login or shell executable
 
 You have three command line parameters relevant for these modes:
 
@@ -226,10 +232,14 @@ This way you will be able to run the script on system startup with a command lik
 
 The `-p` parameter makes the script listen on TCP port 5251 for telnet control connections.
 
-The `-l` parameter for "login" mode makes the script start a login shell on every incoming terminal session. You may have to configure the shell yourself to set the environment variable TERM=vt52 and maybe configure a correct environment for bash as those cannot be managed through the "login" command as login simply runs whatever it is on /etc/passwd. Note that this mode is insecure as requires to run the script with root privileges, for example:
+The `-l` or `--login` parameter specifies the executable to be run for every incoming terminal session.  By default, `etc/twinax_login_default` is run, which starts the current user's login shell, passing it the `--norc` option if it's `bash`.
+
+See the executable `etc/twinax_login_*` files for examples of scripts that may be passed for this option, including `etc/twinax_login_custom_terminfo` which uses a custom terminal definition to support use of the F1 through F12 keys if they're supported by the keyboard mapping.
+
+Passing `--login /usr/bin/login` causes login prompts to appear for every incoming terminal session as seen for example on a Linux console.  You may have to configure the shell yourself to set the environment variable TERM=vt52 and maybe configure a correct environment for bash as those cannot be managed through the "login" command as login simply runs whatever it is on /etc/passwd, although it should preserve the value of TERM set by `5250_terminal.py`. Note that this mode is insecure as requires to run the script with root privileges, for example:
 
 
-    sudo daemon --name="5250" -- /usr/bin/python3  ~/github/5250_usb_converter/5250_terminal.py -p -d -l
+    sudo daemon --name="5250" -- /usr/bin/python3  ~/github/5250_usb_converter/5250_terminal.py -p -d -l /usr/bin/login
 
 
 ## Keyboard scancode mappings configuration
