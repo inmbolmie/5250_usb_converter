@@ -20,3 +20,11 @@ ETC_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
 # These script fragments may be sourced by your own ~/.bashrc:
 . "$ETC_DIR/configure_aliases.bash"
 . "$ETC_DIR/configure_emacs.bash"
+
+# Configure this shell and various programs that may be run by it to
+# use "magic cookie dough" attributes.  These may also be sourced by
+# your own ~/.bashrc:
+. "$ETC_DIR/magic-cookie-dough/configure_prompt.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_ls.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_less.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_screen.bash"

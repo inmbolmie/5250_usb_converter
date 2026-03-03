@@ -1145,6 +1145,49 @@ scancodeDictionaries["122KEY_EN_CUSTOM"] = dict(scancodeDictionaries["122KEY_EN"
 scancodeDictionaries["122KEY_EN_CUSTOM"][0x3D] = [chr(0x7F), chr(0x7F), '', '']
 
 
+# --------------------------------------------------------------------
+# "Magic cookie dough"
+# --------------------------------------------------------------------
+
+# The EBCDIC values interpreted by a 5250-series terminal as
+# attributes:
+ATTRIBUTE_MIN = 0x20
+ATTRIBUTE_COUNT = 0x20
+
+# When Unicode characters with code points in this range are received
+# from the child process, they are translated into the above EBCDIC
+# attribute range if MAGIC_COOKIES_ENABLED.
+#
+# This range is part of the "Supplementary Private Use Area-A" range.
+# While some characters in this range will be used for some limited
+# purposes, it seems improbable that any users of such fonts or
+# software will overlap with users of this software.
+#
+# This range has Unicode code points whose last two digits match the
+# EBCDIC attribute value, so that when the code points appear in
+# strings like "\U000F5220", it is simple to map to the corresponding
+# EBCDIC attribute byte.
+#
+# Unfortunately, these characters are likely to be displayed at twice
+# the width of ASCII characters in modern software when using a
+# fixed-width font, affecting the alignment of text in columns.
+MAGIC_COOKIE_MIN = 0x000F5220
+MAGIC_COOKIE_MAX = MAGIC_COOKIE_MIN + ATTRIBUTE_COUNT - 1
+
+MAGIC_COOKIES_ENABLED = True
+
+def is_allowed_magic_cookie(char):
+    """Don't allow values where the three lower bits are all set, as
+    they result in invisible text.  Enabling text to be made invisible
+    in situations where that isn't normally possible, e.g. in a plain
+    text editor, would be a security vulnerability.
+
+    """
+    ordinal = ord(char)
+    return (ordinal >= MAGIC_COOKIE_MIN and ordinal <= MAGIC_COOKIE_MAX and
+            ordinal & 0x7 != 0x7)
+
+
 # Max commands pending to send to 5251 in command queue (flow control)
 COMMAND_QUEUE_MAX_PENDING = 50
 
@@ -2754,6 +2797,10 @@ class VT52_to_5250():
                 if 'CUSTOM_CHARACTER_CONVERSIONS' in self.scancodeDictionary and char in self.scancodeDictionary['CUSTOM_CHARACTER_CONVERSIONS']:
                     ebcdicArray.append(
                         self.scancodeDictionary['CUSTOM_CHARACTER_CONVERSIONS'][char])
+
+                elif MAGIC_COOKIES_ENABLED and is_allowed_magic_cookie(char):
+                    ebcdicArray.append(ord(char) -
+                                       MAGIC_COOKIE_MIN + ATTRIBUTE_MIN)
 
                 else:
                     ebcdicArray = ebcdicArray + \

@@ -1,0 +1,43 @@
+# 'ls' color definitions for use with 'dircolors' to support
+# 5250_terminal.py "magic cookie dough" attributes.
+#
+# NOTE: Only apply these definitions when running under
+# 5250_terminal.py - e.g. check $TERM in your shell initialization
+# script before calling dircolors - as no TERM statements are used
+# below.
+#
+# See the dir_colors(5) man page for a description of the format of
+# this file.
+
+# There is no way to unset a value from its default or set it to an
+# empty string, so set these to sequences which 5250_terminal.py
+# ignores:
+LEFTCODE  \e[?2004h
+RIGHTCODE \e[?2004h
+NORMAL    \e[?2004h
+
+# 'ls' outputs this at the start of the first line, but not subsequent
+# lines, messing up column alignment both with 'ls' and 'ls -l'.
+# ls_wrapper.py works around this.
+ENDCODE 󵈠 # normal
+
+FILE 󵈠 # normal
+LINK 󵈤 # underline
+EXEC 󵈢 # intensity
+DIR  󵈦 # intensity, underline
+
+# Not a lot of thought has been put into the following assignments.
+
+ORPHAN  󵈬 # underline, blink
+MISSING 󵈠 # normal
+FIFO    󵈡 # reverse
+SOCK    󵈡 # reverse
+DOOR    󵈡 # reverse
+BLK     󵈣 # intensity, reverse
+CHR     󵈣 # intensity, reverse
+
+SETUID 󵈳 # intensity, reverse, column separators
+SETGID 󵈱 # reverse, column separators
+STICKY 󵈰 # column separators
+STICKY_OTHER_WRITABLE 󵈴 # underline, column separators
+OTHER_WRITABLE        󵈲 # intensity, column separators

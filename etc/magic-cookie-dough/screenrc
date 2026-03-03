@@ -1,0 +1,13 @@
+# Unqualified "%=" doesn't seem to work properly once conditionals are
+# used.  It appears that screen counts bytes instead of characters.
+# The examples below compensate for this using offsets calculated
+# using trial and error.
+
+# This example includes the time, which causes screen to redraw the
+# caption every minute.  It seems to redraw in a way where the end
+# attribute is erased, causing the subsequent region to briefly be
+# reverse video, making the screen flash.
+caption string "%?%F󵈣%:󵈡%?%3n %t%-012=%c󵈠"
+
+# Use this version without the time if the flashing is annoying.
+#caption string "%?%F󵈣%:󵈡%?%3n %t%-07=󵈠"
