@@ -25,6 +25,7 @@ import time
 import argparse
 import array
 import code
+import codecs
 import errno
 import fcntl
 import os
@@ -1238,6 +1239,7 @@ class Interceptor(object):
         self.term = terminal
         self.ttypid = None
         self.termAddress = termAddress
+        self.decoder = None
         global disableInputCapture
         global term
         global inputQueue, outputCommandQueue, outputQueue
@@ -1249,6 +1251,7 @@ class Interceptor(object):
                            str(self.termAddress) + "\n")
         self.master_fd = None
         self.ttypid = None
+        self.decoder = None
         return
 
     def spawn(self, argv=None):
@@ -1274,6 +1277,9 @@ class Interceptor(object):
             os.execlp(argv[0], *argv)
         else:
             self.ttypid = pid
+
+        self.decoder = codecs.getincrementaldecoder('utf-8')('ignore')
+
         # Code for direct capture of STDIN commented. Can be discommented for
         # debugging
         # If you do so keystrokes in the controller window will go directly to
@@ -1383,7 +1389,7 @@ class Interceptor(object):
                 # terminal back out of alternate mode. The line below assumes
                 # that the user has returned to the command prompt.
                 self.write_master('echo "Leaving special mode."\r')
-        self.write_stdout(data.decode('utf-8', 'ignore'))
+        self.write_stdout(self.decoder.decode(data))
 
     def write_stdout(self, data):
         '''
