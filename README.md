@@ -372,6 +372,14 @@ This will, for example for the third entry map the `^` ASCII character to the `0
 The `txchartable` command available via the [command line interface](#command-line-interface) may be useful to view the glyphs that can be displayed by your terminal and their corresponding EBCDIC code points which may be used in the mapping above.
 
 
+## Text attributes
+
+The standard method used by 5250-series terminals to apply attributes to text isn't compatible with modern GNU/Linux.  As a workaround, a scheme called "magic cookie dough" has been implemented, but it requires special configuration for each program that will use the attributes.  [doc/attributes.md](doc/attributes.md) describes the issues and this solution in more detail.
+
+The [etc/magic-cookie-dough/](etc/magic-cookie-dough/) directory provides some configuration for the Bash prompt, the `less` pager, `ls` and `screen`.  This configuration is enabled when `--login etc/twinax_login_custom_terminfo_and_bashrc_example` is passed to `5250_terminal.py`.  The actual configuration is applied by `etc/twinax_bashrc_example`; you may wish to configure your shell initialization file to apply the same configuration - but only when the `TWINAXTERM` environment variable is set - so that sub-shells get the same configuration, in which case you can pass `--login etc/twinax_login_custom_terminfo_with_rc` instead, to just use your own shell configuration.
+
+[etc/emacs/twinaxterm.el](etc/emacs/twinaxterm.el) provides Emacs configuration that uses magic cookie dough as well as making some other changes for 5250 terminals.  See the comments in the file for usage instructions.
+
 
 ## Command line interface
 
