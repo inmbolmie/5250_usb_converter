@@ -4,8 +4,52 @@ Converter to plug an IBM 5251 terminal or in general a 5250 compatible terminal 
 
 ![converter PCB](/pcb/term.png)
 
-__Changes (2023/03/18): Improved Teensy firmware and Python script. Binary firmware update file. Now compatible with IBM 5291 terminals. New daemon and login modes available. General stability improvements.__
+## News
 
+Most recent at the top:
+
+**PR-TODO: put date here**
+> [!IMPORTANT]
+> Added missing news from the last 3 years below.
+
+**PR-TODO: put date here**
+* Add limited support for display attributes via a custom scheme called "magic cookie dough", which requires special configuration for each program.  Configuration is provided for the Bash prompt, the `less` pager, `ls`, `screen` and Emacs.  See the "Text attributes" section below for more information.  Example:
+![magic cookie dough sample](doc/magic_cookie_dough-example-3476-emulator.png)
+* Add other Emacs configuration.
+
+**PR-TODO: put date when pull request #23 was accepted here**
+* Discard xterm "bracketed paste" escape sequences to prevent "2004h" appearing before every Bash prompt.
+* Fix bug #22 "Multi-byte characters sent by child are sometimes lost".
+
+**2026/02/28**
+* Update `etc/twinax_bashrc_example` to improve `unalias`ing (disable `ls` colors) and update it for newer distributions.
+* Add `ENHANCED_US` keyboard mapping.
+* Add more documentation regarding keyboard layouts in this file and the new [doc/keyboards.md](doc/keyboards.md).
+
+**2024/03/04**
+* Allow use of a PTY instead of a real serial port to support developer testing.
+* Add `python` command, which starts a REPL (interactive Python session).
+* Improve `122KEY_EN` keyboard mapping.
+* Add custom terminfo file and 122KEY_EN_CUSTOM scancode mapping.
+* Accept a login/shell path via `-l` parameter and add default and example scripts in [etc/](etc/).
+
+**2024/01/18**
+* Add simple command `txchartable`, which displays available characters and attributes.
+* Add lower-level commands `txebcdic`, `txindicatorsbyte347x` and `txstatusbyte2`.
+
+**2024/01/07**
+* Fix position of Caps Lock indicator to the correct 'keyboard shift' indicator.
+* Add advanced/extra features flag to the command-line terminal definition, which when enabled will use the dedicated Caps Lock indicator available on newer terminals.
+
+**2023/05/31**
+* Slow poll interval now specified in microseconds.
+* Added 122 Key EN keyboard mapping.
+* Fixed to not perform slow polling by default.
+
+See also [doc/old-news.md](doc/old-news.md) for older news.
+
+
+## Introduction
 
 For more information refer to this [thread](https://deskthority.net/viewtopic.php?f=7&t=23885) in Deskthority.net that contains an in-depth description of the converter and protocols involved.
 
@@ -371,6 +415,14 @@ This will, for example for the third entry map the `^` ASCII character to the `0
 
 The `txchartable` command available via the [command line interface](#command-line-interface) may be useful to view the glyphs that can be displayed by your terminal and their corresponding EBCDIC code points which may be used in the mapping above.
 
+
+## Text attributes
+
+The standard method used by 5250-series terminals to apply attributes to text isn't compatible with modern GNU/Linux.  As a workaround, a scheme called "magic cookie dough" has been implemented, but it requires special configuration for each program that will use the attributes.  [doc/attributes.md](doc/attributes.md) describes the issues and this solution in more detail.
+
+The [etc/magic-cookie-dough/](etc/magic-cookie-dough/) directory provides some configuration for the Bash prompt, the `less` pager, `ls` and `screen`.  This configuration is enabled when `--login etc/twinax_login_custom_terminfo_and_bashrc_example` is passed to `5250_terminal.py`.  The actual configuration is applied by `etc/twinax_bashrc_example`; you may wish to configure your shell initialization file to apply the same configuration - but only when the `TWINAXTERM` environment variable is set - so that sub-shells get the same configuration, in which case you can pass `--login etc/twinax_login_custom_terminfo_with_rc` instead, to just use your own shell configuration.
+
+[etc/emacs/twinaxterm.el](etc/emacs/twinaxterm.el) provides Emacs configuration that uses magic cookie dough as well as making some other changes for 5250 terminals.  See the comments in the file for usage instructions.
 
 
 ## Command line interface

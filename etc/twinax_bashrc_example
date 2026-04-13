@@ -2,22 +2,29 @@
 # --rcfile option, as is done by
 # twinax_login_custom_terminfo_and_bashrc.
 
+# shellcheck shell=bash
+
+# Get the path to the directory containing this file.  From
+# https://stackoverflow.com/a/246128.  This may not work in all cases.
+ETC_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
+
 # Start with the normal file, then undo things which don't work
 # properly with a VT52-like terminal.  Rather than do this, it may be
-# example to just apply desired settings here.  Modifying ~/.bashrc to
+# simpler to just apply desired settings here.  Modifying ~/.bashrc to
 # apply different settings when $TERM is set to vt52 or $TWINAXTERM is
 # set would also work.
+#
+# shellcheck source=/dev/null
 . ~/.bashrc
 
-# These may be defined with unwanted --color=auto options:
-for alias in egrep fgrep grep ls; do
-    if [[ -v BASH_ALIASES[$alias] ]]; then
-	unalias $alias
-    fi
-done
+# These script fragments may be sourced by your own ~/.bashrc:
+. "$ETC_DIR/configure_aliases.bash"
+. "$ETC_DIR/configure_emacs.bash"
 
-# If 5250_terminal.py is started under X, since $DISPLAY is still set,
-# running "emacs" will by default start it in the X session where
-# 5250_terminal.py is running rather than in the TTY.  This alias
-# works around that.  Another option would be to unset $DISPLAY.
-alias emacs="emacs -nw"
+# Configure this shell and various programs that may be run by it to
+# use "magic cookie dough" attributes.  These may also be sourced by
+# your own ~/.bashrc:
+. "$ETC_DIR/magic-cookie-dough/configure_prompt.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_ls.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_less.bash"
+. "$ETC_DIR/magic-cookie-dough/configure_screen.bash"
