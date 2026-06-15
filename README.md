@@ -30,6 +30,7 @@ These are the terminals reported so far to be working with the adapter:
 * IBM 3476
 * IBM 3477 (recommended to enable slow polling at 650 microseconds interval by editing the constant SLOW_POLL_MICROSECONDS in the python script or specifying `650us` in the terminal definition on the command line)
 * IBM 3488
+* IBM 3486
 * IBM ISA PC 5250 ADAPTER CARD
 
 
