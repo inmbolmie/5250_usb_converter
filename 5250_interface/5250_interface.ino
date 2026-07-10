@@ -39,7 +39,10 @@ const int WAIT_CYCLES_RX = 30000; //Time we wait for a response frame after tran
 const int WAIT_CYCLES_RX_PENDING_TX = 5000; //Wait time for a response frame if not reception expected
 const int WAIT_CYCLES_RX_SAMPLE = 85; //Cycles between signal samples, approx 8Mhz for 75 cycles (125ns) but can be increased slightly to reduce the probability of incorrect sampling due to clock drift
 const int WAIT_CYCLES_TX = 300; //Half-bit duration for transmission
+//const int WAIT_CYCLES_TX = 280; //Alternative value for improved compatibility with the IBM 5291-2 terminal
 const int WAIT_CYCLES_TX_DLY = 150;  //Delay for TX-DATA-DLY, approx 250ns
+//const int WAIT_CYCLES_TX_DLY = 140; //Alternative value for improved compatibility with the IBM 5291-2 terminal
+
 
 //The Teensy LED is the speed problem indicator, if it lights on something is being processed very slowly and delaying signal sampling
 const int PIN_OVERFLOW = 13;

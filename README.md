@@ -26,12 +26,22 @@ These are the terminals reported so far to be working with the adapter:
 
 * IBM 5251
 * IBM 5291 (compatible after the 2023/03/18 Teensy firmware improvements)
+* IBM 5291-2 (compatible with firmware changes. See comment at the end of this list)
 * IBM 3180-2
 * IBM 3476
 * IBM 3477 (recommended to enable slow polling at 650 microseconds interval by editing the constant SLOW_POLL_MICROSECONDS in the python script or specifying `650us` in the terminal definition on the command line)
 * IBM 3488
 * IBM 3486
 * IBM ISA PC 5250 ADAPTER CARD
+
+The IBM 5291-2 is extremely picky with the signal speed, so it only works with the following firmware values:
+
+```
+const int WAIT_CYCLES_TX = 280;
+const int WAIT_CYCLES_TX_DLY = 140;
+```
+
+You have a precompiled binary avaliable with those values that will work with a 5291-2 and should also work with any other terminal: [5250_interface.ino.TEENSY40.5291.hex](./5250_interface/5250_interface.ino.TEENSY40.5291.hex)
 
 
 ## Included files
@@ -40,6 +50,7 @@ These are the terminals reported so far to be working with the adapter:
 * `PCB` --> Eagle schematics, PDF for DIY and ZIP gerber file for manufacturing
 * `5250_interface.ino` -> Arduino source to program the Teensy 4.0 board
 * `5250_interface.ino.TEENSY40.hex` -> Binary compiled firmware to upload to a Teensy 4.0 board
+* `5250_interface.ino.TEENSY40.5291.hex` -> Alternative binary compiled firmware with improved compatibility for the IBM 5291-2 terminal
 
 
 ## Board instructions
